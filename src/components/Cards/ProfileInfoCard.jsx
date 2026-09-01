@@ -5,7 +5,6 @@ import profile from '../../assets/images/profile.png'
 
 const ProfileInfoCard = () => {
   const [dropdown, setDropdown] = useState(false)
-  const [activeAction, setActiveAction] = useState(null)
 
   const profileRef = useRef(null)
 
@@ -27,16 +26,17 @@ const ProfileInfoCard = () => {
     <div className='relative' ref={profileRef}>
       <div
         onClick={() => setDropdown(!dropdown)}
-        className='flex justify-center items-center gap-2 cursor-pointer'
+        className='flex  justify-center items-center gap-2 cursor-pointer'
       >
         <LuUserPen />
-        <h6>John Chen</h6>
+
+        <h6 className='text-sm text-gray-800 dark:text-white hidden sm:flex'>John Chen</h6>
 
         {dropdown ? <PiCaretUp /> : <PiCaretDown />}
       </div>
 
       {dropdown && (
-        <div className='absolute top-full right-0 mt-3 transition -translate-y-2'>
+        <div className='absolute top-full -right-14 sm:right-0 mt-3 transition -translate-y-2'>
           <div className=' flex items-center justify-center gap-5 min-w-80 px-6 py-4 border border-gray-200 dark:border-gray-800 bg-white rounded-lg dark:bg-gray-900 shadow-lg'>
             {/* profile picture */}
             <div className='bg-gray-50 dark:bg-gray-600 border-2 border-amber-500 rounded-full w-20 h-20  relative'>
@@ -54,10 +54,7 @@ const ProfileInfoCard = () => {
 
               {/* Account Settings */}
 
-              <button
-                onClick={() => setActiveAction('settings')}
-                className='flex items-center gap-2 border border-slate-100 rounded-full px-2 py-1 cursor-pointer'
-              >
+              <button className='flex items-center gap-2 border border-slate-100 rounded-full px-2 py-1 cursor-pointer'>
                 <LuSettings className='text-sm text-slate-700 dark:text-white/70' />
 
                 <p className='text-xs text-slate-700 dark:text-white/70'>Account Settings</p>
@@ -67,10 +64,7 @@ const ProfileInfoCard = () => {
 
               {/* Logout */}
 
-              <button
-                onClick={() => setActiveAction('logout')}
-                className='flex items-center gap-2 mt-2 pl-3 font-semibold cursor-pointer'
-              >
+              <button className='flex items-center gap-2 mt-2 pl-3 font-semibold cursor-pointer'>
                 <LuLogOut className='text-md text-red-500 dark:text-red-600' />
 
                 <p className='text-red-500 dark:text-red-600 text-sm'>Logout</p>
