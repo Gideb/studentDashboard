@@ -12,7 +12,7 @@ const ClassCard = ({ subject, day, time, location }) => {
       </div>
 
       <div className='flex items-center justify-start gap-1'>
-        <HiLocationMarker className='text-red-500' />
+        <HiLocationMarker className='text-gray-500 dark:text-gray-400' />
         <p className='text-gray-500 dark:text-gray-400 text-xs font-bold'>{location}</p>
       </div>
     </div>

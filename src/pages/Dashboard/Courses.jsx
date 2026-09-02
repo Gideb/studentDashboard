@@ -1,7 +1,8 @@
 import React from 'react'
+import DashboardLayout from '../../layouts/DashboardLayout'
 
 const Courses = () => {
-  return <div>Courses</div>
+  return <DashboardLayout activeMenu='Courses'>Courses</DashboardLayout>
 }
 
 export default Courses

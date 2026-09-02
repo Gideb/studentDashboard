@@ -1,7 +1,8 @@
 import React from 'react'
+import DashboardLayout from '../../layouts/DashboardLayout'
 
 const Calendar = () => {
-  return <div>Calendar</div>
+  return <DashboardLayout activeMenu='Calendar'>Calendar</DashboardLayout>
 }
 
 export default Calendar

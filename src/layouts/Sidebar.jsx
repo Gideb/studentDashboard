@@ -33,8 +33,8 @@ const Sidebar = ({ activeMenu }) => {
               key={`menu_${index}`}
               className={`w-full flex items-center justify-start gap-4 text-[15px] py-3 px-6 mb-3 rounded cursor-pointer ${
                 isActive
-                  ? 'bg-primary text-white hover:bg-primary/90'
-                  : 'text-teal-900 dark:text-gray-200 hover:bg-teal-50 dark:hover:bg-slate-700'
+                  ? 'bg-[#5c4b2d] text-white hover:bg-[#544a36]/90'
+                  : 'text-slate-900 dark:text-orange-200 hover:bg-[#5c4b2d]/20 dark:hover:bg-secondary'
               }`}
               onClick={() => handleClick(item.path)}
             >

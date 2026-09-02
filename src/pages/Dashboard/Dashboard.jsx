@@ -38,11 +38,11 @@ const Dashboard = () => {
           {/* recent assignments */}
           <div className='space-y-4 my-3 px-6 py-8 bg-gray-50 dark:bg-slate-950 rounded-lg'>
             <div className='flex items-center justify-start gap-3'>
-              <div className='bg-teal-100 dark:bg-teal-800 p-3 rounded-lg'>
-                <LuBookOpenText size={22} className='text-teal-800 dark:text-teal-200' />
+              <div className='bg-dark dark:bg-primary p-3 rounded-lg'>
+                <LuBookOpenText size={22} className='text-primary dark:text-dark' />
               </div>
 
-              <h3 className='text-xl font-semibold text-teal-800 dark:text-teal-200'>
+              <h3 className='text-xl font-semibold text-primary dark:text-dark '>
                 Recent Assignments
               </h3>
             </div>
@@ -63,11 +63,11 @@ const Dashboard = () => {
           {/* upcoming classes */}
           <div className='space-y-4 my-3 px-6  py-8  bg-gray-50 dark:bg-slate-950 rounded-lg'>
             <div className='flex items-center justify-start gap-3'>
-              <div className='bg-teal-100 dark:bg-teal-800 p-3 rounded-lg'>
-                <TbSchoolBell size={22} className='text-teal-800 dark:text-teal-200' />
+              <div className='bg-dark dark:bg-primary p-3 rounded-lg'>
+                <TbSchoolBell size={22} className='text-primary dark:text-dark' />
               </div>
 
-              <h3 className='text-xl text-teal-800 dark:text-teal-200 font-semibold'>
+              <h3 className='text-xl text-primary dark:text-dark font-semibold'>
                 Upcoming Classes
               </h3>
             </div>
@@ -89,13 +89,11 @@ const Dashboard = () => {
         {/* recent results */}
         <div className='space-y-4 my-3 px-6  py-8  bg-gray-50 dark:bg-slate-950 rounded-lg'>
           <div className='flex items-center justify-start gap-3'>
-            <div className='bg-teal-100 dark:bg-teal-800 p-3 rounded-lg'>
-              <TbReportAnalytics size={22} className='text-teal-800 dark:text-teal-200' />
+            <div className='bg-dark dark:bg-primary p-3 rounded-lg'>
+              <TbReportAnalytics size={22} className='text-primary dark:text-dark' />
             </div>
 
-            <h3 className='text-xl text-teal-800 dark:text-teal-200 font-semibold'>
-              Recent Results
-            </h3>
+            <h3 className='text-xl text-primary dark:text-dark font-semibold'>Recent Results</h3>
           </div>
 
           <div className='w-full  mx-auto overflow-hidden rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 shadow-sm'>
@@ -112,15 +110,15 @@ const Dashboard = () => {
           </div> */}
 
             <table className='w-full text-left'>
-              <thead className='bg-teal-50 dark:bg-teal-950 border-b border-gray-300 dark:border-gray-700 py-6 px-6 text-left'>
+              <thead className='bg-gray-200 dark:bg-gray-900 border-b border-gray-300 dark:border-gray-700 py-6 px-6 text-left'>
                 <tr className='grid grid-cols-3 py-5 px-6 text-left'>
-                  <th className='text-md font-semibold tracking-wider uppercase text-teal-900 dark:text-teal-200 '>
+                  <th className='text-md font-semibold tracking-wider uppercase text-primary dark:text-dark '>
                     Subject
                   </th>
-                  <th className='text-md font-semibold tracking-wider uppercase text-teal-900 dark:text-teal-200 border-l border-gray-300 dark:border-gray-700 pl-4'>
+                  <th className='text-md font-semibold tracking-wider uppercase text-primary dark:text-dark border-l border-gray-300 dark:border-gray-700 pl-4'>
                     Score
                   </th>
-                  <th className='text-md font-semibold tracking-wider uppercase text-teal-900 dark:text-teal-200 border-l border-gray-300 dark:border-gray-700 pl-4'>
+                  <th className='text-md font-semibold tracking-wider uppercase text-primary dark:text-dark border-l border-gray-300 dark:border-gray-700 pl-4'>
                     Grade
                   </th>
                 </tr>

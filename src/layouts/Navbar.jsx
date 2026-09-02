@@ -9,7 +9,7 @@ const Navbar = () => {
   const { darkMode, toggleDarkMode } = useTheme()
 
   return (
-    <div className='w-full py-4 px-5 md:px-10  bg-slate-50 dark:bg-slate-950 border-b border-gray-300 dark:border-gray-700 '>
+    <div className='sticky top-0 z-40 w-full py-4 px-5 md:px-10 bg-slate-50 dark:bg-slate-950 border-b border-gray-300 dark:border-gray-700'>
       <div className='max-w-8xl flex justify-between gap-10 items-center'>
         {/* logo */}
         <img src={darkMode ? smd_logo_dark : smd_logo} alt='smd logo' className='w-13' />

@@ -1,7 +1,8 @@
 import React from 'react'
+import DashboardLayout from '../../layouts/DashboardLayout'
 
 const Results = () => {
-  return <div>Results</div>
+  return <DashboardLayout activeMenu='Results'>Results</DashboardLayout>
 }
 
 export default Results
