@@ -32,8 +32,14 @@ export const assignments = [
   {
     subject: 'Computer Science',
     title: 'React Components',
-    dueDate: 'Aug 30',
+    dueDate: 'Sep 30',
     status: 'Pending',
+  },
+  {
+    subject: 'English Literature',
+    title: 'Shakespeare Analysis',
+    dueDate: 'Aug 30',
+    status: 'Completed',
   },
 ]
 
@@ -49,6 +55,12 @@ export const classes = [
     day: 'Tomorrow',
     time: '9:00 AM',
     location: 'Lab 2',
+  },
+  {
+    subject: 'English Literature',
+    day: 'Yesterday',
+    time: '11:00 AM',
+    location: 'Room 101',
   },
 ]
 

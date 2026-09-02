@@ -1,56 +1,61 @@
-import { faUsers } from "react-icons/fa6";
-import { GiGraduateCap } from "react-icons/gi";
-import { LuBookOpenText, LuCalendar1, LuFileChartColumnIncreasing, LuLogOut, LuSettings2 } from "react-icons/lu";
-import { MdDashboard } from "react-icons/md";
+import { FaUsers } from 'react-icons/fa6'
+import { GiGraduateCap } from 'react-icons/gi'
+import {
+  LuBookOpenText,
+  LuCalendar1,
+  LuFileChartColumnIncreasing,
+  LuLogOut,
+  LuSettings2,
+} from 'react-icons/lu'
+import { MdDashboard } from 'react-icons/md'
 
-
-export const side_menu = [
+export const SIDE_MENU_DATA = [
   {
     id: '01',
-    Icon: MdDashboard,
+    icon: MdDashboard,
     title: 'Dashboard',
-    path: './dashboard',
+    path: '/dashboard',
   },
   {
     id: '02',
-    Icon: faUsers,
+    icon: FaUsers,
     title: 'Students',
-    path: './students',
+    path: '/students',
   },
   {
     id: '03',
-    Icon: GiGraduateCap,
+    icon: GiGraduateCap,
     title: 'Courses',
-    path: './courses',
+    path: '/courses',
   },
   {
     id: '04',
-    Icon: LuBookOpenText,
+    icon: LuBookOpenText,
     title: 'Assignments',
-    path: './assignments',
+    path: '/assignments',
   },
   {
     id: '05',
-    Icon: LuFileChartColumnIncreasing,
+    icon: LuFileChartColumnIncreasing,
     title: 'Results',
-    path: './results',
+    path: '/results',
   },
   {
     id: '06',
-    Icon: LuCalendar1,
+    icon: LuCalendar1,
     title: 'Calendar',
-    path: './calendar',
+    path: '/calendar',
   },
   {
     id: '07',
-    Icon: LuSettings2,
+    icon: LuSettings2,
     title: 'Settings',
-    path: './settings',
+    path: '/settings',
   },
   {
     id: '08',
-    Icon: LuLogOut,
+    icon: LuLogOut,
     title: 'Logout',
-    path: './logout',
+    path: '/logout',
   },
 ]
