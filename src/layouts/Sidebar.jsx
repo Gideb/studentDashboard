@@ -24,6 +24,7 @@ const Sidebar = ({ activeMenu }) => {
 
   return (
     <div className='w-64 h-[calc(100vh-64px)] bg-white dark:bg-slate-900 text-gray-800 dark:text-gray-300 border-r border-t border-gray-300 dark:border-gray-700 p-4 overflow-y-auto'>
+      
       <div className='flex flex-col gap-2'>
         {SIDE_MENU_DATA.map((item, index) => {
           const isActive = activeMenu === item.title
@@ -33,7 +34,7 @@ const Sidebar = ({ activeMenu }) => {
               key={`menu_${index}`}
               className={`w-full flex items-center justify-start gap-4 text-[15px] py-3 px-6 mb-3 rounded cursor-pointer ${
                 isActive
-                  ? 'bg-[#5c4b2d] text-white hover:bg-[#544a36]/90'
+                  ? 'bg-primary text-white hover:bg-primary/90'
                   : 'text-slate-900 dark:text-orange-200 hover:bg-[#5c4b2d]/20 dark:hover:bg-secondary'
               }`}
               onClick={() => handleClick(item.path)}

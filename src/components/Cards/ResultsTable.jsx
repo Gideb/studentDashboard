@@ -27,7 +27,7 @@ const ResultsTable = ({ subject, score, grade }) => {
             <td className='border-l border-gray-300 dark:border-gray-700 pl-4'>{score}%</td>
 
             <td className='border-l border-gray-300 dark:border-gray-700 pl-4'>
-              <span className='inline-flex items-center rounded-full bg-teal-100 px-2.5 py-0.5 text-xs font-medium text-teal-800 dark:bg-teal-900 dark:text-teal-200'>
+              <span className='inline-flex items-center rounded-lg bg-dark px-2.5 py-0.5 text-xs font-medium text-primary dark:bg-primary dark:text-dark'>
                 {grade}
               </span>
             </td>

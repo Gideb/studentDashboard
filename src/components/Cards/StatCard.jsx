@@ -1,18 +1,21 @@
 const StatCard = ({ icon: Icon, title, value, description }) => {
   return (
     <div className='rounded-xl bg-white p-5 shadow-sm dark:bg-slate-800'>
-      <div className='flex gap-3 items-center justify-start'>
-        <div className='bg-teal-50 dark:bg-teal-700 p-3 rounded-lg flex items-center justify-center'>
-          {Icon && <Icon size={22} className='text-teal-800 dark:text-teal-100' />}
+      <div className='flex items-start gap-4'>
+        <div className='bg-[#f2e7d3] dark:bg-primary p-3 rounded-lg flex items-center justify-center'>
+          {Icon && <Icon size={22} className='text-primary dark:text-dark' />}
         </div>
-        <p className='text-sm text-gray-500 dark:text-gray-400 font-medium '>{title}</p>
+
+        <div>
+          <p className='text-sm font-medium text-gray-500 dark:text-gray-400'>{title}</p>
+
+          <h3 className='my-2 text-2xl font-bold text-gray-900 dark:text-white'>{value}</h3>
+
+          <p className='inline-block rounded-full bg-[#f2e7d3] px-2 py-1 text-xs font-medium text-primary dark:bg-dark dark:text-primary'>
+            {description}
+          </p>
+        </div>
       </div>
-
-      <h3 className='my-2 pl-15 text-2xl font-bold text-gray-900 dark:text-white'>{value}</h3>
-
-      <p className='mt-2 ml-14 px-2 py-1 bg-teal-50 dark:bg-teal-800 rounded-full inline text-xs text-teal-700 dark:text-teal-300 font-medium'>
-        {description}
-      </p>
     </div>
   )
 }

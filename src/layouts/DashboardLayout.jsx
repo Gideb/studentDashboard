@@ -19,14 +19,14 @@ const DashboardLayout = ({ children, activeMenu }) => {
       <div className='flex '>
         {/* sidebar */}
         <div
-          className={`fixed left-0 top-19 z-50 h-[calc(100vh-64px)] w-64 transition-transform duration-500 ease-in-out ${openSideMenu ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0`}
+          className={`fixed left-0 top-20 z-50 h-[calc(100vh-64px)] w-64 transition-transform duration-500 ease-in-out ${openSideMenu ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0`}
         >
           <Sidebar activeMenu={activeMenu} />
         </div>
 
         {/* main content */}
         <div
-          className={`grow mx-8 transition-all duration-500 ease-in-out ${openSideMenu ? 'sm:ml-64' : 'sm:ml-5'}`}
+          className={`grow mx-5 transition-all duration-500 ease-in-out ${openSideMenu ? 'sm:ml-64' : 'sm:ml-5'}`}
         >
           {children}
         </div>

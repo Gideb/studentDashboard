@@ -1,4 +1,5 @@
-import { HiLocationMarker } from 'react-icons/hi'
+import { GrLocationPin } from 'react-icons/gr'
+
 
 const ClassCard = ({ subject, day, time, location }) => {
   return (
@@ -7,12 +8,12 @@ const ClassCard = ({ subject, day, time, location }) => {
 
       <div className='flex justify-start items-center my-2 gap-6'>
         <p className='text-sm text-gray-500 dark:text-gray-400 font-medium'>{day}</p>
-        <span className='text-gray-500 dark:text-gray-400 '>•</span>
+        <span className='text-primary dark:text-dark'>•</span>
         <p className='text-sm text-gray-500 dark:text-gray-400 font-medium'>{time}</p>
       </div>
 
       <div className='flex items-center justify-start gap-1'>
-        <HiLocationMarker className='text-gray-500 dark:text-gray-400' />
+        <GrLocationPin className='dark:text-dark text-primary' />
         <p className='text-gray-500 dark:text-gray-400 text-xs font-bold'>{location}</p>
       </div>
     </div>

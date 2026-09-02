@@ -4,7 +4,7 @@ import StatCard from '../../components/Cards/StatCard'
 import { stats, assignments, classes, results } from '../../data/dashboardData'
 import { TbReportAnalytics, TbSchoolBell } from 'react-icons/tb'
 import { LuBookOpenText } from 'react-icons/lu'
-import ResultsTable from '../../components/ResultsTable'
+import ResultsTable from '../../components/Cards/ResultsTable'
 import DashboardLayout from '../../layouts/DashboardLayout'
 
 const Dashboard = () => {
@@ -22,7 +22,7 @@ const Dashboard = () => {
         </div>
 
         {/* statistics */}
-        <div className='grid grid-cols-1 gap-4 md:grid-cols-3 my-6 px-6'>
+        <div className='grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 my-6 px-6'>
           {stats.map(stat => (
             <StatCard
               key={stat.title}
@@ -110,15 +110,15 @@ const Dashboard = () => {
           </div> */}
 
             <table className='w-full text-left'>
-              <thead className='bg-gray-200 dark:bg-gray-900 border-b border-gray-300 dark:border-gray-700 py-6 px-6 text-left'>
+              <thead className='bg-gray-200 dark:bg-gray-700 border border-gray-300 dark:border-gray-400  py-6 px-6 text-left'>
                 <tr className='grid grid-cols-3 py-5 px-6 text-left'>
                   <th className='text-md font-semibold tracking-wider uppercase text-primary dark:text-dark '>
                     Subject
                   </th>
-                  <th className='text-md font-semibold tracking-wider uppercase text-primary dark:text-dark border-l border-gray-300 dark:border-gray-700 pl-4'>
+                  <th className='text-md font-semibold tracking-wider uppercase text-primary dark:text-dark border-l border-gray-300 dark:border-gray-500 pl-4'>
                     Score
                   </th>
-                  <th className='text-md font-semibold tracking-wider uppercase text-primary dark:text-dark border-l border-gray-300 dark:border-gray-700 pl-4'>
+                  <th className='text-md font-semibold tracking-wider uppercase text-primary dark:text-dark border-l border-gray-300 dark:border-gray-500 pl-4'>
                     Grade
                   </th>
                 </tr>
