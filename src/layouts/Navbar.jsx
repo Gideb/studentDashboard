@@ -8,7 +8,7 @@ import smd_logo_dark from '../assets/images/smd-logo-dark.png'
 import { useState } from 'react'
 
 const Navbar = ({ toggleMobileMenu }) => {
-  const [logoHover, setLogoHover] = useState(false)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const { darkMode, toggleDarkMode } = useTheme()
 
   return (
@@ -17,10 +17,10 @@ const Navbar = ({ toggleMobileMenu }) => {
         {/* MOBILE LOGO + MENU BUTTON */}
         <div
           className='flex justify-center md:hidden'
-          onMouseEnter={() => setLogoHover(true)}
-          onMouseLeave={() => setLogoHover(false)}
+          onMouseEnter={() => setMobileMenuOpen(true)}
+          onMouseLeave={() => setMobileMenuOpen(false)}
         >
-          {logoHover ? (
+          {mobileMenuOpen ? (
             <button type='button' onClick={toggleMobileMenu} aria-label='open side menu'>
               <PiSidebarSimpleDuotone className='text-3xl text-primary dark:text-dark cursor-pointer' />
             </button>
@@ -30,11 +30,11 @@ const Navbar = ({ toggleMobileMenu }) => {
         </div>
 
         {/* SEARCH */}
-        <div>
+        <div className=''>
           <SearchBar />
         </div>
 
-        {/* PROFILE + DARK MODE */}
+        {/* PROFILE + THEME */}
         <div className='flex items-center gap-3'>
           <ProfileInfoCard />
 
