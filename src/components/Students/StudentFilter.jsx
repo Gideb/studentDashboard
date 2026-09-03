@@ -3,30 +3,27 @@ import { students } from '../../data/studentsData'
 
 const StudentFilter = ({ search, setSearch, selectedClass, setSelectedClass }) => {
   return (
-    <div className='flex flex-col sm:flex-row gap-3'>
+    <div className='flex flex-col gap-3 sm:flex-row'>
       {/* search */}
-          <div className='relative flex-1'>
-              
-        <BiSearch
-          size={20}
-          className='absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 cursor-pointer hover:text-black  dark:hover:text-white '
-        />
+      <div className='relative flex-1'>
+        <BiSearch size={20} className='absolute left-3 top-1/2 -translate-y-1/2 text-gray-400' />
 
         <input
           type='search'
-          placeholder='Search students...'
+          placeholder='Search student...'
           value={search}
           onChange={event => setSearch(event.target.value)}
-          className='bg-gray-100 text-gray-500 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-400 w-[min(16rem,80vw)] rounded py-2 pl-4 pr-8 text-sm'
+          className='w-full rounded-lg border border-gray-300 bg-white py-3 pl-10 pr-4 text-base outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 dark:border-gray-700 dark:bg-gray-900 dark:text-white sm:py-2.5 sm:text-sm'
+          aria-label='Search students'
         />
       </div>
 
-      {/* class Filter  */}
-
+      {/* CLASS FILTER */}
       <select
         value={selectedClass}
         onChange={event => setSelectedClass(event.target.value)}
-        className='rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-500 text-sm outline-none focus:border-primary dark:text-white py-2.5 px-4'
+        className='w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-base outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 dark:border-gray-700 dark:bg-gray-900 dark:text-white sm:w-auto sm:py-2.5 sm:text-sm'
+        aria-label='Filter by class'
       >
         <option value='All'>All classes</option>
         {[...new Set(students.map(student => student.class))].map(className => (
