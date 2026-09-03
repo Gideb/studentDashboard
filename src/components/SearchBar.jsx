@@ -35,7 +35,7 @@ const SearchBar = () => {
             type='text'
             placeholder='Search...'
             autoFocus
-            className='w-[min(16rem,80vw)] rounded-md border border-gray-200 bg-gray-100 py-2 pl-4 pr-10 text-sm outline-none focus:border-dark dark:border-gray-700 dark:bg-gray-800 dark:text-white'
+            className='w-[min(16rem,80vw)] rounded-md border-2 border-gray-200 bg-gray-100 py-2 pl-4 pr-10 text-sm outline-none focus:border-dark dark:border-gray-700 dark:bg-gray-800 dark:text-white'
           />
 
           <BiSearch size={21} className='absolute right-3 text-gray-500' />

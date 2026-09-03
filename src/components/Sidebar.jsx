@@ -71,7 +71,7 @@ const Sidebar = ({ activeMenu, toggleSideMenu, openSideMenu, closeMobileMenu }) 
             return (
               <button
                 key={`menu_${index}`}
-                className={`w-full flex items-center rounded font-semibold transition-colors
+                className={`w-full cursor-pointer flex items-center rounded font-semibold transition-colors
           ${openSideMenu ? 'justify-start gap-4 px-6' : 'justify-center'}
           ${
             isActive

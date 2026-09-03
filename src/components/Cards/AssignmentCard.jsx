@@ -15,17 +15,19 @@ const AssignmentCard = ({ subject, title, dueDate, status }) => {
         <p className='text-sm text-gray-500 dark:text-gray-400 font-medium'>{subject}</p>
       </div>
 
-      <h3 className='mt-2 text-2xl font-bold text-gray-900 dark:text-white'>{title}</h3>
+      <h3 className='my-1 text-xl sm:text-2xl font-bold text-gray-900 dark:text-white'>{title}</h3>
 
-      <div className='flex justify-between items-center mt-1'>
+      <div className='flex justify-between items-center mt-2 sm:mt-1'>
         <p
-          className={`rounded-xl font-medium px-2 py-1 text-xs ${COLORS[status] || 'text-gray-700 bg-gray-100'}`}
+          className={`rounded-xl font-normal text-center sm:font-medium px-2 py-1 text-[11px] sm:text-xs ${COLORS[status] || 'text-gray-700 bg-gray-100'}`}
         >
           {status}
         </p>
         <div className='flex items-center justify-center gap-1'>
           <Calendar size={13} className=' text-primary dark:text-dark ' />
-          <p className='text-gray-500 dark:text-gray-400 font-medium text-xs'>{dueDate}</p>
+          <p className='text-gray-500 dark:text-gray-400 font-medium text-[11px] sm:text-xs'>
+            {dueDate}
+          </p>
         </div>
       </div>
     </div>
