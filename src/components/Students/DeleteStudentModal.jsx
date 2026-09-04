@@ -10,7 +10,7 @@ const DeleteStudentModal = ({ student, onClose, onConfirm }) => {
         <div>
           <h2
             id='delete-student-details'
-            className='text-xl font-bold text-gray-900 dark:text-white'
+            className='text-xl font-semibold text-gray-900 dark:text-white'
           >
             Delete Student
           </h2>

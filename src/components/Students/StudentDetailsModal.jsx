@@ -10,7 +10,7 @@ const StudentDetailsModal = ({ student, onClose }) => {
         <div>
           <h2
             id='student-details-title'
-            className='text-xl font-bold text-gray-900 dark:text-white'
+            className='text-xl font-semibold text-gray-900 dark:text-white'
           >
             Student Details
           </h2>
