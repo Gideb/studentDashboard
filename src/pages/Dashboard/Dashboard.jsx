@@ -6,14 +6,31 @@ import { TbReportAnalytics, TbSchoolBell } from 'react-icons/tb'
 import { LuBookOpenText } from 'react-icons/lu'
 import ResultsTable from '../../components/ResultsTable'
 import DashboardLayout from '../../layouts/DashboardLayout'
+import { useEffect, useState } from 'react'
 
 const Dashboard = () => {
+  const [greeting, setGreeting] = useState('')
+
+  useEffect(() => {
+    const currentHour = new Date().getHours()
+
+    if (currentHour < 12) {
+      setGreeting('Good morning')
+    } else if (currentHour < 18) {
+      setGreeting('Good afternoon')
+    } else {
+      setGreeting('Good evening')
+    }
+  }, [])
+
+  const finalGreeting = greeting || 'Good day, John 👋 '
+
   return (
     <DashboardLayout activeMenu='Dashboard'>
       <main className=' my-5 mx-auto space-y-5 px-2 sm:px-6 py-5 sm:py-8  bg-gray-50 dark:bg-slate-950 rounded-lg'>
         <div className='mb-3 sm:mb-6'>
           <h1 className='text-2xl font-bold text-gray-900 dark:text-white'>
-            Good morning, John 👋
+            {`${finalGreeting}, John 👋`}
           </h1>
 
           <p className='text-gray-500 dark:text-gray-400'>
