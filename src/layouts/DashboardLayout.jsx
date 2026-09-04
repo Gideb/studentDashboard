@@ -59,7 +59,7 @@ const DashboardLayout = ({ children, activeMenu }) => {
 
         {/* MAIN CONTENT */}
         <div
-          className={`grow mx-3 transition-all duration-500 ease-in-out ${
+          className={`grow min-w-0 mx-3 transition-all duration-500 ease-in-out ${
             openSideMenu ? 'md:ml-64' : 'md:ml-20'
           }`}
         >

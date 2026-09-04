@@ -1,40 +1,36 @@
-import { useState } from 'react'
+import { IoTrashBin } from 'react-icons/io5'
+import { LuPen } from 'react-icons/lu'
 
 const STATUS_STYLES = {
   Active: 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400',
   Inactive: 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400',
 }
 
-const StudentTable = ({ students }) => {
-  const [selectedStudent, setSelectedStudent] = useState(null)
-
-  const handleViewStudent = student => {
-    setSelectedStudent(student)
-  }
-
-  const handleDeleteStudent = student => {
-    setSelectedStudent(student)
-  }
-
+const StudentTable = ({ students, onView, onDelete }) => {
   return (
-    <div className='overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700'>
-      <table className=' text-left min-w-full divide-y divide-gray-200 dark:divide-gray-700'>
+    <div className='w-full max-w-full overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700'>
+      <table className='min-w-175 w-full text-left divide-y divide-gray-200 dark:divide-gray-700'>
         <caption className='sr-only'>List of registered students with their details</caption>
+
         <thead className='bg-gray-100 dark:bg-gray-800'>
           <tr>
-            <th className='px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-600 dark:text-gray-300'>
+            <th className='px-4 py-3 text-xs font-semibold uppercase tracking-wider text-gray-600 dark:text-gray-300'>
               Student
             </th>
-            <th className='px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-600 dark:text-gray-300 border-l border-gray-300 dark:border-gray-700'>
+
+            <th className='px-4 py-3 text-xs font-semibold uppercase tracking-wider text-gray-600 dark:text-gray-300 border-l border-gray-300 dark:border-gray-700'>
               Student ID
             </th>
-            <th className='px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-600 dark:text-gray-300 border-l border-gray-300 dark:border-gray-700'>
+
+            <th className='px-4 py-3 text-xs font-semibold uppercase tracking-wider text-gray-600 dark:text-gray-300 border-l border-gray-300 dark:border-gray-700'>
               Class
             </th>
-            <th className='px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-600 dark:text-gray-300 border-l border-gray-300 dark:border-gray-700'>
+
+            <th className='px-4 py-3 text-xs font-semibold uppercase tracking-wider text-gray-600 dark:text-gray-300 border-l border-gray-300 dark:border-gray-700'>
               Status
             </th>
-            <th className='px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-600 dark:text-gray-300 border-l border-gray-300 dark:border-gray-700'>
+
+            <th className='px-4 py-3 text-xs font-semibold uppercase tracking-wider text-gray-600 dark:text-gray-300 border-l border-gray-300 dark:border-gray-700'>
               Actions
             </th>
           </tr>
@@ -47,13 +43,16 @@ const StudentTable = ({ students }) => {
                 <td className='px-4 py-4 text-sm text-gray-700 dark:text-gray-300'>
                   {student.name}
                 </td>
+
                 <td className='px-4 py-4 text-sm text-gray-700 dark:text-gray-300 border-l border-gray-300 dark:border-gray-700'>
                   {student.studentId}
                 </td>
+
                 <td className='px-4 py-4 text-sm text-gray-700 dark:text-gray-300 border-l border-gray-300 dark:border-gray-700'>
                   {student.class}
                 </td>
-                <td className='px-4 py-3 text-sm border-l border-gray-300 dark:border-gray-700'>
+
+                <td className='px-4 py-4 text-sm border-l border-gray-300 dark:border-gray-700'>
                   <span
                     className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium ${
                       STATUS_STYLES[student.status] ||
@@ -69,19 +68,21 @@ const StudentTable = ({ students }) => {
                   <div className='flex items-center gap-2'>
                     <button
                       type='button'
-                      onClick={() => handleViewStudent(student)}
-                      className='btn-primary font-medium'
+                      onClick={() => onView(student)}
+                      className='btn-primary font-medium flex items-center gap-1.5'
                     >
+                      <LuPen size={11} />
                       View
                     </button>
 
-                    <div className='h-5 border-l border-gray-400' />
+                    <div className='h-5 border-l border-gray-400 dark:border-gray-600' />
 
                     <button
                       type='button'
-                      onClick={() => handleDeleteStudent(student)}
-                      className='btn-primary btn-delete font-medium'
+                      onClick={() => onDelete(student)}
+                      className='btn-delete font-medium flex items-center gap-1.5'
                     >
+                      <IoTrashBin size={12} />
                       Delete
                     </button>
                   </div>
@@ -101,8 +102,6 @@ const StudentTable = ({ students }) => {
           )}
         </tbody>
       </table>
-
-      {selectedStudent && <p>Selected student: {selectedStudent.name}</p>}
     </div>
   )
 }
