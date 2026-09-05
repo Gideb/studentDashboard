@@ -48,22 +48,23 @@ const Students = () => {
     setStudentToDelete(null)
   }
 
-  const handleAddStudent = newStudent => {
-    setStudentList(prev => [...prev, newStudent])
+const handleAddStudent = newStudent => {
+  const newId =
+    (studentList.length > 0 ? Math.max(...studentList.map(student => student.id)) : 0) + 1
 
-    const newId =
-      (studentList.length > 0 ? Math.max(...studentList.map(student => student.id)) : 0) + 1
+  const newStudentId = `STD-${newId.toString().padStart(3, '0')}`
 
-    const newStudentId = `STD-${newId.toString().padStart(3, '0')}`
-
-    newStudent = {
-      id: newId,
-      name: formData.name,
-      studentId: newStudentId,
-      class: formData.class,
-      status: formData.status,
-    }
+  const studentToAdd = {
+    id: newId,
+    name: newStudent.name,
+    studentId: newStudentId,
+    class: newStudent.class,
+    status: newStudent.status,
   }
+
+  setStudentList(prev => [...prev, studentToAdd])
+}
+
 
   return (
     <DashboardLayout activeMenu='Students'>

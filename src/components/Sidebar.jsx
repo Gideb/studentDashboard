@@ -34,7 +34,7 @@ const Sidebar = ({ activeMenu, toggleSideMenu, openSideMenu, closeMobileMenu }) 
   }
 
   return (
-    <div className=' h-screen bg-white dark:bg-slate-900 text-gray-800 dark:text-gray-300 border-r border-t border-gray-300 dark:border-gray-700 p-4 overflow-y-auto'>
+    <div className=' h-screen bg-white dark:bg-slate-900 text-gray-800 dark:text-gray-300 border-r border-t border-gray-300 dark:border-gray-700 p-4 overflow-y-auto '>
       <div className='flex flex-col gap-5 space-y-6'>
         {/* logo */}
 
@@ -64,19 +64,19 @@ const Sidebar = ({ activeMenu, toggleSideMenu, openSideMenu, closeMobileMenu }) 
 
         {/* menu */}
 
-        <div className='space-y-2'>
+        <div className='space-y-2 '>
           {SIDE_MENU_DATA.map((item, index) => {
             const isActive = activeMenu === item.title
 
             return (
               <button
                 key={`menu_${index}`}
-                className={`w-full cursor-pointer flex items-center rounded font-semibold transition-colors
-          ${openSideMenu ? 'justify-start gap-4 px-6' : 'justify-center'}
+                className={`relative w-full cursor-pointer flex items-center rounded font-semibold transition-colors 
+          ${openSideMenu ? `justify-start gap-4 px-6 ` : 'justify-center'}
           ${
             isActive
               ? 'bg-primary text-white'
-              : 'text-slate-900 dark:text-orange-200 hover:bg-[#5c4b2d]/20 dark:hover:bg-secondary'
+              : 'text-slate-900 dark:text-orange-200 hover:bg-primary/20 dark:hover:bg-secondary'
           }
           py-3
         `}
@@ -85,6 +85,8 @@ const Sidebar = ({ activeMenu, toggleSideMenu, openSideMenu, closeMobileMenu }) 
                 <item.icon className='text-xl shrink-0' />
 
                 {openSideMenu && <span>{item.title}</span>}
+
+                {!openSideMenu && <span title={item.title} className='absolute inset-0 z-50' />}
               </button>
             )
           })}

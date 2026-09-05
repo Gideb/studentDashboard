@@ -2,23 +2,65 @@ import { useState } from 'react'
 import { students } from '../../data/studentsData'
 import Modal from '../Modals/Modal'
 import { PiStudentDuotone } from 'react-icons/pi'
+import { toast } from 'react-hot-toast'
 
 const AddStudentModal = ({ onClose, onAdd }) => {
   const [formData, setFormData] = useState({
     name: '',
-    studentId: '',
-    class: 'Basic 4',
-    status: 'Active',
+    
+    class: '',
+    status: '',
   })
+
+  const [error, setError] = useState({ name: '', class: '', status: '' })
 
   const handleSubmit = event => {
     event.preventDefault()
 
-    // validation
-    // create new student
+    const newErrors = {
+      name: '',
+      class: '',
+      status: '',
+    }
 
-    // send new student to parent
-    // close modal
+    if (!formData.name.trim()) {
+      newErrors.name = 'Student name is required.'
+    }
+
+    if (!formData.class) {
+      newErrors.class = 'Please select a class.'
+    }
+
+    if (!formData.status) {
+      newErrors.status = 'Please select a status.'
+    }
+
+    setError(newErrors)
+
+    if (Object.values(newErrors).some(Boolean)) {
+      return
+    }
+
+    onAdd({
+      name: formData.name,
+      class: formData.class,
+      status: formData.status,
+    })
+
+   setFormData({
+     name: '',
+     class: '',
+     status: '',
+   })
+
+   setError({
+     name: '',
+     class: '',
+     status: '',
+   })
+
+   onClose()
+   toast.success('Student details added!')
   }
 
   return (
@@ -67,18 +109,21 @@ const AddStudentModal = ({ onClose, onAdd }) => {
                 id='student-name'
                 className='input-box'
                 placeholder='Joe Biden'
+
                 value={formData.name}
-                onChange={event =>
+                onChange={event => {
                   setFormData({
                     ...formData,
                     name: event.target.value,
                   })
-                }
+                  setError({ ...error, name: '' })
+                }}
               />
+              {error.name && <p className='text-red-500 text-xs'>{error.name}</p>}
             </div>
 
             {/* student ID */}
-            <div className='flex flex-col gap-2'>
+            {/* <div className='flex flex-col gap-2'>
               <label htmlFor='student-id' className='text-xs text-gray-700 dark:text-gray-200'>
                 Student ID <span className='text-red-500'>*</span>
               </label>
@@ -89,7 +134,7 @@ const AddStudentModal = ({ onClose, onAdd }) => {
                 id='student-id'
                 className='input-box'
                 placeholder='STD-001'
-                value={formData.studentId}
+                value={formData.newStudentId}
                 onChange={event =>
                   setFormData({
                     ...formData,
@@ -97,7 +142,7 @@ const AddStudentModal = ({ onClose, onAdd }) => {
                   })
                 }
               />
-            </div>
+            </div> */}
 
             {/* class */}
             <div className='flex flex-col gap-2'>
@@ -108,24 +153,31 @@ const AddStudentModal = ({ onClose, onAdd }) => {
               <select
                 name='class'
                 id='class'
-                className='border border-primary dark:border-dark dark:text-dark  outline-0 py-2 px-4 rounded-md text-sm w-full sm:w-auto sm:py-2.5 sm:text-sm'
+                className='border border-primary dark:border-dark dark:text-gray-200 outline-0 py-2 px-4 rounded-md text-sm w-full sm:w-auto sm:py-2.5 sm:text-sm'
                 value={formData.class}
-                onChange={event =>
+                onChange={event => {
                   setFormData({
                     ...formData,
                     class: event.target.value,
                   })
-                }
+                  setError({ ...error, class: '' })
+                }}
               >
-                <option value='' disabled>
+                <option value='' disabled className='dark:bg-gray-800 dark:text-gray-400'>
                   Select class
                 </option>
                 {[...new Set(students.map(student => student.class))].map(className => (
-                  <option key={className} value={className}>
+                  <option
+                    key={className}
+                    value={className}
+                    className='dark:bg-gray-800 dark:text-gray-200'
+                  >
                     {className}
                   </option>
                 ))}
               </select>
+
+              {error.class && <p className='text-red-500 text-xs'>{error.class}</p>}
             </div>
 
             {/* status */}
@@ -137,24 +189,30 @@ const AddStudentModal = ({ onClose, onAdd }) => {
               <select
                 name='status'
                 id='status'
-                className='border border-primary dark:border-dark dark:text-dark  outline-0 py-2 px-4 rounded-md text-sm w-full sm:w-auto sm:py-2.5 sm:text-sm'
+                className='border border-primary dark:border-dark dark:text-gray-200 outline-0 py-2 px-4 rounded-md text-sm w-full sm:w-auto sm:py-2.5 sm:text-sm'
                 value={formData.status}
-                onChange={event =>
+                onChange={event => {
                   setFormData({
                     ...formData,
                     status: event.target.value,
                   })
-                }
+                  setError({ ...error, status: '' })
+                }}
               >
-                <option value='' disabled>
+                <option value='' disabled className='dark:bg-gray-800 dark:text-gray-400'>
                   Choose Status
                 </option>
                 {[...new Set(students.map(student => student.status))].map(status => (
-                  <option key={status} value={status}>
+                  <option
+                    key={status}
+                    value={status}
+                    className='dark:bg-gray-800 dark:text-gray-200'
+                  >
                     {status}
                   </option>
                 ))}
               </select>
+              {error.status && <p className='text-red-500 text-xs'>{error.status}</p>}
             </div>
           </fieldset>
         </div>

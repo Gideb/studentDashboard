@@ -36,9 +36,17 @@ export const students = [
   },
   {
     id: 6,
-    name: 'Sarah Owusu',
-    studentId: 'STD-003',
-    class: 'Basic 4',
-    status: 'Inactive',
+    name: 'Ama Yeboah',
+    studentId: 'STD-006',
+    class: 'Basic 6',
+    status: 'Active',
   },
+    {
+    id: 7,
+    name: 'Eugene Sarpong',
+    studentId: 'STD-007',
+    class: 'Basic 7',
+    status: 'Active',
+  },
+
 ]
