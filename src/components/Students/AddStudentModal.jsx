@@ -107,7 +107,7 @@ const AddStudentModal = ({ onClose, onAdd }) => {
                 type='text'
                 name='student-name'
                 id='student-name'
-                className='input-box'
+                className={`input-box ${error.name ? 'border-red-500' : ''}`}
                 placeholder='Joe Biden'
 
                 value={formData.name}

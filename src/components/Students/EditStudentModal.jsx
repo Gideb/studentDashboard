@@ -76,6 +76,7 @@ const EditStudentModal = ({ student, onClose, onUpdate }) => {
           &times;
         </button>
       </div>
+
       {/* edit student */}
       <form onSubmit={handleSubmit}>
         <div className='mt-6 space-y-4'>
@@ -91,7 +92,7 @@ const EditStudentModal = ({ student, onClose, onUpdate }) => {
                 type='text'
                 name='student-name'
                 id='student-name'
-                className='input-box'
+                className={`input-box ${error.name ? 'border-red-500' : ''}`}
 
                 value={formData.name}
                 onChange={event => {

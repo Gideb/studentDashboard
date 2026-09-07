@@ -9,7 +9,7 @@ const STATUS_STYLES = {
 const StudentTable = ({ students, onEdit, onDelete }) => {
   return (
     <div className='w-full max-w-full overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700'>
-      <table className='min-w-175 w-full text-left divide-y divide-gray-200 dark:divide-gray-700'>
+      <table className='min-w-75 w-full text-left divide-y divide-gray-200 dark:divide-gray-700'>
         <caption className='sr-only'>List of registered students with their details</caption>
 
         <thead className='bg-gray-100 dark:bg-gray-800'>
