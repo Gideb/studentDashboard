@@ -2,18 +2,19 @@ import { useState } from 'react'
 import DashboardLayout from '../../layouts/DashboardLayout'
 import StudentTable from '../../components/Students/StudentTable'
 import StudentFilter from '../../components/Students/StudentFilter'
-import StudentDetailsModal from '../../components/Students/StudentDetailsModal'
 import DeleteStudentModal from '../../components/Students/DeleteStudentModal'
 import { students } from '../../data/studentsData'
 import AddStudentModal from '../../components/Students/AddStudentModal'
+import EditStudentModal from '../../components/Students/EditStudentModal'
+import toast from 'react-hot-toast'
 
 const Students = () => {
   const [search, setSearch] = useState('')
   const [selectedClass, setSelectedClass] = useState('All')
-
+  const [studentToEdit, setStudentToEdit] = useState(null)
   const [studentList, setStudentList] = useState(students)
   const [isAddStudentOpen, setIsAddStudentOpen] = useState(false)
-  const [selectedStudent, setSelectedStudent] = useState(null)
+
   const [studentToDelete, setStudentToDelete] = useState(null)
 
   const filteredStudents = studentList.filter(student => {
@@ -26,16 +27,15 @@ const Students = () => {
     return matchesSearch && matchesClass
   })
 
-  const handleViewStudent = student => {
-    setSelectedStudent(student)
+  const handleEditStudent = student => {
+    setStudentToEdit(student)
+  }
+  const closeEditStudent = () => {
+    setStudentToEdit(null)
   }
 
   const handleOpenDeleteStudent = student => {
     setStudentToDelete(student)
-  }
-
-  const closeStudentDetails = () => {
-    setSelectedStudent(null)
   }
 
   const closeDeleteModal = () => {
@@ -46,25 +46,35 @@ const Students = () => {
     setStudentList(prev => prev.filter(student => student.id !== id))
 
     setStudentToDelete(null)
+    toast.success('Student deleted successfully!')
   }
 
-const handleAddStudent = newStudent => {
-  const newId =
-    (studentList.length > 0 ? Math.max(...studentList.map(student => student.id)) : 0) + 1
+  const handleAddStudent = newStudent => {
+    const newId =
+      (studentList.length > 0 ? Math.max(...studentList.map(student => student.id)) : 0) + 1
 
-  const newStudentId = `STD-${newId.toString().padStart(3, '0')}`
+    const newStudentId = `STD-${newId.toString().padStart(3, '0')}`
 
-  const studentToAdd = {
-    id: newId,
-    name: newStudent.name,
-    studentId: newStudentId,
-    class: newStudent.class,
-    status: newStudent.status,
+    const studentToAdd = {
+      id: newId,
+      name: newStudent.name,
+      studentId: newStudentId,
+      class: newStudent.class,
+      status: newStudent.status,
+    }
+
+    setStudentList(prev => [...prev, studentToAdd])
   }
 
-  setStudentList(prev => [...prev, studentToAdd])
-}
-
+  const handleUpdateStudent = updatedStudent => {
+    setStudentList(prev =>
+      prev.map(student =>
+        student.id === updatedStudent.id ? { ...student, ...updatedStudent } : student
+      )
+    )
+    closeEditStudent()
+    toast.success('Student details updated!')
+  }
 
   return (
     <DashboardLayout activeMenu='Students'>
@@ -110,14 +120,18 @@ const handleAddStudent = newStudent => {
 
           <StudentTable
             students={filteredStudents}
-            onView={handleViewStudent}
+            onEdit={handleEditStudent}
             onDelete={handleOpenDeleteStudent}
           />
         </section>
 
-        {/* VIEW STUDENT MODAL */}
-        {selectedStudent && (
-          <StudentDetailsModal student={selectedStudent} onClose={closeStudentDetails} />
+        {/* Edit STUDENT MODAL */}
+        {studentToEdit && (
+          <EditStudentModal
+            student={studentToEdit}
+            onClose={closeEditStudent}
+            onUpdate={handleUpdateStudent}
+          />
         )}
 
         {/* DELETE STUDENT MODAL */}

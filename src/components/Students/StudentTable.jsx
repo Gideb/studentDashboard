@@ -6,7 +6,7 @@ const STATUS_STYLES = {
   Inactive: 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400',
 }
 
-const StudentTable = ({ students, onView, onDelete }) => {
+const StudentTable = ({ students, onEdit, onDelete }) => {
   return (
     <div className='w-full max-w-full overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700'>
       <table className='min-w-175 w-full text-left divide-y divide-gray-200 dark:divide-gray-700'>
@@ -68,11 +68,11 @@ const StudentTable = ({ students, onView, onDelete }) => {
                   <div className='flex items-center gap-2'>
                     <button
                       type='button'
-                      onClick={() => onView(student)}
+                      onClick={() => onEdit(student)}
                       className='btn-primary font-medium flex items-center gap-1.5'
                     >
                       <LuPen size={11} />
-                      View
+                      Edit
                     </button>
 
                     <div className='h-5 border-l border-gray-400 dark:border-gray-600' />

@@ -42,5 +42,5 @@ body {
 
 
 .input-box {
-  @apply  text-sm text-gray-900 dark:text-gray-100 border rounded-md border-primary dark:border-dark px-4 py-2 mb-1 focus:outline-0;
+  @apply  text-sm text-gray-900 dark:text-gray-100 border rounded-md border-primary dark:border-dark px-4 py-2 mb-3 focus:outline-0;
 }

@@ -7,12 +7,24 @@ const App = () => {
       <AppRoutes />
       <Toaster
         position='top-right'
-        containerStyle={{
-          top: 12,
-          right: 20,
-        }}
         toastOptions={{
-          className: 'text-[11px] font-normal',
+          className: 'text-xs font-medium',
+          style: {
+            borderRadius: '5px',
+            padding: '4px',
+          },
+          success: {
+            iconTheme: {
+              primary: '#043927',
+              secondary: '#fff',
+            },
+          },
+          error: {
+            iconTheme: {
+              primary: '#ef4444',
+              secondary: '#fff',
+            },
+          },
         }}
       />
     </div>

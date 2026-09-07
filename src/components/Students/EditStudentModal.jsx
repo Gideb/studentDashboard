@@ -1,18 +1,19 @@
 import { useState } from 'react'
-import { students } from '../../data/studentsData'
 import Modal from '../Modals/Modal'
-import { PiStudentDuotone } from 'react-icons/pi'
-import { toast } from 'react-hot-toast'
+import { students } from '../../data/studentsData'
 
-const AddStudentModal = ({ onClose, onAdd }) => {
+const EditStudentModal = ({ student, onClose, onUpdate }) => {
   const [formData, setFormData] = useState({
+    name: student.name,
+    class: student.class,
+    status: student.status,
+  })
+
+  const [error, setError] = useState({
     name: '',
-    
     class: '',
     status: '',
   })
-
-  const [error, setError] = useState({ name: '', class: '', status: '' })
 
   const handleSubmit = event => {
     event.preventDefault()
@@ -24,15 +25,15 @@ const AddStudentModal = ({ onClose, onAdd }) => {
     }
 
     if (!formData.name.trim()) {
-      newErrors.name = 'Student name is required.'
+      newErrors.name = 'Student name is required!'
     }
 
     if (!formData.class) {
-      newErrors.class = 'Select a class.'
+      newErrors.class = 'Select a class!'
     }
 
     if (!formData.status) {
-      newErrors.status = 'Select a status.'
+      newErrors.status = 'Select a status!'
     }
 
     setError(newErrors)
@@ -41,61 +42,44 @@ const AddStudentModal = ({ onClose, onAdd }) => {
       return
     }
 
-    onAdd({
+    onUpdate({
+      id: student.id,
       name: formData.name,
       class: formData.class,
       status: formData.status,
     })
-
-   setFormData({
-     name: '',
-     class: '',
-     status: '',
-   })
-
-   setError({
-     name: '',
-     class: '',
-     status: '',
-   })
-
-   onClose()
-   toast.success('Student details added!')
   }
 
   return (
-    <Modal onClose={onClose} labelledBy='add-student-details'>
+    <Modal onClose={onClose} labelledBy='edit-student-title'>
       {/* header */}
-      <div className='flex items-start justify-between gap-4 border-b border-gray-200 dark:border-gray-700 pb-4'>
+      <div className='flex items-start justify-between gap-4 border-b border-gray-200 pb-4 dark:border-gray-700'>
         <div>
           <h2
-            id='add-student-details'
+            id='edit-student-title'
             className='text-xl font-semibold text-gray-900 dark:text-white'
           >
-            Add Student
+            Edit Student
           </h2>
+
+          <p className='mt-1 text-sm text-gray-500 dark:text-gray-400'>
+            Update this student's information.
+          </p>
         </div>
 
         <button
           type='button'
           onClick={onClose}
-          aria-label='Close add modal'
+          aria-label='Close edit student modal'
           className='text-2xl leading-none text-gray-400 hover:text-gray-700 dark:hover:text-white'
         >
           &times;
         </button>
       </div>
-
-      {/* add student */}
-
+      {/* edit student */}
       <form onSubmit={handleSubmit}>
         <div className='mt-6 space-y-4'>
           <fieldset>
-            <div className='flex items-center gap-2 mb-5'>
-              <PiStudentDuotone size={18} />
-              <legend className='text-xs '>Fill out the form to add student to system</legend>
-            </div>
-
             {/* student name */}
 
             <div className='flex flex-col gap-2'>
@@ -108,7 +92,6 @@ const AddStudentModal = ({ onClose, onAdd }) => {
                 name='student-name'
                 id='student-name'
                 className='input-box'
-                placeholder='Joe Biden'
 
                 value={formData.name}
                 onChange={event => {
@@ -116,33 +99,14 @@ const AddStudentModal = ({ onClose, onAdd }) => {
                     ...formData,
                     name: event.target.value,
                   })
-                  setError({ ...error, name: '' })
+                  setError(prev => ({
+                    ...prev,
+                    name: '',
+                  }))
                 }}
               />
               {error.name && <p className='text-red-500 text-xs'>{error.name}</p>}
             </div>
-
-            {/* student ID */}
-            {/* <div className='flex flex-col gap-2'>
-              <label htmlFor='student-id' className='text-xs text-gray-700 dark:text-gray-200'>
-                Student ID <span className='text-red-500'>*</span>
-              </label>
-
-              <input
-                type='text'
-                name='student-id'
-                id='student-id'
-                className='input-box'
-                placeholder='STD-001'
-                value={formData.newStudentId}
-                onChange={event =>
-                  setFormData({
-                    ...formData,
-                    studentId: event.target.value,
-                  })
-                }
-              />
-            </div> */}
 
             {/* class */}
             <div className='flex flex-col gap-2'>
@@ -160,7 +124,10 @@ const AddStudentModal = ({ onClose, onAdd }) => {
                     ...formData,
                     class: event.target.value,
                   })
-                  setError({ ...error, class: '' })
+                  setError(prev => ({
+                    ...prev,
+                    class: '',
+                  }))
                 }}
               >
                 <option value='' disabled className='dark:bg-gray-800 dark:text-gray-400'>
@@ -176,7 +143,6 @@ const AddStudentModal = ({ onClose, onAdd }) => {
                   </option>
                 ))}
               </select>
-
               {error.class && <p className='text-red-500 text-xs'>{error.class}</p>}
             </div>
 
@@ -196,7 +162,10 @@ const AddStudentModal = ({ onClose, onAdd }) => {
                     ...formData,
                     status: event.target.value,
                   })
-                  setError({ ...error, status: '' })
+                  setError(prev => ({
+                    ...prev,
+                    status: '',
+                  }))
                 }}
               >
                 <option value='' disabled className='dark:bg-gray-800 dark:text-gray-400'>
@@ -220,15 +189,15 @@ const AddStudentModal = ({ onClose, onAdd }) => {
         {/* FOOTER */}
         <div className='mt-6 flex items-center gap-3 justify-end border-t border-gray-200 dark:border-gray-700 pt-4'>
           <button
-            aria-label='Close add-student-modal'
+            aria-label='Close edit-student-modal'
             type='button'
             onClick={onClose}
             className='btn-secondary'
           >
             Cancel
           </button>
-          <button aria-label='Add student' type='submit' className='btn-primary'>
-            Add Student
+          <button aria-label='Edit student' type='submit' className='btn-primary'>
+            Update Student
           </button>
         </div>
       </form>
@@ -236,4 +205,4 @@ const AddStudentModal = ({ onClose, onAdd }) => {
   )
 }
 
-export default AddStudentModal
+export default EditStudentModal
