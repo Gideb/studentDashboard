@@ -14,7 +14,6 @@ const Students = () => {
   const [studentToEdit, setStudentToEdit] = useState(null)
   const [studentList, setStudentList] = useState(students)
   const [isAddStudentOpen, setIsAddStudentOpen] = useState(false)
-
   const [studentToDelete, setStudentToDelete] = useState(null)
 
   const filteredStudents = studentList.filter(student => {

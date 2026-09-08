@@ -25,7 +25,7 @@ body {
 }
 
 .btn-primary {
-  @apply text-sm font-medium bg-primary text-white dark:bg-dark dark:text-gray-800 cursor-pointer hover:border hover:border-primary hover:text-primary dark:hover:border-dark dark:hover:text-dark hover:bg-transparent py-2 px-3 rounded-sm;
+  @apply text-sm font-medium bg-primary text-white dark:bg-dark dark:text-gray-800 cursor-pointer border border-primary hover:text-primary dark:hover:border-dark dark:hover:text-dark hover:bg-transparent py-2 px-3 rounded-sm;
 }
 
 .btn-secondary {
@@ -33,7 +33,7 @@ body {
 }
 
 .btn-delete {
-  @apply text-sm font-medium text-white cursor-pointer py-2 px-3 rounded-sm bg-red-600 hover:bg-red-500 dark:text-white;
+  @apply text-sm font-medium text-white cursor-pointer py-2 px-3 rounded-sm bg-red-600 hover:bg-red-500 dark:text-white border border-red-600;
 }
 
 .add-btn {
