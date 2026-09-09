@@ -1,14 +1,12 @@
 import { useState } from 'react'
 import Modal from '../Modals/Modal'
-import toast from 'react-hot-toast'
 import { FaGraduationCap } from 'react-icons/fa6'
 import { X } from 'lucide-react'
 
 const AddCourseModal = ({ onAdd, onClose, departments, statuses }) => {
   const [formData, setFormData] = useState({
     name: '',
-
-    lecturer: '',
+    lecturer: '', 
     department: '',
     students: '',
     status: '',
@@ -16,7 +14,6 @@ const AddCourseModal = ({ onAdd, onClose, departments, statuses }) => {
 
   const [error, setError] = useState({
     name: '',
-
     lecturer: '',
     department: '',
     students: '',
@@ -28,7 +25,6 @@ const AddCourseModal = ({ onAdd, onClose, departments, statuses }) => {
 
     const newErrors = {
       name: '',
-
       lecturer: '',
       department: '',
       students: '',
@@ -60,7 +56,6 @@ const AddCourseModal = ({ onAdd, onClose, departments, statuses }) => {
 
     onAdd({
       name: formData.name,
-
       lecturer: formData.lecturer,
       department: formData.department,
       students: formData.students,
@@ -69,7 +64,6 @@ const AddCourseModal = ({ onAdd, onClose, departments, statuses }) => {
 
     setFormData({
       name: '',
-
       lecturer: '',
       department: '',
       students: '',
@@ -78,7 +72,6 @@ const AddCourseModal = ({ onAdd, onClose, departments, statuses }) => {
 
     setError({
       name: '',
-
       lecturer: '',
       department: '',
       students: '',

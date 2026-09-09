@@ -5,12 +5,14 @@ import CourseFilter from '../../components/Courses/CourseFilter'
 import { useState } from 'react'
 import AddCourseModal from '../../components/Courses/AddCourseModal'
 import toast from 'react-hot-toast'
+import EditCourseModal from '../../components/Courses/EditCourseModal'
 
 const Courses = () => {
   const [search, setSearch] = useState('')
   const [selectedDepartment, setSelectedDepartment] = useState('All')
   const [courseList, setCourseList] = useState(courses)
   const [isAddCourseOpen, setIsAddCourseOpen] = useState(false)
+  const [CourseToEdit, setCourseToEdit] = useState(null)
 
   const uniqueDepartments = [...new Set(courseList.map(course => course.department))]
   const uniqueStatus = [...new Set(courseList.map(course => course.status))]
@@ -26,6 +28,10 @@ const Courses = () => {
     return matchesSearch && matchesDepartment
   })
 
+  const closeEditCourse = () => {
+    setCourseToEdit(null)
+  }
+
   const handleAddCourse = newCourse => {
     const newId = (courseList.length > 0 ? Math.max(...courseList.map(course => course.id)) : 0) + 1
 
@@ -36,13 +42,23 @@ const Courses = () => {
       languages: 'ENG',
       business: 'BUS',
       arts: 'ART',
+      history: 'HTR',
     }
 
-    const dept = newCourse.department.toLowerCase().trim()
+    const department = newCourse.department.toLowerCase().trim()
+    const prefix = departmentPrefixes[department] || 'HOS'
 
-    const prefix = departmentPrefixes[dept] || 'HOS'
+    const departmentCourses = courseList.filter(
+      course => course.department.toLowerCase().trim() === department
+    )
 
-    const newCourseCode = `${prefix}-${newId.toString().padStart(3, '0')}`
+    const highestNumber = departmentCourses.reduce((highest, course) => {
+      const number = parseInt(course.code.split('-')[1], 10)
+
+      return number > highest ? number : highest
+    }, 100)
+
+    const newCourseCode = `${prefix}-${highestNumber + 1}`
 
     const courseToAdd = {
       id: newId,
@@ -55,7 +71,18 @@ const Courses = () => {
     }
 
     setCourseList(prev => [...prev, courseToAdd])
-    toast.success('Course Detail added successfully')
+    setIsAddCourseOpen(false)
+    toast.success('Course added successfully!')
+  }
+
+  const handleEditCourse = updatedCourse => {
+    setCourseList(prev =>
+      prev.map(course =>
+        course.id === updatedCourse.id ? { ...course, ...updatedCourse } : course
+      )
+    )
+    closeEditCourse()
+    toast.success('Course details updated!')
   }
 
   return (
@@ -85,7 +112,7 @@ const Courses = () => {
 
         <section id='course-table' className=''>
           <h2 className='my-2 text-sm text-black dark:text-white'>List of Available Courses</h2>
-          <CoursesTable courses={filteredCourses} />
+          <CoursesTable courses={filteredCourses} onEdit={course => setCourseToEdit(course)} />
         </section>
 
         {isAddCourseOpen && (
@@ -95,6 +122,16 @@ const Courses = () => {
               handleAddCourse(newCourse)
               setIsAddCourseOpen(false)
             }}
+            departments={uniqueDepartments}
+            statuses={uniqueStatus}
+          />
+        )}
+
+        {CourseToEdit && (
+          <EditCourseModal
+            onClose={closeEditCourse}
+            onUpdate={handleEditCourse}
+            course={CourseToEdit}
             departments={uniqueDepartments}
             statuses={uniqueStatus}
           />
