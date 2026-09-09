@@ -23,7 +23,7 @@ const CoursesTable = ({ courses, onEdit, onDelete }) => {
               Department
             </th>
             <th className='px-4 py-5 text-xs font-semibold uppercase tracking-wider text-gray-600 dark:text-gray-300 border-l border-gray-300 dark:border-gray-700'>
-              Teacher
+              Lecturer
             </th>
             <th className='px-4 py-5 text-xs font-semibold uppercase tracking-wider text-gray-600 dark:text-gray-300 border-l border-gray-300 dark:border-gray-700'>
               Students
@@ -51,7 +51,7 @@ const CoursesTable = ({ courses, onEdit, onDelete }) => {
                   {course.department}
                 </td>
                 <td className='px-4 py-3 text-sm font-normal text-gray-600 dark:text-gray-300 border-l border-gray-300 dark:border-gray-700'>
-                  {course.teacher}
+                  {course.lecturer}
                 </td>
                 <td className='px-4 py-3 text-sm font-normal text-gray-600 dark:text-gray-300 border-l border-gray-300 dark:border-gray-700'>
                   {course.students}

@@ -7,10 +7,9 @@ import { toast } from 'react-hot-toast'
 const AddStudentModal = ({ onClose, onAdd }) => {
   const [formData, setFormData] = useState({
     name: '',
-    
     class: '',
     status: '',
-  })
+  }) 
 
   const [error, setError] = useState({ name: '', class: '', status: '' })
 
@@ -153,7 +152,7 @@ const AddStudentModal = ({ onClose, onAdd }) => {
               <select
                 name='class'
                 id='class'
-                className='border border-primary dark:border-dark dark:text-gray-200 outline-0 py-2 px-4 rounded-md text-sm w-full sm:w-auto sm:py-2.5 sm:text-sm mb-3'
+                className='input-select'
                 value={formData.class}
                 onChange={event => {
                   setFormData({
@@ -189,7 +188,7 @@ const AddStudentModal = ({ onClose, onAdd }) => {
               <select
                 name='status'
                 id='status'
-                className='border border-primary dark:border-dark dark:text-gray-200 outline-0 py-2 px-4 rounded-md text-sm w-full sm:w-auto sm:py-2.5 sm:text-sm mb-2'
+                className='input-select'
                 value={formData.status}
                 onChange={event => {
                   setFormData({

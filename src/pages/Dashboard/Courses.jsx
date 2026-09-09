@@ -3,26 +3,60 @@ import CoursesTable from '../../components/Courses/CoursesTable'
 import { courses } from '../../data/CoursesData'
 import CourseFilter from '../../components/Courses/CourseFilter'
 import { useState } from 'react'
+import AddCourseModal from '../../components/Courses/AddCourseModal'
+import toast from 'react-hot-toast'
 
 const Courses = () => {
   const [search, setSearch] = useState('')
   const [selectedDepartment, setSelectedDepartment] = useState('All')
+  const [courseList, setCourseList] = useState(courses)
+  const [isAddCourseOpen, setIsAddCourseOpen] = useState(false)
 
-  const uniqueDepartments = [...new Set(courses.map(course => course.department))]
+  const uniqueDepartments = [...new Set(courseList.map(course => course.department))]
+  const uniqueStatus = [...new Set(courseList.map(course => course.status))]
 
-  const filteredCourses = courses.filter(course => {
+  const filteredCourses = courseList.filter(course => {
     const matchesSearch =
-      course.department.toLowerCase().includes(search.toLowerCase()) ||
-      course.name
-        .toLowerCase()
-        .includes(search.toLowerCase() || course.code.toLowerCase().includes(search.toLowerCase()))
+      course.name.toLowerCase().includes(search.toLowerCase()) ||
+      course.code.toLowerCase().includes(search.toLowerCase())
 
     const matchesDepartment =
       selectedDepartment === 'All' || course.department === selectedDepartment
 
     return matchesSearch && matchesDepartment
   })
-  const handleAddCourse = () => {}
+
+  const handleAddCourse = newCourse => {
+    const newId = (courseList.length > 0 ? Math.max(...courseList.map(course => course.id)) : 0) + 1
+
+    const departmentPrefixes = {
+      'computer science': 'ICT',
+      mathematics: 'MAT',
+      science: 'SCI',
+      languages: 'ENG',
+      business: 'BUS',
+      arts: 'ART',
+    }
+
+    const dept = newCourse.department.toLowerCase().trim()
+
+    const prefix = departmentPrefixes[dept] || 'HOS'
+
+    const newCourseCode = `${prefix}-${newId.toString().padStart(3, '0')}`
+
+    const courseToAdd = {
+      id: newId,
+      name: newCourse.name,
+      code: newCourseCode,
+      department: newCourse.department,
+      lecturer: newCourse.lecturer,
+      students: Number(newCourse.students),
+      status: newCourse.status,
+    }
+
+    setCourseList(prev => [...prev, courseToAdd])
+    toast.success('Course Detail added successfully')
+  }
 
   return (
     <DashboardLayout activeMenu='Courses'>
@@ -34,7 +68,7 @@ const Courses = () => {
               Manage all available courses
             </p>
           </div>
-          <button className='add-btn' onClick={handleAddCourse}>
+          <button className='add-btn self-start' onClick={() => setIsAddCourseOpen(true)}>
             + Add Course
           </button>
         </div>
@@ -43,8 +77,8 @@ const Courses = () => {
           <CourseFilter
             search={search}
             setSearch={setSearch}
-            selectDepartment={selectedDepartment}
-            setSelectDepartment={setSelectedDepartment}
+            selectedDepartment={selectedDepartment}
+            setSelectedDepartment={setSelectedDepartment}
             departments={uniqueDepartments}
           />
         </section>
@@ -53,6 +87,18 @@ const Courses = () => {
           <h2 className='my-2 text-sm text-black dark:text-white'>List of Available Courses</h2>
           <CoursesTable courses={filteredCourses} />
         </section>
+
+        {isAddCourseOpen && (
+          <AddCourseModal
+            onClose={() => setIsAddCourseOpen(false)}
+            onAdd={newCourse => {
+              handleAddCourse(newCourse)
+              setIsAddCourseOpen(false)
+            }}
+            departments={uniqueDepartments}
+            statuses={uniqueStatus}
+          />
+        )}
       </main>
     </DashboardLayout>
   )
