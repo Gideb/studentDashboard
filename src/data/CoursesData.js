@@ -90,7 +90,7 @@ export const courses = [
     status: 'Active',
   },
   {
-    id: 10,
+    id: 11,
     code: 'HSPT-101',
     name: 'Hospitality Management',
     lecturer: 'Mrs. Akua',

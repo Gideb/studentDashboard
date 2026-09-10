@@ -46,8 +46,8 @@ const DeleteCourseModal = ({ course, onClose, onConfirm }) => {
           </p>
         </div>
 
-        <p className='mt-1 text-sm text-gray-800 dark:text-gray-200 '>
-          This action cannot be undone.
+        <p className='mt-1 text-sm text-gray-800 dark:text-gray-200'>
+          This action cannot be undone. The course will be permanently removed from the course list.
         </p>
       </div>
 

@@ -213,7 +213,6 @@ const Courses = () => {
             onClose={cancelDeleteCourse}
             onConfirm={confirmDeleteCourse}
             course={courseToDelete}
-           
           />
         )}
       </main>
