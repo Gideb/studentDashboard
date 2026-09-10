@@ -2,7 +2,7 @@ import DashboardLayout from '../../layouts/DashboardLayout'
 import CoursesTable from '../../components/Courses/CoursesTable'
 import { courses } from '../../data/CoursesData'
 import CourseFilter from '../../components/Courses/CourseFilter'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import AddCourseModal from '../../components/Courses/AddCourseModal'
 import toast from 'react-hot-toast'
 import EditCourseModal from '../../components/Courses/EditCourseModal'
@@ -11,6 +11,9 @@ import DeleteCourseModal from '../../components/Courses/DeleteCourseModal'
 const Courses = () => {
   const [search, setSearch] = useState('')
   const [selectedDepartment, setSelectedDepartment] = useState('All')
+  const [sortBy, setSortBy] = useState('name')
+  const [sortOrder, setSortOrder] = useState('asc')
+  const [currentPage, setCurrentPage] = useState(1)
   const [courseList, setCourseList] = useState(courses)
   const [isAddCourseOpen, setIsAddCourseOpen] = useState(false)
   const [courseToEdit, setCourseToEdit] = useState(null)
@@ -29,6 +32,45 @@ const Courses = () => {
 
     return matchesSearch && matchesDepartment
   })
+
+  const hasActiveFilters = search.trim() !== '' || selectedDepartment !== 'All'
+
+  /* sort array */
+
+  const sortedCourses = [...filteredCourses].sort((a, b) => {
+    let valueA = a[sortBy]
+    let valueB = b[sortBy]
+
+    if (typeof valueA === 'string') {
+      valueA = valueA.toLowerCase()
+      valueB = valueB.toLowerCase()
+    }
+
+    if (valueA < valueB) {
+      return sortOrder === 'asc' ? -1 : 1
+    }
+
+    if (valueA > valueB) {
+      return sortOrder === 'asc' ? 1 : -1
+    }
+
+    return 0
+  })
+
+  /* pagination */
+  const coursesPerPage = 5
+  const totalPages = Math.ceil(sortedCourses.length / coursesPerPage)
+
+  const startIndex = (currentPage - 1) * coursesPerPage
+  const endIndex = startIndex + coursesPerPage
+
+  const paginatedCourses = sortedCourses.slice(startIndex, endIndex)
+
+  useEffect(() => {
+    setCurrentPage(1)
+  }, [search, selectedDepartment, sortBy, sortOrder])
+
+  /* edit course */
 
   const closeEditCourse = () => {
     setCourseToEdit(null)
@@ -163,23 +205,121 @@ const Courses = () => {
           </button>
         </div>
 
-        <section id='course-filter'>
-          <CourseFilter
-            search={search}
-            setSearch={setSearch}
-            selectedDepartment={selectedDepartment}
-            setSelectedDepartment={setSelectedDepartment}
-            departments={uniqueDepartments}
-          />
+        {/* filter courses */}
+
+        <section id='course-filter' className='flex flex-col gap-3 sm:flex-row sm:items-center'>
+          <div className='flex-1'>
+            <CourseFilter
+              search={search}
+              setSearch={setSearch}
+              selectedDepartment={selectedDepartment}
+              setSelectedDepartment={setSelectedDepartment}
+              departments={uniqueDepartments}
+            />
+          </div>
+
+          <div className='flex items-center gap-2'>
+            <select
+              value={sortBy}
+              onChange={e => setSortBy(e.target.value)}
+              className='rounded-md border border-gray-300 bg-white px-3 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 dark:border-gray-700 dark:bg-gray-900 dark:text-white'
+              aria-label='Sort courses by'
+            >
+              <option value='name'>Course Name</option>
+              <option value='code'>Course Code</option>
+              <option value='department'>Department</option>
+              <option value='students'>Students</option>
+              <option value='status'>Status</option>
+            </select>
+
+            <button
+              type='button'
+              onClick={() => setSortOrder(prev => (prev === 'asc' ? 'desc' : 'asc'))}
+              className='rounded-md border border-gray-300 bg-white px-3 py-2.5 text-sm dark:border-gray-700 dark:bg-gray-900 dark:text-white'
+              aria-label={`Sort ${sortOrder === 'asc' ? 'descending' : 'ascending'}`}
+            >
+              {sortOrder === 'asc' ? '↑' : '↓'}
+            </button>
+
+            {hasActiveFilters && (
+              <button
+                type='button'
+                onClick={() => {
+                  setSearch('')
+                  setSelectedDepartment('All')
+                }}
+                className='whitespace-nowrap text-sm font-medium text-gray-600 hover:text-black dark:text-gray-400 dark:hover:text-white'
+              >
+                Clear Filters
+              </button>
+            )}
+          </div>
         </section>
 
+        {/* course table */}
+
         <section id='course-table' className=''>
-          <h2 className='my-2 text-sm text-black dark:text-white'>List of Available Courses</h2>
+          <div className='flex items-center justify-between gap-3 mb-3'>
+            <div>
+              <h2 className='text-sm font-medium text-black dark:text-white'>
+                List of Available Courses
+              </h2>
+
+              <p className='mt-1 text-xs text-gray-500 dark:text-gray-400'>
+                Showing {filteredCourses.length} of {courseList.length} courses
+              </p>
+            </div>
+          </div>
+
           <CoursesTable
-            courses={filteredCourses}
+            courses={paginatedCourses}
             onEdit={course => setCourseToEdit(course)}
             onDelete={handleDeleteCourse}
           />
+
+          {totalPages > 1 && (
+            <div className='mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between'>
+              <p className='text-xs text-gray-500 dark:text-gray-400'>
+                Showing {startIndex + 1}–{Math.min(endIndex, sortedCourses.length)} of{' '}
+                {sortedCourses.length} courses
+              </p>
+
+              <div className='flex items-center gap-1'>
+                <button
+                  type='button'
+                  disabled={currentPage === 1}
+                  onClick={() => setCurrentPage(prev => prev - 1)}
+                  className='rounded-md border border-gray-300 px-3 py-2 text-sm disabled:cursor-not-allowed disabled:opacity-40 dark:border-gray-700'
+                >
+                  Previous
+                </button>
+
+                {Array.from({ length: totalPages }, (_, index) => index + 1).map(page => (
+                  <button
+                    key={page}
+                    type='button'
+                    onClick={() => setCurrentPage(page)}
+                    className={`min-w-9 rounded-md border px-3 py-2 text-sm ${
+                      currentPage === page
+                        ? 'border-primary bg-primary text-white'
+                        : 'border-gray-300 dark:border-gray-700 dark:text-white'
+                    }`}
+                  >
+                    {page}
+                  </button>
+                ))}
+
+                <button
+                  type='button'
+                  disabled={currentPage === totalPages}
+                  onClick={() => setCurrentPage(prev => prev + 1)}
+                  className='rounded-md border border-gray-300 px-3 py-2 text-sm disabled:cursor-not-allowed disabled:opacity-40 dark:border-gray-700'
+                >
+                  Next
+                </button>
+              </div>
+            </div>
+          )}
         </section>
 
         {/* add course */}
