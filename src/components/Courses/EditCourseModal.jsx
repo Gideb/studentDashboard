@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import Modal from '../Modals/Modal'
-import { FaGraduationCap } from 'react-icons/fa6'
 import { X } from 'lucide-react'
+import { PiGraduationCapFill } from 'react-icons/pi'
 
 const EditCourseModal = ({ onClose, onUpdate, statuses, departments, course }) => {
   const [formData, setFormData] = useState({
@@ -72,24 +72,24 @@ const EditCourseModal = ({ onClose, onUpdate, statuses, departments, course }) =
       <div className='flex items-start justify-between gap-3 border-b border-gray-200 dark:border-gray-700 pb-4'>
         <div>
           <div className='flex items-center gap-2 mt-1'>
-            <FaGraduationCap size={26} className='text-primary dark:text-dark' />
+            <PiGraduationCapFill size={20} className='text-black dark:text-white' />
 
             <h2
               id='update-course-details'
-              className='text-xl font-semibold text-primary dark:text-dark'
+              className='text-lg sm:text-xl font-semibold text-black dark:text-white'
             >
-              Update Course Details
+              Edit Course
             </h2>
           </div>
 
-          <p className='text-xs'>Fill out the form to update course details in the system</p>
+          <p className='text-xs'>Make updates to course details</p>
         </div>
 
         <button
           type='button'
           onClick={onClose}
           aria-label='Close modal'
-          className='flex items-center justify-center p-2 rounded-full text-gray-600 hover:text-gray-900 dark:text-gray-200 dark:hover:text-white transition-all'
+          className='flex items-center  justify-center p-2 hover:bg-gray-50 hover:dark:bg-gray-800  rounded-full text-gray-600 hover:text-gray-900 dark:text-gray-200 dark:hover:text-white transition-all'
         >
           <X className='h-4 w-4' />
         </button>
@@ -102,7 +102,7 @@ const EditCourseModal = ({ onClose, onUpdate, statuses, departments, course }) =
             {/* Course Name */}
             <div className='flex flex-col gap-2'>
               <label htmlFor='course-name' className='text-xs text-gray-700 dark:text-gray-200'>
-                Course Name <span className='text-red-500'>*</span>
+                Course Name
               </label>
 
               <input
@@ -128,10 +128,30 @@ const EditCourseModal = ({ onClose, onUpdate, statuses, departments, course }) =
               {error.name && <p className='text-red-500 text-xs'>{error.name}</p>}
             </div>
 
+            {/* Course Code */}
+            <div className='flex flex-col gap-2'>
+              <label htmlFor='course-code' className='text-xs text-gray-700 dark:text-gray-200'>
+                Course Code
+              </label>
+
+              <input
+                type='text'
+                name='course-code'
+                id='course-code'
+                className='input-box bg-gray-100 dark:bg-gray-800 cursor-not-allowed'
+                value={course.code}
+                readOnly
+              />
+
+              <p className='text-[11px] text-gray-500 dark:text-gray-400'>
+                Course code is generated automatically.
+              </p>
+            </div>
+
             {/* Department */}
             <div className='flex flex-col gap-2'>
               <label htmlFor='department' className='text-xs text-gray-700 dark:text-gray-200'>
-                Department <span className='text-red-500'>*</span>
+                Department
               </label>
 
               <select
@@ -170,7 +190,7 @@ const EditCourseModal = ({ onClose, onUpdate, statuses, departments, course }) =
             {/* Lecturer */}
             <div className='flex flex-col gap-2'>
               <label htmlFor='lecturer' className='text-xs text-gray-700 dark:text-gray-200'>
-                Lecturer <span className='text-red-500'>*</span>
+                Lecturer
               </label>
 
               <input
@@ -199,7 +219,7 @@ const EditCourseModal = ({ onClose, onUpdate, statuses, departments, course }) =
             {/* Number of Students */}
             <div className='flex flex-col gap-2'>
               <label htmlFor='students' className='text-xs text-gray-700 dark:text-gray-200'>
-                Number of Students reading course <span className='text-red-500'>*</span>
+                Number of Students reading course
               </label>
 
               <input
@@ -229,7 +249,7 @@ const EditCourseModal = ({ onClose, onUpdate, statuses, departments, course }) =
             {/* Course Status */}
             <div className='flex flex-col gap-2'>
               <label htmlFor='status' className='text-xs text-gray-700 dark:text-gray-200'>
-                Course Status <span className='text-red-500'>*</span>
+                Course Status
               </label>
 
               <select

@@ -1,12 +1,13 @@
 import { useState } from 'react'
 import Modal from '../Modals/Modal'
-import { FaGraduationCap } from 'react-icons/fa6'
+
 import { X } from 'lucide-react'
+import { PiGraduationCapFill } from 'react-icons/pi'
 
 const AddCourseModal = ({ onAdd, onClose, departments, statuses }) => {
   const [formData, setFormData] = useState({
     name: '',
-    lecturer: '', 
+    lecturer: '',
     department: '',
     students: '',
     status: '',
@@ -86,15 +87,15 @@ const AddCourseModal = ({ onAdd, onClose, departments, statuses }) => {
       <div className='flex items-start justify-between gap-3 border-b border-gray-200 dark:border-gray-700 pb-4 '>
         <div>
           <div className='flex items-center gap-2 mt-1'>
-            <FaGraduationCap size={26} className='text-primary dark:text-dark' />
+            <PiGraduationCapFill size={20} className='text-black dark:text-white' />
             <h2
               id='add-course-details'
-              className='text-xl font-semibold text-primary dark:text-dark'
+              className='text-xl font-semibold text-black dark:text-white'
             >
               Add Course
             </h2>
           </div>
-          <legend className='text-xs '>Fill out the form to add course details to system</legend>
+          <legend className='text-xs '>Enter details to add course to system</legend>
         </div>
 
         <button
@@ -112,7 +113,6 @@ const AddCourseModal = ({ onAdd, onClose, departments, statuses }) => {
         <div className='mt-6 space-y-4 '>
           <fieldset>
             <div className='sr-only'>
-              <FaGraduationCap size={18} />
               <legend className='text-xs '>
                 Fill out the form to add course details to system
               </legend>

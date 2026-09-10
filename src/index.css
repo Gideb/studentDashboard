@@ -42,9 +42,9 @@ body {
 
 
 .input-box {
-  @apply  text-xs text-gray-900 dark:text-gray-100 border rounded-md border-primary dark:border-dark px-4 py-2 sm:py-2.5 sm:text-sm mb-3 focus:outline-0 w-full sm:w-auto;
+  @apply  text-xs text-gray-900 dark:text-gray-100 border rounded-md border-primary dark:border-dark px-4 py-2 sm:py-2.5 sm:text-sm mb-2 focus:outline-0 w-full sm:w-auto;
 }
 
 .input-select {
-  @apply border border-primary dark:border-dark dark:text-gray-200 outline-0 py-2 px-4 rounded-md text-sm w-full sm:w-auto sm:py-2.5 sm:text-sm mb-3;
+  @apply border border-primary dark:border-dark dark:text-gray-200 outline-0 py-2 px-4 rounded-md text-sm w-full sm:w-auto sm:py-2.5 sm:text-sm mb-1;
 }

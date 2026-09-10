@@ -1,6 +1,9 @@
 import { useState } from 'react'
 import Modal from '../Modals/Modal'
 import { students } from '../../data/studentsData'
+import { FaUserGraduate } from 'react-icons/fa6'
+import { X } from 'lucide-react'
+import { PiStudentFill } from 'react-icons/pi'
 
 const EditStudentModal = ({ student, onClose, onUpdate }) => {
   const [formData, setFormData] = useState({
@@ -53,27 +56,29 @@ const EditStudentModal = ({ student, onClose, onUpdate }) => {
   return (
     <Modal onClose={onClose} labelledBy='edit-student-title'>
       {/* header */}
-      <div className='flex items-start justify-between gap-4 border-b border-gray-200 pb-4 dark:border-gray-700'>
+      <div className='flex items-start justify-between gap-3 border-b border-gray-200 dark:border-gray-700 pb-4'>
         <div>
-          <h2
-            id='edit-student-title'
-            className='text-xl font-semibold text-gray-900 dark:text-white'
-          >
-            Edit Student
-          </h2>
+          <div className='flex items-center gap-2 mt-1'>
+            <PiStudentFill size={20} className='text-primary dark:text-dark' />
 
-          <p className='mt-1 text-sm text-gray-500 dark:text-gray-400'>
-            Update this student's information.
-          </p>
+            <h2
+              id='update-course-details'
+              className='text-lg sm:text-xl font-semibold text-primary dark:text-dark'
+            >
+              Edit Student
+            </h2>
+          </div>
+
+          <p className='text-xs'>Update student details</p>
         </div>
 
         <button
           type='button'
           onClick={onClose}
-          aria-label='Close edit student modal'
-          className='text-2xl leading-none text-gray-400 hover:text-gray-700 dark:hover:text-white'
+          aria-label='Close modal'
+          className='flex items-center  justify-center p-2 hover:bg-gray-50 hover:dark:bg-gray-800  rounded-full text-gray-600 hover:text-gray-900 dark:text-gray-200 dark:hover:text-white transition-all'
         >
-          &times;
+          <X className='h-4 w-4' />
         </button>
       </div>
 

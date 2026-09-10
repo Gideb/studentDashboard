@@ -26,12 +26,16 @@ const Students = () => {
     return matchesSearch && matchesClass
   })
 
+
+  /* edit */
   const handleEditStudent = student => {
     setStudentToEdit(student)
   }
   const closeEditStudent = () => {
     setStudentToEdit(null)
   }
+
+  /* delete */
 
   const handleOpenDeleteStudent = student => {
     setStudentToDelete(student)
@@ -48,6 +52,8 @@ const Students = () => {
     toast.success('Student deleted successfully!')
   }
 
+
+  /* add */
   const handleAddStudent = newStudent => {
     const newId =
       (studentList.length > 0 ? Math.max(...studentList.map(student => student.id)) : 0) + 1

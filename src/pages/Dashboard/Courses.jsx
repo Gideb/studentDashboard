@@ -6,13 +6,15 @@ import { useState } from 'react'
 import AddCourseModal from '../../components/Courses/AddCourseModal'
 import toast from 'react-hot-toast'
 import EditCourseModal from '../../components/Courses/EditCourseModal'
+import DeleteCourseModal from '../../components/Courses/DeleteCourseModal'
 
 const Courses = () => {
   const [search, setSearch] = useState('')
   const [selectedDepartment, setSelectedDepartment] = useState('All')
   const [courseList, setCourseList] = useState(courses)
   const [isAddCourseOpen, setIsAddCourseOpen] = useState(false)
-  const [CourseToEdit, setCourseToEdit] = useState(null)
+  const [courseToEdit, setCourseToEdit] = useState(null)
+  const [courseToDelete, setCourseToDelete] = useState(null)
 
   const uniqueDepartments = [...new Set(courseList.map(course => course.department))]
   const uniqueStatus = [...new Set(courseList.map(course => course.status))]
@@ -36,13 +38,13 @@ const Courses = () => {
     const newId = (courseList.length > 0 ? Math.max(...courseList.map(course => course.id)) : 0) + 1
 
     const departmentPrefixes = {
-      'computer science': 'ICT',
-      mathematics: 'MAT',
-      science: 'SCI',
-      languages: 'ENG',
-      business: 'BUS',
-      arts: 'ART',
-      history: 'HTR',
+      'computer science': 'COMP',
+      mathematics: 'MATH',
+      science: 'SCNC',
+      languages: 'ENGL',
+      business: 'BUSI',
+      arts: 'ARTS',
+      hospitality: 'HSPT',
     }
 
     const department = newCourse.department.toLowerCase().trim()
@@ -77,12 +79,73 @@ const Courses = () => {
 
   const handleEditCourse = updatedCourse => {
     setCourseList(prev =>
-      prev.map(course =>
-        course.id === updatedCourse.id ? { ...course, ...updatedCourse } : course
-      )
+      prev.map(course => {
+        if (course.id !== updatedCourse.id) {
+          return course
+        }
+
+        // If department has not changed, keep the existing code
+        if (course.department === updatedCourse.department) {
+          return {
+            ...course,
+            ...updatedCourse,
+          }
+        }
+
+        // Department changed, so generate a new course code
+        const departmentPrefixes = {
+          'computer science': 'COMP',
+          mathematics: 'MATH',
+          science: 'SCNC',
+          languages: 'ENGL',
+          business: 'BUSI',
+          arts: 'ARTS',
+          hospitality: 'HSPT',
+        }
+
+        const department = updatedCourse.department.toLowerCase().trim()
+        const prefix = departmentPrefixes[department] || 'HOS'
+
+        const departmentCourses = prev.filter(
+          item =>
+            item.id !== updatedCourse.id && item.department.toLowerCase().trim() === department
+        )
+
+        const highestNumber = departmentCourses.reduce((highest, course) => {
+          const number = parseInt(course.code.split('-')[1], 10)
+
+          return number > highest ? number : highest
+        }, 100)
+
+        const newCourseCode = `${prefix}-${highestNumber + 1}`
+
+        return {
+          ...course,
+          ...updatedCourse,
+          code: newCourseCode,
+        }
+      })
     )
+
     closeEditCourse()
     toast.success('Course details updated!')
+  }
+
+  /* delete */
+
+  const handleDeleteCourse = course => {
+    setCourseToDelete(course)
+  }
+
+  const confirmDeleteCourse = () => {
+    setCourseList(prev => prev.filter(course => course.id !== courseToDelete.id))
+
+    setCourseToDelete(null)
+    toast.success('Course Deleted SuccessFully!')
+  }
+
+  const cancelDeleteCourse = () => {
+    setCourseToDelete(null)
   }
 
   return (
@@ -112,9 +175,14 @@ const Courses = () => {
 
         <section id='course-table' className=''>
           <h2 className='my-2 text-sm text-black dark:text-white'>List of Available Courses</h2>
-          <CoursesTable courses={filteredCourses} onEdit={course => setCourseToEdit(course)} />
+          <CoursesTable
+            courses={filteredCourses}
+            onEdit={course => setCourseToEdit(course)}
+            onDelete={handleDeleteCourse}
+          />
         </section>
 
+        {/* add course */}
         {isAddCourseOpen && (
           <AddCourseModal
             onClose={() => setIsAddCourseOpen(false)}
@@ -127,13 +195,25 @@ const Courses = () => {
           />
         )}
 
-        {CourseToEdit && (
+        {/* update course */}
+
+        {courseToEdit && (
           <EditCourseModal
             onClose={closeEditCourse}
             onUpdate={handleEditCourse}
-            course={CourseToEdit}
+            course={courseToEdit}
             departments={uniqueDepartments}
             statuses={uniqueStatus}
+          />
+        )}
+
+        {/*  delete course */}
+        {courseToDelete && (
+          <DeleteCourseModal
+            onClose={cancelDeleteCourse}
+            onConfirm={confirmDeleteCourse}
+            course={courseToDelete}
+           
           />
         )}
       </main>

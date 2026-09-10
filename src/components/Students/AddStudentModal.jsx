@@ -1,15 +1,16 @@
 import { useState } from 'react'
 import { students } from '../../data/studentsData'
 import Modal from '../Modals/Modal'
-import { PiStudentDuotone } from 'react-icons/pi'
+import { PiStudentDuotone, PiStudentFill } from 'react-icons/pi'
 import { toast } from 'react-hot-toast'
+import { X } from 'lucide-react'
 
 const AddStudentModal = ({ onClose, onAdd }) => {
   const [formData, setFormData] = useState({
     name: '',
     class: '',
     status: '',
-  }) 
+  })
 
   const [error, setError] = useState({ name: '', class: '', status: '' })
 
@@ -46,42 +47,48 @@ const AddStudentModal = ({ onClose, onAdd }) => {
       status: formData.status,
     })
 
-   setFormData({
-     name: '',
-     class: '',
-     status: '',
-   })
+    setFormData({
+      name: '',
+      class: '',
+      status: '',
+    })
 
-   setError({
-     name: '',
-     class: '',
-     status: '',
-   })
+    setError({
+      name: '',
+      class: '',
+      status: '',
+    })
 
-   onClose()
-   toast.success('Student details added!')
+    onClose()
+    toast.success('Student details added!')
   }
 
   return (
     <Modal onClose={onClose} labelledBy='add-student-details'>
       {/* header */}
-      <div className='flex items-start justify-between gap-4 border-b border-gray-200 dark:border-gray-700 pb-4'>
+      <div className='flex items-start justify-between gap-3 border-b border-gray-200 dark:border-gray-700 pb-4'>
         <div>
-          <h2
-            id='add-student-details'
-            className='text-xl font-semibold text-gray-900 dark:text-white'
-          >
-            Add Student
-          </h2>
+          <div className='flex items-center gap-2 mt-1'>
+            <PiStudentFill size={20} className='text-black dark:text-white' />
+
+            <h2
+              id='update-course-details'
+              className='text-lg sm:text-xl font-semibold text-black dark:text-white'
+            >
+              Add Student Details
+            </h2>
+          </div>
+
+          <p className='text-xs'>Enter details to add student to system</p>
         </div>
 
         <button
           type='button'
           onClick={onClose}
-          aria-label='Close add modal'
-          className='text-2xl leading-none text-gray-400 hover:text-gray-700 dark:hover:text-white'
+          aria-label='Close modal'
+          className='flex items-center  justify-center p-2 hover:bg-gray-50 hover:dark:bg-gray-800  rounded-full text-gray-600 hover:text-gray-900 dark:text-gray-200 dark:hover:text-white transition-all'
         >
-          &times;
+          <X className='h-4 w-4' />
         </button>
       </div>
 
@@ -90,9 +97,9 @@ const AddStudentModal = ({ onClose, onAdd }) => {
       <form onSubmit={handleSubmit}>
         <div className='mt-6 space-y-4'>
           <fieldset>
-            <div className='flex items-center gap-2 mb-5'>
+            <div className='flex items-center gap-2 mb-5 sr-only'>
               <PiStudentDuotone size={18} />
-              <legend className='text-xs '>Fill out the form to add student to system</legend>
+              <legend className=''>Fill out the form to add student to system</legend>
             </div>
 
             {/* student name */}
