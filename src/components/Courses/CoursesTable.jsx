@@ -69,7 +69,7 @@ const CoursesTable = ({ courses, onEdit, onDelete }) => {
                     <button
                       type='button'
                       onClick={() => onEdit(course)}
-                      className='btn-primary flex gap-2 items-center'
+                      className='btn-primary flex gap-2 items-center '
                     >
                       <LuPen size={11} />
                       Edit

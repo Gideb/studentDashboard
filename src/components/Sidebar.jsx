@@ -71,11 +71,11 @@ const Sidebar = ({ activeMenu, toggleSideMenu, openSideMenu, closeMobileMenu }) 
             return (
               <button
                 key={`menu_${index}`}
-                className={`relative w-full cursor-pointer flex items-center rounded font-semibold transition-colors 
+                className={`relative w-full cursor-pointer flex items-center rounded font-medium transition-colors 
           ${openSideMenu ? `justify-start gap-4 px-6 ` : 'justify-center'}
           ${
             isActive
-              ? 'bg-primary text-white'
+              ? 'bg-primary dark:bg-dark text-white dark:text-secondary border-l-4 border-secondary dark:border-primary'
               : 'text-slate-900 dark:text-orange-200 hover:bg-primary/20 dark:hover:bg-secondary'
           }
           py-3

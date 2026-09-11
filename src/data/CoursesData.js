@@ -98,6 +98,13 @@ export const courses = [
     students: 201,
     status: 'Active',
   },
+  {
+    id: 12,
+    code: 'ENGR-101',
+    name: 'Engineering Mathematics',
+    lecturer: 'Ing Kubi',
+    department: 'Engineering',
+    students: 211,
+    status: 'Active',
+  },
 ]
-
-

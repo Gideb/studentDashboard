@@ -1,193 +1,82 @@
 import DashboardLayout from '../../layouts/DashboardLayout'
 import CoursesTable from '../../components/Courses/CoursesTable'
-import { courses } from '../../data/CoursesData'
 import CourseFilter from '../../components/Courses/CourseFilter'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import AddCourseModal from '../../components/Courses/AddCourseModal'
 import toast from 'react-hot-toast'
 import EditCourseModal from '../../components/Courses/EditCourseModal'
 import DeleteCourseModal from '../../components/Courses/DeleteCourseModal'
+import useCourses from '../../hooks/useCourse'
 
 const Courses = () => {
-  const [search, setSearch] = useState('')
-  const [selectedDepartment, setSelectedDepartment] = useState('All')
-  const [sortBy, setSortBy] = useState('name')
-  const [sortOrder, setSortOrder] = useState('asc')
-  const [currentPage, setCurrentPage] = useState(1)
-  const [courseList, setCourseList] = useState(courses)
   const [isAddCourseOpen, setIsAddCourseOpen] = useState(false)
   const [courseToEdit, setCourseToEdit] = useState(null)
   const [courseToDelete, setCourseToDelete] = useState(null)
 
-  const uniqueDepartments = [...new Set(courseList.map(course => course.department))]
-  const uniqueStatus = [...new Set(courseList.map(course => course.status))]
+  const {
+    courseList,
+    filteredCourses,
+    sortedCourses,
+    paginatedCourses,
 
-  const filteredCourses = courseList.filter(course => {
-    const matchesSearch =
-      course.name.toLowerCase().includes(search.toLowerCase()) ||
-      course.code.toLowerCase().includes(search.toLowerCase())
+    search,
+    setSearch,
+    selectedDepartment,
+    setSelectedDepartment,
+    hasActiveFilters,
+    clearFilters,
 
-    const matchesDepartment =
-      selectedDepartment === 'All' || course.department === selectedDepartment
+    sortBy,
+    setSortBy,
+    sortOrder,
+    setSortOrder,
 
-    return matchesSearch && matchesDepartment
-  })
+    currentPage,
+    setCurrentPage,
+    totalPages,
+    startIndex,
+    endIndex,
+    pageNumbers,
 
-  const hasActiveFilters = search.trim() !== '' || selectedDepartment !== 'All'
+    uniqueDepartments,
+    uniqueStatus,
 
-  /* sort array */
-
-  const sortedCourses = [...filteredCourses].sort((a, b) => {
-    let valueA = a[sortBy]
-    let valueB = b[sortBy]
-
-    if (typeof valueA === 'string') {
-      valueA = valueA.toLowerCase()
-      valueB = valueB.toLowerCase()
-    }
-
-    if (valueA < valueB) {
-      return sortOrder === 'asc' ? -1 : 1
-    }
-
-    if (valueA > valueB) {
-      return sortOrder === 'asc' ? 1 : -1
-    }
-
-    return 0
-  })
-
-  /* pagination */
-  const coursesPerPage = 5
-  const totalPages = Math.ceil(sortedCourses.length / coursesPerPage)
-
-  const startIndex = (currentPage - 1) * coursesPerPage
-  const endIndex = startIndex + coursesPerPage
-
-  const paginatedCourses = sortedCourses.slice(startIndex, endIndex)
-
-  useEffect(() => {
-    setCurrentPage(1)
-  }, [search, selectedDepartment, sortBy, sortOrder])
-
-  /* edit course */
+    addCourse,
+    updateCourse,
+    deleteCourse,
+  } = useCourses()
 
   const closeEditCourse = () => {
     setCourseToEdit(null)
   }
 
+  const cancelDeleteCourse = () => {
+    setCourseToDelete(null)
+  }
+
   const handleAddCourse = newCourse => {
-    const newId = (courseList.length > 0 ? Math.max(...courseList.map(course => course.id)) : 0) + 1
-
-    const departmentPrefixes = {
-      'computer science': 'COMP',
-      mathematics: 'MATH',
-      science: 'SCNC',
-      languages: 'ENGL',
-      business: 'BUSI',
-      arts: 'ARTS',
-      hospitality: 'HSPT',
-    }
-
-    const department = newCourse.department.toLowerCase().trim()
-    const prefix = departmentPrefixes[department] || 'HOS'
-
-    const departmentCourses = courseList.filter(
-      course => course.department.toLowerCase().trim() === department
-    )
-
-    const highestNumber = departmentCourses.reduce((highest, course) => {
-      const number = parseInt(course.code.split('-')[1], 10)
-
-      return number > highest ? number : highest
-    }, 100)
-
-    const newCourseCode = `${prefix}-${highestNumber + 1}`
-
-    const courseToAdd = {
-      id: newId,
-      name: newCourse.name,
-      code: newCourseCode,
-      department: newCourse.department,
-      lecturer: newCourse.lecturer,
-      students: Number(newCourse.students),
-      status: newCourse.status,
-    }
-
-    setCourseList(prev => [...prev, courseToAdd])
+    addCourse(newCourse)
     setIsAddCourseOpen(false)
     toast.success('Course added successfully!')
+ 
   }
 
   const handleEditCourse = updatedCourse => {
-    setCourseList(prev =>
-      prev.map(course => {
-        if (course.id !== updatedCourse.id) {
-          return course
-        }
-
-        // If department has not changed, keep the existing code
-        if (course.department === updatedCourse.department) {
-          return {
-            ...course,
-            ...updatedCourse,
-          }
-        }
-
-        // Department changed, so generate a new course code
-        const departmentPrefixes = {
-          'computer science': 'COMP',
-          mathematics: 'MATH',
-          science: 'SCNC',
-          languages: 'ENGL',
-          business: 'BUSI',
-          arts: 'ARTS',
-          hospitality: 'HSPT',
-        }
-
-        const department = updatedCourse.department.toLowerCase().trim()
-        const prefix = departmentPrefixes[department] || 'HOS'
-
-        const departmentCourses = prev.filter(
-          item =>
-            item.id !== updatedCourse.id && item.department.toLowerCase().trim() === department
-        )
-
-        const highestNumber = departmentCourses.reduce((highest, course) => {
-          const number = parseInt(course.code.split('-')[1], 10)
-
-          return number > highest ? number : highest
-        }, 100)
-
-        const newCourseCode = `${prefix}-${highestNumber + 1}`
-
-        return {
-          ...course,
-          ...updatedCourse,
-          code: newCourseCode,
-        }
-      })
-    )
-
-    closeEditCourse()
+    updateCourse(updatedCourse)
+    setCourseToEdit(null)
     toast.success('Course details updated!')
+   
   }
-
-  /* delete */
 
   const handleDeleteCourse = course => {
     setCourseToDelete(course)
   }
 
   const confirmDeleteCourse = () => {
-    setCourseList(prev => prev.filter(course => course.id !== courseToDelete.id))
-
+    deleteCourse(courseToDelete.id)
     setCourseToDelete(null)
-    toast.success('Course Deleted SuccessFully!')
-  }
-
-  const cancelDeleteCourse = () => {
-    setCourseToDelete(null)
+    toast.success('Course deleted successfully!')
+    
   }
 
   return (
@@ -244,10 +133,7 @@ const Courses = () => {
             {hasActiveFilters && (
               <button
                 type='button'
-                onClick={() => {
-                  setSearch('')
-                  setSelectedDepartment('All')
-                }}
+                onClick={clearFilters}
                 className='whitespace-nowrap text-sm font-medium text-gray-600 hover:text-black dark:text-gray-400 dark:hover:text-white'
               >
                 Clear Filters
@@ -258,8 +144,8 @@ const Courses = () => {
 
         {/* course table */}
 
-        <section id='course-table' className=''>
-          <div className='flex items-center justify-between gap-3 mb-3'>
+        <section id='course-table' className='space-y-6'>
+          <div className='flex items-center justify-between gap-3 mt-8 mb-5'>
             <div>
               <h2 className='text-sm font-medium text-black dark:text-white'>
                 List of Available Courses
@@ -289,31 +175,40 @@ const Courses = () => {
                   type='button'
                   disabled={currentPage === 1}
                   onClick={() => setCurrentPage(prev => prev - 1)}
-                  className='rounded-md border border-gray-300 px-3 py-2 text-sm disabled:cursor-not-allowed disabled:opacity-40 dark:border-gray-700'
+                  className='rounded-md border border-gray-300 px-2 py-1 disabled:cursor-not-allowed disabled:opacity-40 dark:border-gray-700 text-xs cursor-pointer'
                 >
                   Previous
                 </button>
 
-                {Array.from({ length: totalPages }, (_, index) => index + 1).map(page => (
-                  <button
-                    key={page}
-                    type='button'
-                    onClick={() => setCurrentPage(page)}
-                    className={`min-w-9 rounded-md border px-3 py-2 text-sm ${
-                      currentPage === page
-                        ? 'border-primary bg-primary text-white'
-                        : 'border-gray-300 dark:border-gray-700 dark:text-white'
-                    }`}
-                  >
-                    {page}
-                  </button>
-                ))}
+                {pageNumbers.map((page, index) =>
+                  page === '...' ? (
+                    <span
+                      key={`ellipsis-${index}`}
+                      className='px-2 text-xs text-gray-500 dark:text-gray-400'
+                    >
+                      ...
+                    </span>
+                  ) : (
+                    <button
+                      key={page}
+                      type='button'
+                      onClick={() => setCurrentPage(page)}
+                      className={`min-w-9 rounded-md border cursor-pointer px-2 py-1 text-xs ${
+                        currentPage === page
+                          ? 'border-primary bg-primary text-white'
+                          : 'border-gray-300 dark:border-gray-700 dark:text-white'
+                      }`}
+                    >
+                      {page}
+                    </button>
+                  )
+                )}
 
                 <button
                   type='button'
                   disabled={currentPage === totalPages}
                   onClick={() => setCurrentPage(prev => prev + 1)}
-                  className='rounded-md border border-gray-300 px-3 py-2 text-sm disabled:cursor-not-allowed disabled:opacity-40 dark:border-gray-700'
+                  className='rounded-md border border-gray-300 cursor-pointer px-2 py-1 text-xs disabled:cursor-not-allowed disabled:opacity-40 dark:border-gray-700'
                 >
                   Next
                 </button>
