@@ -195,7 +195,7 @@ const Courses = () => {
                       onClick={() => setCurrentPage(page)}
                       className={`min-w-9 rounded-md border cursor-pointer px-2 py-1 text-xs ${
                         currentPage === page
-                          ? 'border-primary bg-primary text-white'
+                          ? 'border-primary bg-primary dark:bg-dark text-white dark:text-black'
                           : 'border-gray-300 dark:border-gray-700 dark:text-white'
                       }`}
                     >

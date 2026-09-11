@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { students } from '../../data/studentsData'
+import { students } from '../../data/StudentsData'
 import Modal from '../Modals/Modal'
 import { PiStudentDuotone, PiStudentFill } from 'react-icons/pi'
 import { toast } from 'react-hot-toast'
@@ -8,31 +8,61 @@ import { X } from 'lucide-react'
 const AddStudentModal = ({ onClose, onAdd }) => {
   const [formData, setFormData] = useState({
     name: '',
-    class: '',
+    email: '',
+    gender: '',
+    department: '',
+    level: '',
+    phone: '',
     status: '',
   })
 
-  const [error, setError] = useState({ name: '', class: '', status: '' })
+  const [error, setError] = useState({
+    name: '',
+    email: '',
+    gender: '',
+    department: '',
+    level: '',
+    phone: '',
+    status: '',
+  })
 
   const handleSubmit = event => {
     event.preventDefault()
 
     const newErrors = {
       name: '',
-      class: '',
+      email: '',
+      gender: '',
+      department: '',
+      level: '',
+      phone: '',
       status: '',
     }
 
     if (!formData.name.trim()) {
-      newErrors.name = 'Student name is required.'
+      newErrors.name = 'Include student name'
     }
 
-    if (!formData.class) {
-      newErrors.class = 'Select a class.'
+    if (!formData.email.trim()) {
+      newErrors.email = "include student's email"
+    }
+
+    if (!formData.gender) {
+      newErrors.gender = 'Select a gender'
+    }
+    if (!formData.department) {
+      newErrors.department = "Select student's department"
+    }
+
+    if (!formData.level) {
+      newErrors.level = 'Select a level'
+    }
+    if (!formData.phone.trim()) {
+      newErrors.phone = 'Include phone number'
     }
 
     if (!formData.status) {
-      newErrors.status = 'Select a status.'
+      newErrors.status = 'Select a status'
     }
 
     setError(newErrors)
@@ -43,24 +73,36 @@ const AddStudentModal = ({ onClose, onAdd }) => {
 
     onAdd({
       name: formData.name,
-      class: formData.class,
+      email: formData.email,
+      gender: formData.gender,
+      department: formData.department,
+      level: formData.level,
+      phone: formData.phone,
       status: formData.status,
     })
 
     setFormData({
       name: '',
-      class: '',
+      email: '',
+      gender: '',
+      department: '',
+      level: '',
+      phone: '',
       status: '',
     })
 
     setError({
       name: '',
-      class: '',
+      email: '',
+      gender: '',
+      department: '',
+      level: '',
+      phone: '',
       status: '',
     })
 
     onClose()
-    toast.success('Student details added!')
+    toast.success('Student successfully added!')
   }
 
   return (
@@ -128,62 +170,157 @@ const AddStudentModal = ({ onClose, onAdd }) => {
               {error.name && <p className='text-red-500 text-xs'>{error.name}</p>}
             </div>
 
-            {/* student ID */}
-            {/* <div className='flex flex-col gap-2'>
-              <label htmlFor='student-id' className='text-xs text-gray-700 dark:text-gray-200'>
-                Student ID <span className='text-red-500'>*</span>
+            {/* email */}
+
+            <div className='flex flex-col gap-2'>
+              <label htmlFor='student-email' className='text-xs text-gray-700 dark:text-gray-200'>
+                Student Email <span className='text-red-500'>*</span>
+              </label>
+
+              <input
+                type='email'
+                name='student-email'
+                id='student-email'
+                className={`input-box ${error.email ? 'border-red-500' : ''}`}
+                placeholder='joe.biden@gmail.com'
+
+                value={formData.email}
+                onChange={event => {
+                  setFormData({
+                    ...formData,
+                    email: event.target.value,
+                  })
+                  setError({ ...error, email: '' })
+                }}
+              />
+              {error.email && <p className='text-red-500 text-xs'>{error.email}</p>}
+            </div>
+
+            {/* gender */}
+            <div className='flex flex-col gap-2'>
+              <label htmlFor='gender' className='text-xs text-gray-700 dark:text-gray-200'>
+                Gender <span className='text-red-500 dark:text-red-300'>*</span>
+              </label>
+
+              <select
+                name='gender'
+                id='gender'
+                className='input-select'
+                value={formData.gender}
+                onChange={event => {
+                  setFormData({
+                    ...formData,
+                    gender: event.target.value,
+                  })
+                  setError({ ...error, gender: '' })
+                }}
+              >
+                <option value='' disabled className='dark:bg-gray-800 dark:text-gray-400'>
+                  Choose Gender
+                </option>
+                {[...new Set(students.map(student => student.gender))].map(gender => (
+                  <option
+                    key={gender}
+                    value={gender}
+                    className='dark:bg-gray-800 dark:text-gray-200'
+                  >
+                    {gender}
+                  </option>
+                ))}
+              </select>
+              {error.gender && <p className='text-red-500 text-xs'>{error.gender}</p>}
+            </div>
+
+            {/* department */}
+            <div className='flex flex-col gap-2'>
+              <label htmlFor='department' className='text-xs text-gray-700 dark:text-gray-200'>
+                Department <span className='text-red-500 dark:text-red-300'>*</span>
+              </label>
+
+              <select
+                name='department'
+                id='department'
+                className='input-select'
+                value={formData.department}
+                onChange={event => {
+                  setFormData({
+                    ...formData,
+                    department: event.target.value,
+                  })
+                  setError({ ...error, department: '' })
+                }}
+              >
+                <option value='' disabled className='dark:bg-gray-800 dark:text-gray-400'>
+                  Choose Department
+                </option>
+                {[...new Set(students.map(student => student.department))].map(department => (
+                  <option
+                    key={department}
+                    value={department}
+                    className='dark:bg-gray-800 dark:text-gray-200'
+                  >
+                    {department}
+                  </option>
+                ))}
+              </select>
+              {error.department && <p className='text-red-500 text-xs'>{error.department}</p>}
+            </div>
+
+            {/* level */}
+            <div className='flex flex-col gap-2'>
+              <label htmlFor='level' className='text-xs text-gray-700 dark:text-gray-200'>
+                Level <span className='text-red-500 dark:text-red-300'>*</span>
+              </label>
+
+              <select
+                name='level'
+                id='level'
+                className='input-select'
+                value={formData.level}
+                onChange={event => {
+                  setFormData({
+                    ...formData,
+                    level: event.target.value,
+                  })
+                  setError({ ...error, level: '' })
+                }}
+              >
+                <option value='' disabled className='dark:bg-gray-800 dark:text-gray-400'>
+                  Choose Level
+                </option>
+                {[...new Set(students.map(student => student.level))].map(level => (
+                  <option key={level} value={level} className='dark:bg-gray-800 dark:text-gray-200'>
+                    {level}
+                  </option>
+                ))}
+              </select>
+              {error.level && <p className='text-red-500 text-xs'>{error.level}</p>}
+            </div>
+
+            {/* student phone */}
+
+            <div className='flex flex-col gap-2'>
+              <label htmlFor='student-name' className='text-xs text-gray-700 dark:text-gray-200'>
+                Student Phone <span className='text-red-500'>*</span>
               </label>
 
               <input
                 type='text'
-                name='student-id'
-                id='student-id'
-                className='input-box'
-                placeholder='STD-001'
-                value={formData.newStudentId}
-                onChange={event =>
-                  setFormData({
-                    ...formData,
-                    studentId: event.target.value,
-                  })
-                }
-              />
-            </div> */}
+                name='student-phone'
+                id='student-phone'
+                className={`input-box ${error.name ? 'border-red-500' : ''}`}
+                placeholder='+233 44 555 5555'
 
-            {/* class */}
-            <div className='flex flex-col gap-2'>
-              <label htmlFor='class' className='text-xs text-gray-700 dark:text-gray-200'>
-                Class <span className='text-red-500'>*</span>
-              </label>
-
-              <select
-                name='class'
-                id='class'
-                className='input-select'
-                value={formData.class}
+                value={formData.phone}
                 onChange={event => {
                   setFormData({
                     ...formData,
-                    class: event.target.value,
+                    phone: event.target.value,
                   })
-                  setError({ ...error, class: '' })
+                  setError({ ...error, phone: '' })
                 }}
-              >
-                <option value='' disabled className='dark:bg-gray-800 dark:text-gray-400'>
-                  Select class
-                </option>
-                {[...new Set(students.map(student => student.class))].map(className => (
-                  <option
-                    key={className}
-                    value={className}
-                    className='dark:bg-gray-800 dark:text-gray-200'
-                  >
-                    {className}
-                  </option>
-                ))}
-              </select>
-
-              {error.class && <p className='text-red-500 text-xs'>{error.class}</p>}
+              />
+              {error.phone && <p className='text-red-500 text-xs'>{error.phone}</p>}
             </div>
 
             {/* status */}

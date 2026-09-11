@@ -1,96 +1,86 @@
 import { useState } from 'react'
 import DashboardLayout from '../../layouts/DashboardLayout'
-import StudentTable from '../../components/Students/StudentTable'
-import StudentFilter from '../../components/Students/StudentFilter'
-import DeleteStudentModal from '../../components/Students/DeleteStudentModal'
-import { students } from '../../data/StudentsData'
+import StudentsTable from '../../components/Students/StudentsTable'
+import useStudents from '../../hooks/useStudents'
+import toast from 'react-hot-toast'
+import StudentsFilter from '../../components/Students/StudentsFilter'
 import AddStudentModal from '../../components/Students/AddStudentModal'
 import EditStudentModal from '../../components/Students/EditStudentModal'
-import toast from 'react-hot-toast'
+import DeleteStudentModal from '../../components/Students/DeleteStudentModal'
 
 const Students = () => {
-  const [search, setSearch] = useState('')
-  const [selectedClass, setSelectedClass] = useState('All')
-  const [studentToEdit, setStudentToEdit] = useState(null)
-  const [studentList, setStudentList] = useState(students)
-  const [isAddStudentOpen, setIsAddStudentOpen] = useState(false)
-  const [studentToDelete, setStudentToDelete] = useState(null)
+  const {
+    studentList,
+    filteredStudents,
+    paginatedStudents,
 
-  const filteredStudents = studentList.filter(student => {
-    const matchesSearch =
-      student.name.toLowerCase().includes(search.toLowerCase()) ||
-      student.studentId.toLowerCase().includes(search.toLowerCase())
+    search,
+    setSearch,
 
-    const matchesClass = selectedClass === 'All' || student.class === selectedClass
+    selectedDepartment,
+    setSelectedDepartment,
 
-    return matchesSearch && matchesClass
-  })
+    currentPage,
+    setCurrentPage,
 
+    totalPages,
+    startIndex,
+    endIndex,
+    pageNumbers,
 
-  /* edit */
-  const handleEditStudent = student => {
-    setStudentToEdit(student)
-  }
+    uniqueDepartments,
+    uniqueLevels,
+    uniqueStatus,
+
+    addStudent,
+    updateStudent,
+    deleteStudent,
+  } = useStudents()
+
   const closeEditStudent = () => {
     setStudentToEdit(null)
   }
 
-  /* delete */
-
-  const handleOpenDeleteStudent = student => {
-    setStudentToDelete(student)
-  }
-
-  const closeDeleteModal = () => {
+  const cancelDeleteStudent = () => {
     setStudentToDelete(null)
   }
 
-  const handleConfirmDelete = id => {
-    setStudentList(prev => prev.filter(student => student.id !== id))
+  const handleAddStudent = newStudent => {
+    addStudent(newStudent)
+    setIsAddStudentOpen(false)
+    toast.success('Student added successfully!')
+  }
 
+  const handleEditStudent = updatedStudent => {
+    updateStudent(updatedStudent)
+    setStudentToEdit(null)
+    toast.success('Student details updated!')
+  }
+
+  const handleDeleteStudent = student => {
+    setStudentToDelete(student)
+  }
+
+  const confirmDeleteStudent = () => {
+    deleteStudent(studentToDelete.id)
     setStudentToDelete(null)
     toast.success('Student deleted successfully!')
   }
 
-
-  /* add */
-  const handleAddStudent = newStudent => {
-    const newId =
-      (studentList.length > 0 ? Math.max(...studentList.map(student => student.id)) : 0) + 1
-
-    const newStudentId = `STD-${newId.toString().padStart(3, '0')}`
-
-    const studentToAdd = {
-      id: newId,
-      name: newStudent.name,
-      studentId: newStudentId,
-      class: newStudent.class,
-      status: newStudent.status,
-    }
-
-    setStudentList(prev => [...prev, studentToAdd])
-  }
-
-  const handleUpdateStudent = updatedStudent => {
-    setStudentList(prev =>
-      prev.map(student =>
-        student.id === updatedStudent.id ? { ...student, ...updatedStudent } : student
-      )
-    )
-    closeEditStudent()
-    toast.success('Student details updated!')
-  }
+  const [isAddStudentOpen, setIsAddStudentOpen] = useState(false)
+  const [studentToEdit, setStudentToEdit] = useState(null)
+  const [studentToDelete, setStudentToDelete] = useState(null)
 
   return (
     <DashboardLayout activeMenu='Students'>
-      <main className='my-5 mx-auto w-full min-w-0 px-3 sm:px-6 py-5 sm:py-8'>
-        {/* PAGE HEADER */}
-        <header className='flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between mb-5'>
+      <main className='my-5 mx-auto w-full min-w-0 space-y-4 px-3 py-5 sm:px-6 sm:py-8'>
+        {/* Header */}
+        <div className='flex flex-col items-start justify-between gap-5 sm:flex-row sm:items-center'>
           <div>
-            <h1 className='text-2xl font-bold text-gray-900 dark:text-white'>Students</h1>
+            <h1 className='text-2xl font-semibold text-black dark:text-white'>Students</h1>
 
-            <p className='text-gray-500 dark:text-gray-400 text-sm'>
-              Manage all registered students.
+            <p className='text-xs text-gray-600 dark:text-gray-400 sm:text-sm'>
+              Manage all registered students
             </p>
           </div>
 
@@ -101,56 +91,126 @@ const Students = () => {
           >
             + Add Student
           </button>
-        </header>
+        </div>
 
-        {/* FILTER */}
-        <section className='mb-6 w-full' aria-labelledby='students-filter-heading'>
-          <h2 id='students-filter-heading' className='sr-only'>
-            Filter Students
-          </h2>
-
-          <StudentFilter
-            search={search}
-            setSearch={setSearch}
-            selectedClass={selectedClass}
-            setSelectedClass={setSelectedClass}
-          />
+        {/* Filters needs work */}
+        <section className='flex flex-col gap-3'>
+          <div className='flex-1'>
+            <StudentsFilter
+              search={search}
+              setSearch={setSearch}
+              selectedDepartment={selectedDepartment}
+              setSelectedDepartment={setSelectedDepartment}
+              departments={uniqueDepartments}
+            />
+          </div>
         </section>
 
-        {/* TABLE */}
-        <section className='mb-6' aria-labelledby='students-table-heading'>
-          <h2 id='students-table-heading' className='sr-only'>
-            Registered Students
-          </h2>
+        {/* Student list */}
+        <section>
+          <div className='my-2 flex items-center justify-between gap-3'>
+            <div>
+              <h2 className='text-sm font-medium text-black dark:text-white'>List of Students</h2>
 
-          <StudentTable
-            students={filteredStudents}
-            onEdit={handleEditStudent}
-            onDelete={handleOpenDeleteStudent}
+              <p className='mt-1 text-xs text-gray-500 dark:text-gray-400'>
+                Showing {filteredStudents.length} of {studentList.length} students
+              </p>
+            </div>
+          </div>
+
+          <StudentsTable
+            students={paginatedStudents}
+            onEdit={student => setStudentToEdit(student)}
+            onDelete={student => setStudentToDelete(student)}
           />
+
+          {/* Pagination */}
+          {totalPages > 1 && (
+            <div className='mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between'>
+              <p className='text-xs text-gray-500 dark:text-gray-400'>
+                Showing {startIndex + 1}–{Math.min(endIndex, filteredStudents.length)} of{' '}
+                {filteredStudents.length} students
+              </p>
+
+              <div className='flex items-center gap-1'>
+                <button
+                  type='button'
+                  disabled={currentPage === 1}
+                  onClick={() => setCurrentPage(prev => prev - 1)}
+                  className='rounded-md border border-gray-300 px-3 py-2 text-sm disabled:cursor-not-allowed disabled:opacity-40 dark:border-gray-700'
+                >
+                  Previous
+                </button>
+
+                {pageNumbers.map((page, index) =>
+                  page === '...' ? (
+                    <span
+                      key={`ellipsis-${index}`}
+                      className='px-2 text-sm text-gray-500 dark:text-gray-400'
+                    >
+                      ...
+                    </span>
+                  ) : (
+                    <button
+                      key={page}
+                      type='button'
+                      onClick={() => setCurrentPage(page)}
+                      className={`min-w-9 rounded-md border px-3 py-2 text-sm ${
+                        currentPage === page
+                          ? 'border-primary bg-primary text-white'
+                          : 'border-gray-300 dark:border-gray-700 dark:text-white'
+                      }`}
+                    >
+                      {page}
+                    </button>
+                  )
+                )}
+
+                <button
+                  type='button'
+                  disabled={currentPage === totalPages}
+                  onClick={() => setCurrentPage(prev => prev + 1)}
+                  className='rounded-md border border-gray-300 px-3 py-2 text-sm disabled:cursor-not-allowed disabled:opacity-40 dark:border-gray-700'
+                >
+                  Next
+                </button>
+              </div>
+            </div>
+          )}
         </section>
 
-        {/* Edit STUDENT MODAL */}
+        {/* add Student */}
+        {isAddStudentOpen && (
+          <AddStudentModal
+            onClose={() => setIsAddStudentOpen(false)}
+            onAdd={newStudent => {
+              handleAddStudent(newStudent)
+              setIsAddStudentOpen(false)
+            }}
+            departments={uniqueDepartments}
+            statuses={uniqueStatus}
+          />
+        )}
+
+        {/* update Student needs work */}
+
         {studentToEdit && (
           <EditStudentModal
-            student={studentToEdit}
             onClose={closeEditStudent}
-            onUpdate={handleUpdateStudent}
+            onUpdate={handleEditStudent}
+            Student={studentToEdit}
+            departments={uniqueDepartments}
+            statuses={uniqueStatus}
           />
         )}
 
-        {/* DELETE STUDENT MODAL */}
+        {/*  delete Student needs work */}
         {studentToDelete && (
           <DeleteStudentModal
-            student={studentToDelete}
-            onClose={closeDeleteModal}
-            onConfirm={() => handleConfirmDelete(studentToDelete.id)}
+            onClose={cancelDeleteStudent}
+            onConfirm={confirmDeleteStudent}
+            Student={studentToDelete}
           />
-        )}
-
-        {/* Add STUDENT MODAL */}
-        {isAddStudentOpen && (
-          <AddStudentModal onClose={() => setIsAddStudentOpen(false)} onAdd={handleAddStudent} />
         )}
       </main>
     </DashboardLayout>

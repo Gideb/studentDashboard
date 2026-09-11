@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 import { students } from '../data/StudentsData'
+import { generateStudentCode } from '../utils/studentId'
+import { generateId } from '../utils/generateId'
 
 const STUDENTS_STORAGE_KEY = 'students'
 
@@ -176,6 +178,71 @@ const useStudents = () => {
   const pageNumbers = getPageNumbers()
 
   // -----------------------------
+  // Add student
+  // -----------------------------
+
+  const addStudent = newStudent => {
+    const newId = generateId(studentList)
+
+    const newStudentCode = generateStudentCode(studentList, newStudent.department)
+
+    const studentToAdd = {
+      id: newId,
+      name: newStudent.name,
+      code: newStudentCode,
+      department: newStudent.department,
+      lecturer: newStudent.lecturer,
+      students: Number(newStudent.students),
+      status: newStudent.status,
+    }
+
+    setStudentList(prev => [...prev, studentToAdd])
+  }
+
+  // -----------------------------
+  // Update course
+  // -----------------------------
+
+  const updateStudent = updatedStudent => {
+    setStudentList(prev =>
+      prev.map(student => {
+        if (student.id !== updatedStudent.id) {
+          return student
+        }
+
+        // Department has not changed
+        if (student.department === updatedStudent.department) {
+          return {
+            ...student,
+            ...updatedStudent,
+          }
+        }
+
+        // Department changed → generate new Student code
+        const newStudentCode = generateStudentCode(
+          prev,
+          updatedStudent.department,
+          updatedStudent.id
+        )
+
+        return {
+          ...student,
+          ...updatedStudent,
+          code: newStudentCode,
+        }
+      })
+    )
+  }
+
+  // -----------------------------
+  // Delete Student
+  // -----------------------------
+
+  const deleteStudent = studentId => {
+    setStudentList(prev => prev.filter(student => student.id !== studentId))
+  }
+
+  // -----------------------------
   // Clear filters
   // -----------------------------
 
@@ -230,6 +297,11 @@ const useStudents = () => {
     uniqueDepartments,
     uniqueLevels,
     uniqueStatus,
+
+    //crud
+    addStudent,
+    updateStudent,
+    deleteStudent,
   }
 }
 
