@@ -65,7 +65,7 @@ const DeleteStudentModal = ({ student, onClose, onConfirm }) => {
           aria-label='Delete student'
           type='button'
           onClick={onConfirm}
-          className='btn-delete'
+          className='btn-delete-2'
         >
           Delete
         </button>

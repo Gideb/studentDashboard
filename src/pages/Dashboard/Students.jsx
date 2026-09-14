@@ -62,20 +62,17 @@ const Students = () => {
   const handleAddStudent = newStudent => {
     addStudent(newStudent)
     setIsAddStudentOpen(false)
+    toast.success('Student successfully added!')
   }
 
   const handleEditStudent = updatedStudent => {
     updateStudent(updatedStudent)
     setStudentToEdit(null)
-    toast.success('Student details updated!')
+    toast.success('Student details successfully updated!')
   }
 
-  const handleDeleteStudent = student => {
-    setStudentToDelete(student)
-  }
-
-  const confirmDeleteStudent = student => {
-    deleteStudent(student.id)
+  const confirmDeleteStudent = () => {
+    deleteStudent(studentToDelete.id)
     setStudentToDelete(null)
     toast.success('Student deleted successfully!')
   }
@@ -182,7 +179,7 @@ const Students = () => {
                   type='button'
                   disabled={currentPage === 1}
                   onClick={() => setCurrentPage(prev => prev - 1)}
-                  className='rounded-md border border-gray-300 px-3 py-2 text-sm disabled:cursor-not-allowed disabled:opacity-40 dark:border-gray-700'
+                  className='rounded-md border border-gray-300 px-2 py-1 sm:px-3 sm:py-2  text-xs sm:text-sm disabled:cursor-not-allowed disabled:opacity-40 dark:border-gray-700'
                 >
                   Previous
                 </button>
@@ -191,7 +188,7 @@ const Students = () => {
                   page === '...' ? (
                     <span
                       key={`ellipsis-${index}`}
-                      className='px-2 text-sm text-gray-500 dark:text-gray-400'
+                      className='px-2 text-xs sm:text-sm text-gray-500 dark:text-gray-400'
                     >
                       ...
                     </span>
@@ -200,9 +197,9 @@ const Students = () => {
                       key={page}
                       type='button'
                       onClick={() => setCurrentPage(page)}
-                      className={`min-w-9 rounded-md border px-3 py-2 text-sm ${
+                      className={`min-w-9 rounded-md border px-2 py-1 sm:px-3 sm:py-2  text-xs sm:text-sm ${
                         currentPage === page
-                          ? 'border-primary bg-primary text-white'
+                          ? 'border-primary bg-primary dark:bg-dark dark:border-dark text-white dark:text-black'
                           : 'border-gray-300 dark:border-gray-700 dark:text-white'
                       }`}
                     >
@@ -215,7 +212,7 @@ const Students = () => {
                   type='button'
                   disabled={currentPage === totalPages}
                   onClick={() => setCurrentPage(prev => prev + 1)}
-                  className='rounded-md border border-gray-300 px-3 py-2 text-sm disabled:cursor-not-allowed disabled:opacity-40 dark:border-gray-700'
+                  className='rounded-md border border-gray-300 px-2 py-1 sm:px-3 sm:py-2 text-xs sm:text-sm disabled:cursor-not-allowed disabled:opacity-40 dark:border-gray-700'
                 >
                   Next
                 </button>
@@ -228,11 +225,9 @@ const Students = () => {
         {isAddStudentOpen && (
           <AddStudentModal
             onClose={() => setIsAddStudentOpen(false)}
-            onAdd={newStudent => {
-              handleAddStudent(newStudent)
-              setIsAddStudentOpen(false)
-            }}
+            onAdd={handleAddStudent}
             departments={uniqueDepartments}
+            levels={uniqueLevels}
             statuses={uniqueStatus}
           />
         )}
@@ -243,8 +238,9 @@ const Students = () => {
           <EditStudentModal
             onClose={closeEditStudent}
             onUpdate={handleEditStudent}
-            Student={studentToEdit}
+            student={studentToEdit}
             departments={uniqueDepartments}
+            levels={uniqueLevels}
             statuses={uniqueStatus}
           />
         )}
@@ -254,7 +250,7 @@ const Students = () => {
           <DeleteStudentModal
             onClose={cancelDeleteStudent}
             onConfirm={confirmDeleteStudent}
-            student={handleDeleteStudent}
+            student={studentToDelete}
           />
         )}
       </main>

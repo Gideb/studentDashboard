@@ -1,11 +1,9 @@
 import { useState } from 'react'
-import { students } from '../../data/StudentsData'
 import Modal from '../Modals/Modal'
-import { PiStudentDuotone, PiStudentFill } from 'react-icons/pi'
-import { toast } from 'react-hot-toast'
+import { PiStudentFill } from 'react-icons/pi'
 import { X } from 'lucide-react'
 
-const AddStudentModal = ({ onClose, onAdd }) => {
+const AddStudentModal = ({ onClose, onAdd, departments, levels, statuses }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -100,9 +98,6 @@ const AddStudentModal = ({ onClose, onAdd }) => {
       phone: '',
       status: '',
     })
-
-    onClose()
-    toast.success('Student successfully added!')
   }
 
   return (
@@ -115,7 +110,7 @@ const AddStudentModal = ({ onClose, onAdd }) => {
           </div>
           <div className='flex flex-col items-left gap-1 mt-1'>
             <h2
-              id='update-course-details'
+              id='add-student-details'
               className='text-lg sm:text-xl font-semibold text-black dark:text-white'
             >
               Add Student Details
@@ -139,11 +134,6 @@ const AddStudentModal = ({ onClose, onAdd }) => {
       <form onSubmit={handleSubmit}>
         <div className='mt-6 space-y-4'>
           <fieldset>
-            <div className='flex items-center gap-2 mb-5 sr-only'>
-              <PiStudentDuotone size={18} />
-              <legend className=''>Fill out the form to add student to system</legend>
-            </div>
-
             {/* student name */}
 
             <div className='flex flex-col gap-2'>
@@ -218,15 +208,8 @@ const AddStudentModal = ({ onClose, onAdd }) => {
                 <option value='' disabled className='dark:bg-gray-800 dark:text-gray-400'>
                   Choose Gender
                 </option>
-                {[...new Set(students.map(student => student.gender))].map(gender => (
-                  <option
-                    key={gender}
-                    value={gender}
-                    className='dark:bg-gray-800 dark:text-gray-200'
-                  >
-                    {gender}
-                  </option>
-                ))}
+                <option value='Male'>Male</option>
+                <option value='Female'>Female</option>
               </select>
               {error.gender && <p className='text-red-500 text-xs'>{error.gender}</p>}
             </div>
@@ -253,7 +236,7 @@ const AddStudentModal = ({ onClose, onAdd }) => {
                 <option value='' disabled className='dark:bg-gray-800 dark:text-gray-400'>
                   Choose Department
                 </option>
-                {[...new Set(students.map(student => student.department))].map(department => (
+                {departments.map(department => (
                   <option
                     key={department}
                     value={department}
@@ -288,7 +271,7 @@ const AddStudentModal = ({ onClose, onAdd }) => {
                 <option value='' disabled className='dark:bg-gray-800 dark:text-gray-400'>
                   Choose Level
                 </option>
-                {[...new Set(students.map(student => student.level))].map(level => (
+                {levels.map(level => (
                   <option key={level} value={level} className='dark:bg-gray-800 dark:text-gray-200'>
                     {level}
                   </option>
@@ -300,7 +283,7 @@ const AddStudentModal = ({ onClose, onAdd }) => {
             {/* student phone */}
 
             <div className='flex flex-col gap-2'>
-              <label htmlFor='student-name' className='text-xs text-gray-700 dark:text-gray-200'>
+              <label htmlFor='student-phone' className='text-xs text-gray-700 dark:text-gray-200'>
                 Student Phone <span className='text-red-500'>*</span>
               </label>
 
@@ -308,7 +291,7 @@ const AddStudentModal = ({ onClose, onAdd }) => {
                 type='text'
                 name='student-phone'
                 id='student-phone'
-                className={`input-box ${error.name ? 'border-red-500' : ''}`}
+                className={`input-box ${error.phone ? 'border-red-500' : ''}`}
                 placeholder='+233 44 555 5555'
 
                 value={formData.phone}
@@ -345,7 +328,7 @@ const AddStudentModal = ({ onClose, onAdd }) => {
                 <option value='' disabled className='dark:bg-gray-800 dark:text-gray-400'>
                   Choose Status
                 </option>
-                {[...new Set(students.map(student => student.status))].map(status => (
+                {statuses.map(status => (
                   <option
                     key={status}
                     value={status}
