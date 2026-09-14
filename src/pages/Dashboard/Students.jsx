@@ -20,6 +20,20 @@ const Students = () => {
     selectedDepartment,
     setSelectedDepartment,
 
+    selectedLevel,
+    setSelectedLevel,
+
+    selectedStatus,
+    setSelectedStatus,
+
+    hasActiveFilters,
+    clearFilters,
+
+    sortBy,
+    setSortBy,
+    sortOrder,
+    setSortOrder,
+
     currentPage,
     setCurrentPage,
 
@@ -48,7 +62,6 @@ const Students = () => {
   const handleAddStudent = newStudent => {
     addStudent(newStudent)
     setIsAddStudentOpen(false)
-    toast.success('Student added successfully!')
   }
 
   const handleEditStudent = updatedStudent => {
@@ -61,8 +74,8 @@ const Students = () => {
     setStudentToDelete(student)
   }
 
-  const confirmDeleteStudent = () => {
-    deleteStudent(studentToDelete.id)
+  const confirmDeleteStudent = student => {
+    deleteStudent(student.id)
     setStudentToDelete(null)
     toast.success('Student deleted successfully!')
   }
@@ -94,15 +107,47 @@ const Students = () => {
         </div>
 
         {/* Filters needs work */}
-        <section className='flex flex-col gap-3'>
+        <section id='students-filter' className='flex flex-col gap-3 sm:flex-row sm:items-center'>
           <div className='flex-1'>
             <StudentsFilter
               search={search}
               setSearch={setSearch}
               selectedDepartment={selectedDepartment}
               setSelectedDepartment={setSelectedDepartment}
+              selectedLevel={selectedLevel}
+              setSelectedLevel={setSelectedLevel}
+              selectedStatus={selectedStatus}
+              setSelectedStatus={setSelectedStatus}
               departments={uniqueDepartments}
+              levels={uniqueLevels}
+              statuses={uniqueStatus}
+              hasActiveFilters={hasActiveFilters}
+              clearFilters={clearFilters}
             />
+          </div>
+
+          <div className='flex items-center gap-2'>
+            <select
+              value={sortBy}
+              onChange={e => setSortBy(e.target.value)}
+              aria-label='Sort students by'
+              className='rounded-md border border-gray-300 bg-white px-3 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 dark:border-gray-700 dark:bg-gray-900 dark:text-white'
+            >
+              <option value='name'>Student Name</option>
+              <option value='studentId'>Student ID</option>
+              <option value='department'>Department</option>
+              <option value='level'>Level</option>
+              <option value='status'>Status</option>
+            </select>
+
+            <button
+              type='button'
+              onClick={() => setSortOrder(prev => (prev === 'asc' ? 'desc' : 'asc'))}
+              className='rounded-md border border-gray-300 bg-white px-3 py-2.5 text-sm dark:border-gray-700 dark:bg-gray-900 dark:text-white'
+              aria-label={`Sort ${sortOrder === 'asc' ? 'descending' : 'ascending'}`}
+            >
+              {sortOrder === 'asc' ? '↑' : '↓'}
+            </button>
           </div>
         </section>
 
@@ -209,7 +254,7 @@ const Students = () => {
           <DeleteStudentModal
             onClose={cancelDeleteStudent}
             onConfirm={confirmDeleteStudent}
-            Student={studentToDelete}
+            student={handleDeleteStudent}
           />
         )}
       </main>

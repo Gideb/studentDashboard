@@ -1,56 +1,49 @@
 import { LuSearch } from 'react-icons/lu'
-import useStudents from '../../hooks/useStudents'
 
-const StudentsFilter = () => {
-  const {
-    search,
-    setSearch,
-
-    selectedDepartment,
-    setSelectedDepartment,
-
-    selectedLevel,
-    setSelectedLevel,
-
-    selectedStatus,
-    setSelectedStatus,
-
-    hasActiveFilters,
-    clearFilters,
-
-    sortBy,
-    setSortBy,
-
-    sortOrder,
-    setSortOrder,
-
-    uniqueDepartments,
-    uniqueLevels,
-    uniqueStatus,
-  } = useStudents()
+const StudentsFilter = ({
+  search,
+  setSearch,
+  selectedDepartment,
+  setSelectedDepartment,
+  selectedLevel,
+  setSelectedLevel,
+  selectedStatus,
+  setSelectedStatus,
+  departments,
+  levels,
+  statuses,
+  hasActiveFilters,
+  clearFilters,
+}) => {
   return (
-    <section className='flex flex-col gap-3'>
-      <div className='relative'>
+    <div className='flex w-full flex-col gap-3 sm:flex-row sm:items-center'>
+      {/* Search */}
+      <div className='relative w-full'>
+        <LuSearch className='absolute left-3 top-1/2 -translate-y-1/2 text-gray-500' />
+
         <input
           type='search'
+          name='search-student'
+          id='search-student'
+          placeholder='Student Id or Student name...'
           value={search}
           onChange={e => setSearch(e.target.value)}
-          placeholder='Search students...'
           aria-label='Search students'
-          className='w-full rounded-md border border-gray-300 bg-white px-4 py-3 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 dark:border-gray-700 dark:bg-gray-900 dark:text-white'
+          className='w-full rounded-md border border-gray-300 bg-white py-3 pl-10 pr-4 text-base outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 dark:border-gray-700 dark:bg-gray-900 dark:text-white sm:py-2.5 sm:text-sm'
         />
       </div>
 
+      {/* Filters */}
       <div className='flex flex-col gap-3 sm:flex-row sm:items-center'>
         <select
           value={selectedDepartment}
           onChange={e => setSelectedDepartment(e.target.value)}
-          className='w-full rounded-md border border-gray-300 bg-white px-3 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 dark:border-gray-700 dark:bg-gray-900 dark:text-white sm:w-auto'
           aria-label='Filter by department'
+          className='w-full rounded-md border border-gray-300 bg-white px-4 py-3 text-base outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 dark:border-gray-700 dark:bg-gray-900 dark:text-white sm:w-auto sm:py-2.5 sm:text-sm'
         >
           <option value='All'>All Departments</option>
 
-          {uniqueDepartments.map(department => (
+          {departments.map(department => (
             <option key={department} value={department}>
               {department}
             </option>
@@ -60,12 +53,12 @@ const StudentsFilter = () => {
         <select
           value={selectedLevel}
           onChange={e => setSelectedLevel(e.target.value)}
-          className='w-full rounded-md border border-gray-300 bg-white px-3 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 dark:border-gray-700 dark:bg-gray-900 dark:text-white sm:w-auto'
           aria-label='Filter by level'
+          className='w-full rounded-md border border-gray-300 bg-white px-4 py-3 text-base outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 dark:border-gray-700 dark:bg-gray-900 dark:text-white sm:w-auto sm:py-2.5 sm:text-sm'
         >
           <option value='All'>All Levels</option>
 
-          {uniqueLevels.map(level => (
+          {levels.map(level => (
             <option key={level} value={level}>
               {level}
             </option>
@@ -75,39 +68,17 @@ const StudentsFilter = () => {
         <select
           value={selectedStatus}
           onChange={e => setSelectedStatus(e.target.value)}
-          className='w-full rounded-md border border-gray-300 bg-white px-3 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 dark:border-gray-700 dark:bg-gray-900 dark:text-white sm:w-auto'
           aria-label='Filter by status'
+          className='w-full rounded-md border border-gray-300 bg-white px-4 py-3 text-base outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 dark:border-gray-700 dark:bg-gray-900 dark:text-white sm:w-auto sm:py-2.5 sm:text-sm'
         >
           <option value='All'>All Statuses</option>
 
-          {uniqueStatus.map(status => (
+          {statuses.map(status => (
             <option key={status} value={status}>
               {status}
             </option>
           ))}
         </select>
-
-        <select
-          value={sortBy}
-          onChange={e => setSortBy(e.target.value)}
-          className='w-full rounded-md border border-gray-300 bg-white px-3 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 dark:border-gray-700 dark:bg-gray-900 dark:text-white sm:w-auto'
-          aria-label='Sort students by'
-        >
-          <option value='name'>Name</option>
-          <option value='studentId'>Student ID</option>
-          <option value='department'>Department</option>
-          <option value='level'>Level</option>
-          <option value='status'>Status</option>
-        </select>
-
-        <button
-          type='button'
-          onClick={() => setSortOrder(prev => (prev === 'asc' ? 'desc' : 'asc'))}
-          className='rounded-md border border-gray-300 bg-white px-3 py-2.5 text-sm dark:border-gray-700 dark:bg-gray-900 dark:text-white'
-          aria-label={`Sort ${sortOrder === 'asc' ? 'descending' : 'ascending'}`}
-        >
-          {sortOrder === 'asc' ? '↑' : '↓'}
-        </button>
 
         {hasActiveFilters && (
           <button
@@ -119,7 +90,7 @@ const StudentsFilter = () => {
           </button>
         )}
       </div>
-    </section>
+    </div>
   )
 }
 

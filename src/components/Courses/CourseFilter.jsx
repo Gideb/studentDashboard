@@ -15,7 +15,7 @@ const CourseFilter = ({
           type='search'
           name='search-course'
           id='search-course'
-          placeholder='Search courses...'
+          placeholder='Courses or course codes...'
           value={search}
           onChange={e => setSearch(e.target.value)}
           className='w-full rounded-md border border-gray-300 bg-white py-3 pl-10 pr-4 text-base outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 dark:border-gray-700 dark:bg-gray-900 dark:text-white sm:py-2.5 sm:text-sm'

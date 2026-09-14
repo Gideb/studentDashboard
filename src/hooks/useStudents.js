@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { students } from '../data/StudentsData'
-import { generateStudentCode } from '../utils/studentId'
+import { generateStudentId } from '../utils/studentId'
 import { generateId } from '../utils/generateId'
 
 const STUDENTS_STORAGE_KEY = 'students'
@@ -184,15 +184,17 @@ const useStudents = () => {
   const addStudent = newStudent => {
     const newId = generateId(studentList)
 
-    const newStudentCode = generateStudentCode(studentList, newStudent.department)
+    const newStudentId = generateStudentId(studentList)
 
     const studentToAdd = {
       id: newId,
+      studentId: newStudentId,
       name: newStudent.name,
-      code: newStudentCode,
+      email: newStudent.email,
+      gender: newStudent.gender,
       department: newStudent.department,
-      lecturer: newStudent.lecturer,
-      students: Number(newStudent.students),
+      level: newStudent.level,
+      phone: newStudent.phone,
       status: newStudent.status,
     }
 
@@ -200,42 +202,24 @@ const useStudents = () => {
   }
 
   // -----------------------------
-  // Update course
+  // Update student
   // -----------------------------
 
   const updateStudent = updatedStudent => {
     setStudentList(prev =>
-      prev.map(student => {
-        if (student.id !== updatedStudent.id) {
-          return student
-        }
-
-        // Department has not changed
-        if (student.department === updatedStudent.department) {
-          return {
-            ...student,
-            ...updatedStudent,
-          }
-        }
-
-        // Department changed → generate new Student code
-        const newStudentCode = generateStudentCode(
-          prev,
-          updatedStudent.department,
-          updatedStudent.id
-        )
-
-        return {
-          ...student,
-          ...updatedStudent,
-          code: newStudentCode,
-        }
-      })
+      prev.map(student =>
+        student.id === updatedStudent.id
+          ? {
+              ...student,
+              ...updatedStudent,
+            }
+          : student
+      )
     )
   }
 
   // -----------------------------
-  // Delete Student
+  // Delete student
   // -----------------------------
 
   const deleteStudent = studentId => {

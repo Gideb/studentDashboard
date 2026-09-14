@@ -84,7 +84,7 @@ const StudentsTable = ({ students, onEdit, onDelete }) => {
                 </td>
 
                 <td className='px-4 py-4'>
-                  <div className='flex justify-end gap-2'>
+                  <div className='flex justify-center gap-2'>
                     <button type='button' onClick={() => onEdit(student)} className='btn-primary'>
                       <LuPen size={11} />
                       Edit

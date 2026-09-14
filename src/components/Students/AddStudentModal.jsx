@@ -109,19 +109,19 @@ const AddStudentModal = ({ onClose, onAdd }) => {
     <Modal onClose={onClose} labelledBy='add-student-details'>
       {/* header */}
       <div className='flex items-start justify-between gap-3 border-b border-gray-200 dark:border-gray-700 pb-4'>
-        <div>
-          <div className='flex items-center gap-2 mt-1'>
-            <PiStudentFill size={20} className='text-black dark:text-white' />
-
+        <div className='flex gap-3'>
+          <div className='flex items-center px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-800'>
+            <PiStudentFill size={24} className='text-black dark:text-white' />
+          </div>
+          <div className='flex flex-col items-left gap-1 mt-1'>
             <h2
               id='update-course-details'
               className='text-lg sm:text-xl font-semibold text-black dark:text-white'
             >
               Add Student Details
             </h2>
+            <p className='text-xs'>Enter details to add student to system</p>
           </div>
-
-          <p className='text-xs'>Enter details to add student to system</p>
         </div>
 
         <button
@@ -370,7 +370,7 @@ const AddStudentModal = ({ onClose, onAdd }) => {
           >
             Cancel
           </button>
-          <button aria-label='Add student' type='submit' className='btn-primary'>
+          <button aria-label='Add student' type='submit' className='btn-primary-2'>
             Add Student
           </button>
         </div>

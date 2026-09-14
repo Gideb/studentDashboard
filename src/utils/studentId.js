@@ -1,34 +1,15 @@
-const DEPARTMENT_PREFIXES = {
-  'computer science': 'COMP',
-  mathematics: 'MATH',
-  science: 'SCNC',
-  languages: 'ENGL',
-  business: 'BUSI',
-  arts: 'ARTS',
-  hospitality: 'HSPT',
-  engineering: 'ENGR',
-}
+export const generateStudentId = (students, excludeId = null) => {
+  const existingStudents = students.filter(student => student.id !== excludeId)
 
-export const generateStudentCode = (students, department, excludeId = null) => {
-  const normalizedDepartment = department.toLowerCase().trim()
-
-  const prefix = DEPARTMENT_PREFIXES[normalizedDepartment] || 'CODE'
-
-  const departmentStudents = students.filter(student => {
-    return (
-      student.id !== excludeId && student.department.toLowerCase().trim() === normalizedDepartment
-    )
-  })
-
-  const highestNumber = departmentStudents.reduce((highest, student) => {
-    const number = parseInt(student.code.split('-')[1], 10)
+  const highestNumber = existingStudents.reduce((highest, student) => {
+    const number = parseInt(student.studentId.split('-')[1], 10)
 
     if (Number.isNaN(number)) {
       return highest
     }
 
     return number > highest ? number : highest
-  }, 100)
+  }, 0)
 
-  return `${prefix}-${highestNumber + 1}`
+  return `STU-${String(highestNumber + 1).padStart(3, '0')}`
 }
