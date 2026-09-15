@@ -122,7 +122,7 @@ const EditAssignmentModal = ({ assignment, onClose, onUpdate, courses, statuses 
               type='text'
               value={assignment.assignmentId}
               disabled
-              className='w-full cursor-not-allowed rounded-lg border border-gray-200 bg-gray-100 px-3 py-2.5 text-sm text-gray-500 dark:border-gray-700 dark:bg-slate-800 dark:text-gray-500'
+              className='input-box'
             />
           </div>
 
@@ -142,7 +142,7 @@ const EditAssignmentModal = ({ assignment, onClose, onUpdate, courses, statuses 
               value={formData.title}
               onChange={handleChange}
               placeholder='Enter assignment title'
-              className={`w-full rounded-lg border bg-white px-3 py-2.5 text-sm text-primary outline-none placeholder:text-gray-400 dark:bg-slate-800 dark:text-white ${
+              className={`input-box ${
                 errors.title
                   ? 'border-red-500'
                   : 'border-gray-200 focus:border-primary dark:border-gray-700'
@@ -166,7 +166,7 @@ const EditAssignmentModal = ({ assignment, onClose, onUpdate, courses, statuses 
               name='course'
               value={formData.course}
               onChange={handleChange}
-              className={`w-full rounded-lg border bg-white px-3 py-2.5 text-sm text-primary outline-none dark:bg-slate-800 dark:text-white ${
+              className={`input-select ${
                 errors.course
                   ? 'border-red-500'
                   : 'border-gray-200 focus:border-primary dark:border-gray-700'
@@ -200,7 +200,7 @@ const EditAssignmentModal = ({ assignment, onClose, onUpdate, courses, statuses 
               value={formData.lecturer}
               onChange={handleChange}
               placeholder='Enter lecturer name'
-              className={`w-full rounded-lg border bg-white px-3 py-2.5 text-sm text-primary outline-none placeholder:text-gray-400 dark:bg-slate-800 dark:text-white ${
+              className={`input-box ${
                 errors.lecturer
                   ? 'border-red-500'
                   : 'border-gray-200 focus:border-primary dark:border-gray-700'
@@ -225,7 +225,7 @@ const EditAssignmentModal = ({ assignment, onClose, onUpdate, courses, statuses 
               type='date'
               value={formData.dueDate}
               onChange={handleChange}
-              className={`w-full rounded-lg border bg-white px-3 py-2.5 text-sm text-primary outline-none dark:bg-slate-800 dark:text-white ${
+              className={`input-box ${
                 errors.dueDate
                   ? 'border-red-500'
                   : 'border-gray-200 focus:border-primary dark:border-gray-700'
@@ -253,7 +253,7 @@ const EditAssignmentModal = ({ assignment, onClose, onUpdate, courses, statuses 
                 min='1'
                 value={formData.totalStudents}
                 onChange={handleChange}
-                className={`w-full rounded-lg border bg-white px-3 py-2.5 text-sm text-primary outline-none dark:bg-slate-800 dark:text-white ${
+                className={`input-box ${
                   errors.totalStudents
                     ? 'border-red-500'
                     : 'border-gray-200 focus:border-primary dark:border-gray-700'
@@ -281,7 +281,7 @@ const EditAssignmentModal = ({ assignment, onClose, onUpdate, courses, statuses 
                 min='0'
                 value={formData.submissions}
                 onChange={handleChange}
-                className={`w-full rounded-lg border bg-white px-3 py-2.5 text-sm text-primary outline-none dark:bg-slate-800 dark:text-white ${
+                className={`input-box ${
                   errors.submissions
                     ? 'border-red-500'
                     : 'border-gray-200 focus:border-primary dark:border-gray-700'
@@ -308,7 +308,7 @@ const EditAssignmentModal = ({ assignment, onClose, onUpdate, courses, statuses 
               name='status'
               value={formData.status}
               onChange={handleChange}
-              className={`w-full rounded-lg border bg-white px-3 py-2.5 text-sm text-primary outline-none dark:bg-slate-800 dark:text-white ${
+              className={`input-select ${
                 errors.status
                   ? 'border-red-500'
                   : 'border-gray-200 focus:border-primary dark:border-gray-700'
