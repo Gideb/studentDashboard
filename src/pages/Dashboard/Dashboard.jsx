@@ -29,7 +29,7 @@ const Dashboard = () => {
     <DashboardLayout activeMenu='Dashboard'>
       <main className=' my-5 mx-auto space-y-5 px-2 sm:px-6 py-5 sm:py-8  bg-gray-50 dark:bg-slate-950 rounded-lg'>
         <div className='mb-3 sm:mb-6'>
-          <h1 className='text-2xl font-bold text-gray-900 dark:text-white'>
+          <h1 className='text-2xl font-bold text-primary dark:text-dark'>
             {`${finalGreeting}, John 👋`}
           </h1>
 

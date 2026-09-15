@@ -292,7 +292,7 @@ const AddCourseModal = ({ onAdd, onClose, departments, statuses }) => {
             <button className='btn-secondary' type='button' onClick={onClose}>
               Cancel
             </button>
-            <button className='btn-primary' type='submit'>
+            <button className='btn-primary-2' type='submit'>
               Add Course
             </button>
           </div>

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { courses } from '../data/CoursesData'
 import { generateCourseCode } from '../utils/courseCode'
 import { generateId } from '../utils/generateId'
+import useTableControls from './useTableControls'
 
 const COURSES_STORAGE_KEY = 'courses'
 
@@ -17,26 +18,16 @@ const useCourses = () => {
       return savedCourses ? JSON.parse(savedCourses) : courses
     } catch (error) {
       console.error('Failed to load courses from localStorage:', error)
+
       return courses
     }
   })
 
   // -----------------------------
-  // Search, filter and sorting
+  // Course filters
   // -----------------------------
 
-  const [search, setSearch] = useState('')
   const [selectedDepartment, setSelectedDepartment] = useState('All')
-  const [sortBy, setSortBy] = useState('name')
-  const [sortOrder, setSortOrder] = useState('asc')
-
-  // -----------------------------
-  // Pagination
-  // -----------------------------
-
-  const [currentPage, setCurrentPage] = useState(1)
-
-  const coursesPerPage = 5
 
   // -----------------------------
   // Save courses to localStorage
@@ -47,7 +38,7 @@ const useCourses = () => {
   }, [courseList])
 
   // -----------------------------
-  // Departments and statuses
+  // Filter options
   // -----------------------------
 
   const uniqueDepartments = [...new Set(courseList.map(course => course.department))]
@@ -55,20 +46,43 @@ const useCourses = () => {
   const uniqueStatus = [...new Set(courseList.map(course => course.status))]
 
   // -----------------------------
-  // Filtering
+  // Department filtering
   // -----------------------------
 
-  const filteredCourses = courseList.filter(course => {
-    const searchValue = search.toLowerCase()
+  const departmentFilteredCourses = courseList.filter(course => {
+    return selectedDepartment === 'All' || course.department === selectedDepartment
+  })
 
-    const matchesSearch =
-      course.name.toLowerCase().includes(searchValue) ||
-      course.code.toLowerCase().includes(searchValue)
+  // -----------------------------
+  // Search, sorting & pagination
+  // -----------------------------
 
-    const matchesDepartment =
-      selectedDepartment === 'All' || course.department === selectedDepartment
+  const {
+    search,
+    setSearch,
 
-    return matchesSearch && matchesDepartment
+    filteredData: filteredCourses,
+    sortedData: sortedCourses,
+    paginatedData: paginatedCourses,
+
+    sortBy,
+    setSortBy,
+    sortOrder,
+    setSortOrder,
+
+    currentPage,
+    setCurrentPage,
+
+    itemsPerPage: coursesPerPage,
+    totalPages,
+    startIndex,
+    endIndex,
+    pageNumbers,
+  } = useTableControls({
+    data: departmentFilteredCourses,
+    searchableFields: ['name', 'code'],
+    itemsPerPage: 5,
+    resetDependencies: [selectedDepartment],
   })
 
   // -----------------------------
@@ -76,87 +90,6 @@ const useCourses = () => {
   // -----------------------------
 
   const hasActiveFilters = search.trim() !== '' || selectedDepartment !== 'All'
-
-  // -----------------------------
-  // Sorting
-  // -----------------------------
-
-  const sortedCourses = [...filteredCourses].sort((a, b) => {
-    let valueA = a[sortBy]
-    let valueB = b[sortBy]
-
-    if (typeof valueA === 'string') {
-      valueA = valueA.toLowerCase()
-      valueB = valueB.toLowerCase()
-    }
-
-    if (valueA < valueB) {
-      return sortOrder === 'asc' ? -1 : 1
-    }
-
-    if (valueA > valueB) {
-      return sortOrder === 'asc' ? 1 : -1
-    }
-
-    return 0
-  })
-
-  // -----------------------------
-  // Pagination calculations
-  // -----------------------------
-
-  const totalPages = Math.ceil(sortedCourses.length / coursesPerPage)
-
-  const startIndex = (currentPage - 1) * coursesPerPage
-
-  const endIndex = startIndex + coursesPerPage
-
-  const paginatedCourses = sortedCourses.slice(startIndex, endIndex)
-
-  // Reset page when filters or sorting change
-  useEffect(() => {
-    setCurrentPage(1)
-  }, [search, selectedDepartment, sortBy, sortOrder])
-
-  // Prevent invalid page after deleting courses
-  useEffect(() => {
-    if (totalPages === 0) {
-      setCurrentPage(1)
-      return
-    }
-
-    if (currentPage > totalPages) {
-      setCurrentPage(totalPages)
-    }
-  }, [totalPages, currentPage])
-
-  // -----------------------------
-  // Pagination page numbers
-  // -----------------------------
-
-  const getPageNumbers = () => {
-    const pages = []
-
-    if (totalPages <= 7) {
-      for (let page = 1; page <= totalPages; page++) {
-        pages.push(page)
-      }
-
-      return pages
-    }
-
-    if (currentPage <= 4) {
-      return [1, 2, 3, 4, 5, '...', totalPages]
-    }
-
-    if (currentPage >= totalPages - 3) {
-      return [1, '...', totalPages - 4, totalPages - 3, totalPages - 2, totalPages - 1, totalPages]
-    }
-
-    return [1, '...', currentPage - 1, currentPage, currentPage + 1, '...', totalPages]
-  }
-
-  const pageNumbers = getPageNumbers()
 
   // -----------------------------
   // Add course
@@ -228,6 +161,10 @@ const useCourses = () => {
     setSelectedDepartment('All')
   }
 
+  // -----------------------------
+  // Return everything
+  // -----------------------------
+
   return {
     // Data
     courseList,
@@ -235,9 +172,11 @@ const useCourses = () => {
     sortedCourses,
     paginatedCourses,
 
-    // Filter
+    // Search
     search,
     setSearch,
+
+    // Filters
     selectedDepartment,
     setSelectedDepartment,
     hasActiveFilters,
@@ -258,7 +197,7 @@ const useCourses = () => {
     endIndex,
     pageNumbers,
 
-    // Options
+    // Filter options
     uniqueDepartments,
     uniqueStatus,
 

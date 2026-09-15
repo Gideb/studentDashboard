@@ -7,6 +7,7 @@ import StudentsFilter from '../../components/Students/StudentsFilter'
 import AddStudentModal from '../../components/Students/AddStudentModal'
 import EditStudentModal from '../../components/Students/EditStudentModal'
 import DeleteStudentModal from '../../components/Students/DeleteStudentModal'
+import { LuChevronLeft, LuChevronRight } from 'react-icons/lu'
 
 const Students = () => {
   const {
@@ -87,7 +88,7 @@ const Students = () => {
         {/* Header */}
         <div className='flex flex-col items-start justify-between gap-5 sm:flex-row sm:items-center'>
           <div>
-            <h1 className='text-2xl font-semibold text-black dark:text-white'>Students</h1>
+            <h1 className='text-2xl font-semibold text-primary dark:text-dark'>Students</h1>
 
             <p className='text-xs text-gray-600 dark:text-gray-400 sm:text-sm'>
               Manage all registered students
@@ -168,7 +169,7 @@ const Students = () => {
 
           {/* Pagination */}
           {totalPages > 1 && (
-            <div className='mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between'>
+            <div className='mt-4 flex gap-3 flex-row items-center justify-between'>
               <p className='text-xs text-gray-500 dark:text-gray-400'>
                 Showing {startIndex + 1}–{Math.min(endIndex, filteredStudents.length)} of{' '}
                 {filteredStudents.length} students
@@ -179,9 +180,10 @@ const Students = () => {
                   type='button'
                   disabled={currentPage === 1}
                   onClick={() => setCurrentPage(prev => prev - 1)}
-                  className='rounded-md border border-gray-300 px-2 py-1 sm:px-3 sm:py-2  text-xs sm:text-sm disabled:cursor-not-allowed disabled:opacity-40 dark:border-gray-700'
+                  className='rounded-lg p-2 text-secondary transition hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-40 dark:text-gray-400 dark:hover:bg-slate-800'
+                  aria-label='Previous page'
                 >
-                  Previous
+                  <LuChevronLeft />
                 </button>
 
                 {pageNumbers.map((page, index) =>
@@ -212,9 +214,10 @@ const Students = () => {
                   type='button'
                   disabled={currentPage === totalPages}
                   onClick={() => setCurrentPage(prev => prev + 1)}
-                  className='rounded-md border border-gray-300 px-2 py-1 sm:px-3 sm:py-2 text-xs sm:text-sm disabled:cursor-not-allowed disabled:opacity-40 dark:border-gray-700'
+                  className='rounded-lg p-2 text-secondary transition hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-40 dark:text-gray-400 dark:hover:bg-slate-800'
+                  aria-label='Next page'
                 >
-                  Next
+                  <LuChevronRight />
                 </button>
               </div>
             </div>

@@ -292,7 +292,7 @@ const EditCourseModal = ({ onClose, onUpdate, statuses, departments, course }) =
               Cancel
             </button>
 
-            <button className='btn-primary' type='submit'>
+            <button className='btn-primary-2' type='submit'>
               Update Course
             </button>
           </div>

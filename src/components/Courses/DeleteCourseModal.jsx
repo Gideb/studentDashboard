@@ -61,7 +61,7 @@ const DeleteCourseModal = ({ course, onClose, onConfirm }) => {
         >
           Cancel
         </button>
-        <button aria-label='Delete course' type='button' onClick={onConfirm} className='btn-delete'>
+        <button aria-label='Delete course' type='button' onClick={onConfirm} className='btn-delete-2'>
           Delete
         </button>
       </div>

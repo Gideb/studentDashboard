@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { students } from '../data/StudentsData'
 import { generateStudentId } from '../utils/studentId'
 import { generateId } from '../utils/generateId'
+import useTableControls from './useTableControls'
 
 const STUDENTS_STORAGE_KEY = 'students'
 
@@ -23,31 +24,15 @@ const useStudents = () => {
   })
 
   // -----------------------------
-  // Search and filters
+  // Student filters
   // -----------------------------
 
-  const [search, setSearch] = useState('')
   const [selectedDepartment, setSelectedDepartment] = useState('All')
   const [selectedLevel, setSelectedLevel] = useState('All')
   const [selectedStatus, setSelectedStatus] = useState('All')
 
   // -----------------------------
-  // Sorting
-  // -----------------------------
-
-  const [sortBy, setSortBy] = useState('name')
-  const [sortOrder, setSortOrder] = useState('asc')
-
-  // -----------------------------
-  // Pagination
-  // -----------------------------
-
-  const [currentPage, setCurrentPage] = useState(1)
-
-  const studentsPerPage = 5
-
-  // -----------------------------
-  // Save to localStorage
+  // Save students to localStorage
   // -----------------------------
 
   useEffect(() => {
@@ -65,17 +50,10 @@ const useStudents = () => {
   const uniqueStatus = [...new Set(studentList.map(student => student.status))]
 
   // -----------------------------
-  // Filtering
+  // Student filtering
   // -----------------------------
 
-  const filteredStudents = studentList.filter(student => {
-    const searchValue = search.toLowerCase()
-
-    const matchesSearch =
-      student.name.toLowerCase().includes(searchValue) ||
-      student.studentId.toLowerCase().includes(searchValue) ||
-      student.email.toLowerCase().includes(searchValue)
-
+  const studentFilteredData = studentList.filter(student => {
     const matchesDepartment =
       selectedDepartment === 'All' || student.department === selectedDepartment
 
@@ -83,7 +61,39 @@ const useStudents = () => {
 
     const matchesStatus = selectedStatus === 'All' || student.status === selectedStatus
 
-    return matchesSearch && matchesDepartment && matchesLevel && matchesStatus
+    return matchesDepartment && matchesLevel && matchesStatus
+  })
+
+  // -----------------------------
+  // Search, sorting & pagination
+  // -----------------------------
+
+  const {
+    search,
+    setSearch,
+
+    filteredData: filteredStudents,
+    sortedData: sortedStudents,
+    paginatedData: paginatedStudents,
+
+    sortBy,
+    setSortBy,
+    sortOrder,
+    setSortOrder,
+
+    currentPage,
+    setCurrentPage,
+
+    itemsPerPage: studentsPerPage,
+    totalPages,
+    startIndex,
+    endIndex,
+    pageNumbers,
+  } = useTableControls({
+    data: studentFilteredData,
+    searchableFields: ['name', 'studentId', 'email'],
+    itemsPerPage: 5,
+    resetDependencies: [selectedDepartment, selectedLevel, selectedStatus],
   })
 
   // -----------------------------
@@ -95,87 +105,6 @@ const useStudents = () => {
     selectedDepartment !== 'All' ||
     selectedLevel !== 'All' ||
     selectedStatus !== 'All'
-
-  // -----------------------------
-  // Sorting
-  // -----------------------------
-
-  const sortedStudents = [...filteredStudents].sort((a, b) => {
-    let valueA = a[sortBy]
-    let valueB = b[sortBy]
-
-    if (typeof valueA === 'string') {
-      valueA = valueA.toLowerCase()
-      valueB = valueB.toLowerCase()
-    }
-
-    if (valueA < valueB) {
-      return sortOrder === 'asc' ? -1 : 1
-    }
-
-    if (valueA > valueB) {
-      return sortOrder === 'asc' ? 1 : -1
-    }
-
-    return 0
-  })
-
-  // -----------------------------
-  // Pagination calculations
-  // -----------------------------
-
-  const totalPages = Math.ceil(sortedStudents.length / studentsPerPage)
-
-  const startIndex = (currentPage - 1) * studentsPerPage
-
-  const endIndex = startIndex + studentsPerPage
-
-  const paginatedStudents = sortedStudents.slice(startIndex, endIndex)
-
-  // Reset page when filters/sorting change
-  useEffect(() => {
-    setCurrentPage(1)
-  }, [search, selectedDepartment, selectedLevel, selectedStatus, sortBy, sortOrder])
-
-  // Prevent invalid page after deletion/filtering
-  useEffect(() => {
-    if (totalPages === 0) {
-      setCurrentPage(1)
-      return
-    }
-
-    if (currentPage > totalPages) {
-      setCurrentPage(totalPages)
-    }
-  }, [totalPages, currentPage])
-
-  // -----------------------------
-  // Pagination page numbers
-  // -----------------------------
-
-  const getPageNumbers = () => {
-    const pages = []
-
-    if (totalPages <= 7) {
-      for (let page = 1; page <= totalPages; page++) {
-        pages.push(page)
-      }
-
-      return pages
-    }
-
-    if (currentPage <= 4) {
-      return [1, 2, 3, 4, 5, '...', totalPages]
-    }
-
-    if (currentPage >= totalPages - 3) {
-      return [1, '...', totalPages - 4, totalPages - 3, totalPages - 2, totalPages - 1, totalPages]
-    }
-
-    return [1, '...', currentPage - 1, currentPage, currentPage + 1, '...', totalPages]
-  }
-
-  const pageNumbers = getPageNumbers()
 
   // -----------------------------
   // Add student
@@ -282,7 +211,7 @@ const useStudents = () => {
     uniqueLevels,
     uniqueStatus,
 
-    //crud
+    // CRUD
     addStudent,
     updateStudent,
     deleteStudent,
