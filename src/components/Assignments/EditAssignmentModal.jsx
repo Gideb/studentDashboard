@@ -97,35 +97,27 @@ const EditAssignmentModal = ({ assignment, onClose, onUpdate, courses, statuses 
         <div className='mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-dark/70 text-primary dark:bg-primary/20 dark:text-dark'>
           <PiStudentFill size={22} />
         </div>
-        <div className='mb-6 text-center border-b border-gray-200 pb-3'></div>
-        {/* Header */}
-        <div className='mb-6'>
+        <div className='mb-6 text-center border-b border-gray-200 dark:border-gray-700 pb-3'>
           <h2
             id='edit-assignment-title'
-            className='text-xl font-semibold text-primary dark:text-white'
+            className='text-xl font-semibold text-primary dark:text-dark'
           >
             Edit Assignment
           </h2>
 
           <p className='mt-1 text-sm text-secondary dark:text-gray-400'>
-            Update the assignment information below.
+            Update assignment and submission details.
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className='space-y-5'>
+        <form onSubmit={handleSubmit} className='space-y-3'>
           {/* Assignment ID */}
-          <div>
-            <label htmlFor='assignmentId' className='input-label'>
-              Assignment ID
-            </label>
+          <div className='mb-5 rounded-lg bg-gray-50 p-3 dark:bg-slate-800'>
+            <p className='text-xs text-secondary dark:text-gray-400'>Assignment ID</p>
 
-            <input
-              id='assignmentId'
-              type='text'
-              value={assignment.assignmentId}
-              disabled
-              className='w-full rounded-md cursor-not-allowed border border-gray-200 bg-gray-100 px-3 py-2.5 text-sm text-gray-500 dark:border-gray-700 dark:bg-slate-800 dark:text-gray-500'
-            />
+            <p className='mt-1 font-medium text-sm text-primary/50 dark:text-white/50'>
+              {assignment.assignmentId}
+            </p>
           </div>
 
           {/* Assignment Title */}
@@ -151,56 +143,58 @@ const EditAssignmentModal = ({ assignment, onClose, onUpdate, courses, statuses 
             {errors.title && <p className='mt-1 text-xs text-red-500'>{errors.title}</p>}
           </div>
 
-          {/* Course */}
-          <div>
-            <label htmlFor='course' className='input-label'>
-              Course
-            </label>
+          <div className='grid sm:grid-cols-2 gap-4'>
+            {/* Course */}
+            <div>
+              <label htmlFor='course' className='input-label'>
+                Course
+              </label>
 
-            <select
-              id='course'
-              name='course'
-              value={formData.course}
-              onChange={handleChange}
-              className={`input-box ${
-                errors.course
-                  ? 'border-red-500'
-                  : 'border-gray-200 focus:border-primary dark:border-gray-700'
-              }`}
-            >
-              <option value=''>Select course</option>
+              <select
+                id='course'
+                name='course'
+                value={formData.course}
+                onChange={handleChange}
+                className={`input-box ${
+                  errors.course
+                    ? 'border-red-500'
+                    : 'border-gray-200 focus:border-primary dark:border-gray-700'
+                }`}
+              >
+                <option value=''>Select course</option>
 
-              {courses.map(course => (
-                <option key={course} value={course}>
-                  {course}
-                </option>
-              ))}
-            </select>
+                {courses.map(course => (
+                  <option key={course} value={course}>
+                    {course}
+                  </option>
+                ))}
+              </select>
 
-            {errors.course && <p className='mt-1 text-xs text-red-500'>{errors.course}</p>}
-          </div>
+              {errors.course && <p className='mt-1 text-xs text-red-500'>{errors.course}</p>}
+            </div>
 
-          {/* Lecturer */}
-          <div>
-            <label htmlFor='lecturer' className='input-label'>
-              Lecturer
-            </label>
+            {/* Lecturer */}
+            <div>
+              <label htmlFor='lecturer' className='input-label'>
+                Lecturer
+              </label>
 
-            <input
-              id='lecturer'
-              name='lecturer'
-              type='text'
-              value={formData.lecturer}
-              onChange={handleChange}
-              placeholder='Enter lecturer name'
-              className={`input-box ${
-                errors.lecturer
-                  ? 'border-red-500'
-                  : 'border-gray-200 focus:border-primary dark:border-gray-700'
-              }`}
-            />
+              <input
+                id='lecturer'
+                name='lecturer'
+                type='text'
+                value={formData.lecturer}
+                onChange={handleChange}
+                placeholder='Enter lecturer name'
+                className={`input-box ${
+                  errors.lecturer
+                    ? 'border-red-500'
+                    : 'border-gray-200 focus:border-primary dark:border-gray-700'
+                }`}
+              />
 
-            {errors.lecturer && <p className='mt-1 text-xs text-red-500'>{errors.lecturer}</p>}
+              {errors.lecturer && <p className='mt-1 text-xs text-red-500'>{errors.lecturer}</p>}
+            </div>
           </div>
 
           {/* Due Date */}

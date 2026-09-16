@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import Modal from '../Modals/Modal'
-import { X } from 'lucide-react'
 import { PiStudentFill } from 'react-icons/pi'
 
 const EditStudentModal = ({ student, onClose, onUpdate, departments, levels, statuses }) => {
@@ -85,107 +84,86 @@ const EditStudentModal = ({ student, onClose, onUpdate, departments, levels, sta
   return (
     <Modal onClose={onClose} labelledBy='update-student-title'>
       {/* header */}
-      <div className='flex items-start justify-between gap-3 border-b border-gray-200 dark:border-gray-700 pb-4'>
-        <div className='flex gap-3'>
-          <div className='flex items-center px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-800'>
-            <PiStudentFill size={24} className='text-black dark:text-white' />
-          </div>
-          <div className='flex flex-col items-left gap-1 mt-1'>
-            <h2
-              id='update-student-title'
-              className='text-lg sm:text-xl font-semibold text-black dark:text-white'
-            >
-              Edit Student
-            </h2>
-            <p className='text-xs'>Update student details</p>
-          </div>
-        </div>
+      <div className='mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-dark/70 text-primary dark:bg-primary/20 dark:text-dark'>
+        <PiStudentFill size={22} />
+      </div>
+      <div className='mb-6 text-center border-b border-gray-200 dark:border-gray-700 pb-3'>
+        <h2 id='add-student-title' className='text-xl font-semibold text-primary dark:text-dark'>
+          Edit Student
+        </h2>
 
-        <button
-          type='button'
-          onClick={onClose}
-          aria-label='Close modal'
-          className='flex items-center  justify-center p-2 hover:bg-gray-50 hover:dark:bg-gray-800  rounded-full text-gray-600 hover:text-gray-900 dark:text-gray-200 dark:hover:text-white transition-all'
-        >
-          <X className='h-4 w-4' />
-        </button>
+        <p className='mt-1 text-sm text-secondary dark:text-gray-400'>Update student's details.</p>
       </div>
 
       {/* edit student */}
       <form onSubmit={handleSubmit} className='space-y-5'>
         <div className='mt-6 '>
-          <fieldset>
-            {/* student id */}
-            <div>
-              <label htmlFor='studentId' className='input-label'>
-                Student ID
-              </label>
+          {/* student id */}
+          <div className='mb-5 rounded-lg bg-gray-50 p-3 dark:bg-slate-800'>
+            <p className='text-xs text-secondary dark:text-gray-400 '>Student ID</p>
 
-              <input
-                id='studentId'
-                type='text'
-                value={student.studentId}
-                disabled
-                className='w-full rounded-md cursor-not-allowed border border-gray-200 bg-gray-100 px-3 py-2.5 text-sm text-gray-500 dark:border-gray-700 dark:bg-slate-800 dark:text-gray-500'
-              />
-            </div>
+            <p className='mt-1 font-medium text-sm text-primary/50 dark:text-white/50'>
+              {student.studentId}
+            </p>
+          </div>
 
-            {/* student name */}
+          {/* student name */}
 
-            <div className='flex flex-col gap-2'>
-              <label htmlFor='student-name' className='input-label'>
-                Student Name
-              </label>
+          <div className='flex flex-col gap-1 mt-2'>
+            <label htmlFor='student-name' className='input-label'>
+              Student Name
+            </label>
 
-              <input
-                type='text'
-                name='student-name'
-                id='student-name'
-                className={`input-box ${error.name ? 'border-red-500' : ''}`}
+            <input
+              type='text'
+              name='student-name'
+              id='student-name'
+              className={`input-box ${error.name ? 'border-red-500' : ''}`}
 
-                value={formData.name}
-                onChange={event => {
-                  setFormData({
-                    ...formData,
-                    name: event.target.value,
-                  })
-                  setError(prev => ({
-                    ...prev,
-                    name: '',
-                  }))
-                }}
-              />
-              {error.name && <p className='text-red-500 text-xs'>{error.name}</p>}
-            </div>
+              value={formData.name}
+              onChange={event => {
+                setFormData({
+                  ...formData,
+                  name: event.target.value,
+                })
+                setError(prev => ({
+                  ...prev,
+                  name: '',
+                }))
+              }}
+            />
+            {error.name && <p className='text-red-500 text-xs'>{error.name}</p>}
+          </div>
 
-            {/* email */}
+          {/* email */}
 
-            <div className='flex flex-col gap-2'>
-              <label htmlFor='student-email' className='input-label'>
-                Student Email
-              </label>
+          <div className='flex flex-col gap-1 mt-2'>
+            <label htmlFor='student-email' className='input-label'>
+              Student Email
+            </label>
 
-              <input
-                type='email'
-                name='student-email'
-                id='student-email'
-                className={`input-box ${error.email ? 'border-red-500' : ''}`}
-                placeholder='joe.biden@gmail.com'
+            <input
+              type='email'
+              name='student-email'
+              id='student-email'
+              className={`input-box ${error.email ? 'border-red-500' : ''}`}
+              placeholder='joe.biden@gmail.com'
 
-                value={formData.email}
-                onChange={event => {
-                  setFormData({
-                    ...formData,
-                    email: event.target.value,
-                  })
-                  setError({ ...error, email: '' })
-                }}
-              />
-              {error.email && <p className='text-red-500 text-xs'>{error.email}</p>}
-            </div>
+              value={formData.email}
+              onChange={event => {
+                setFormData({
+                  ...formData,
+                  email: event.target.value,
+                })
+                setError({ ...error, email: '' })
+              }}
+            />
+            {error.email && <p className='text-red-500 text-xs'>{error.email}</p>}
+          </div>
 
+          <div className='grid grid-cols-2 gap-4'>
             {/* gender */}
-            <div className='flex flex-col gap-2'>
+            <div className='flex flex-col gap-1 mt-2'>
               <label htmlFor='gender' className='input-label'>
                 Gender
               </label>
@@ -214,7 +192,7 @@ const EditStudentModal = ({ student, onClose, onUpdate, departments, levels, sta
             </div>
 
             {/* department */}
-            <div className='flex flex-col gap-2'>
+            <div className='flex flex-col gap-1 mt-2'>
               <label htmlFor='department' className='input-label'>
                 Department
               </label>
@@ -247,9 +225,11 @@ const EditStudentModal = ({ student, onClose, onUpdate, departments, levels, sta
               </select>
               {error.department && <p className='text-red-500 text-xs'>{error.department}</p>}
             </div>
+          </div>
 
+          <div className='grid grid-cols-2 gap-4'>
             {/* level */}
-            <div className='flex flex-col gap-2'>
+            <div className='flex flex-col gap-1 mt-2'>
               <label htmlFor='level' className='input-label'>
                 Level
               </label>
@@ -281,7 +261,7 @@ const EditStudentModal = ({ student, onClose, onUpdate, departments, levels, sta
 
             {/* student phone */}
 
-            <div className='flex flex-col gap-2'>
+            <div className='flex flex-col gap-1 mt-2'>
               <label htmlFor='student-phone' className='input-label'>
                 Student Phone
               </label>
@@ -304,45 +284,41 @@ const EditStudentModal = ({ student, onClose, onUpdate, departments, levels, sta
               />
               {error.phone && <p className='text-red-500 text-xs'>{error.phone}</p>}
             </div>
+          </div>
 
-            {/* status */}
-            <div className='flex flex-col gap-2'>
-              <label htmlFor='status' className='input-label'>
-                Status
-              </label>
+          {/* status */}
+          <div className='flex flex-col gap-1 mt-2'>
+            <label htmlFor='status' className='input-label'>
+              Status
+            </label>
 
-              <select
-                name='status'
-                id='status'
-                className='border border-primary dark:border-dark dark:text-gray-200 outline-0 py-2 px-4 rounded-md text-sm w-full sm:w-auto sm:py-2.5 sm:text-sm mb-2'
-                value={formData.status}
-                onChange={event => {
-                  setFormData({
-                    ...formData,
-                    status: event.target.value,
-                  })
-                  setError(prev => ({
-                    ...prev,
-                    status: '',
-                  }))
-                }}
-              >
-                <option value='' disabled className='dark:bg-gray-800 dark:text-gray-400'>
-                  Choose Status
+            <select
+              name='status'
+              id='status'
+              className='input-box'
+              value={formData.status}
+              onChange={event => {
+                setFormData({
+                  ...formData,
+                  status: event.target.value,
+                })
+                setError(prev => ({
+                  ...prev,
+                  status: '',
+                }))
+              }}
+            >
+              <option value='' disabled>
+                Choose Status
+              </option>
+              {statuses.map(status => (
+                <option key={status} value={status}>
+                  {status}
                 </option>
-                {statuses.map(status => (
-                  <option
-                    key={status}
-                    value={status}
-                    className='dark:bg-gray-800 dark:text-gray-200'
-                  >
-                    {status}
-                  </option>
-                ))}
-              </select>
-              {error.status && <p className='text-red-500 text-xs'>{error.status}</p>}
-            </div>
-          </fieldset>
+              ))}
+            </select>
+            {error.status && <p className='text-red-500 text-xs'>{error.status}</p>}
+          </div>
         </div>
 
         {/* FOOTER */}

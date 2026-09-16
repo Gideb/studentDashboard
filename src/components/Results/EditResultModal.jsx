@@ -110,7 +110,9 @@ const EditResultModal = ({ result, onClose, onUpdate, courses }) => {
         <div className='mb-5 rounded-lg bg-gray-50 p-3 dark:bg-slate-800'>
           <p className='text-xs text-secondary dark:text-gray-400'>Result ID</p>
 
-          <p className='mt-1 font-semibold text-primary dark:text-white'>{result.resultId}</p>
+          <p className='mt-1 font-medium text-sm text-primary/50 dark:text-white/50'>
+            {result.resultId}
+          </p>
         </div>
 
         <form onSubmit={handleSubmit} className='space-y-5'>
