@@ -23,9 +23,7 @@ const AssignmentsTable = ({
   endIndex,
   pageNumbers,
 }) => {
-  // ==============================
   // Sorting
-  // ==============================
 
   const handleSort = field => {
     if (sortBy === field) {
@@ -48,9 +46,7 @@ const AssignmentsTable = ({
     )
   }
 
-  // ==============================
   // Status Badge
-  // ==============================
 
   const getStatusStyle = status => {
     switch (status) {
@@ -68,9 +64,7 @@ const AssignmentsTable = ({
     }
   }
 
-  // ==============================
   // Submission Percentage
-  // ==============================
 
   const getSubmissionPercentage = (submissions, totalStudents) => {
     if (!totalStudents) return 0
@@ -78,9 +72,7 @@ const AssignmentsTable = ({
     return Math.round((submissions / totalStudents) * 100)
   }
 
-  // ==============================
   // Empty State
-  // ==============================
 
   if (assignments.length === 0) {
     return (
@@ -92,9 +84,9 @@ const AssignmentsTable = ({
 
   return (
     <div className='overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-gray-700 dark:bg-slate-900'>
-      {/* ==============================
+      {/* 
           Desktop Table
-      ============================== */}
+       */}
 
       <div className=' overflow-x-auto '>
         <table className='w-full min-w-250'>
@@ -287,9 +279,9 @@ const AssignmentsTable = ({
         </table>
       </div>
 
-      {/* ==============================
+      {/* 
           Mobile Cards
-      ============================== */}
+       */}
 
       <div className='divide-y divide-gray-100 hidden dark:divide-gray-800'>
         {assignments.map(assignment => {
@@ -395,9 +387,9 @@ const AssignmentsTable = ({
         })}
       </div>
 
-      {/* ==============================
+      {/* 
           Pagination
-      ============================== */}
+       */}
 
       <div className='flex gap-4 border-t border-gray-200 px-4 py-4 flex-row items-center justify-between dark:border-gray-700'>
         <p className='text-sm text-secondary dark:text-gray-400'>
