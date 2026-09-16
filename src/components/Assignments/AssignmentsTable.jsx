@@ -238,7 +238,7 @@ const AssignmentsTable = ({
 
                       <div className='h-1.5 overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700'>
                         <div
-                          className='h-full rounded-full bg-primary transition-all'
+                          className='h-full rounded-full bg-primary dark:bg-dark transition-all'
                           style={{
                             width: `${submissionPercentage}%`,
                           }}

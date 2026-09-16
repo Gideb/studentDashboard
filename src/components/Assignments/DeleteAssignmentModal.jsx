@@ -13,7 +13,7 @@ const DeleteAssignmentModal = ({ assignment, onClose, onConfirm }) => {
         {/* Header */}
         <h2
           id='delete-assignment-title'
-          className='text-xl font-semibold text-primary dark:text-white'
+          className='text-lg sm:text-xl font-semibold text-primary dark:text-white'
         >
           Delete Assignment
         </h2>
@@ -54,20 +54,12 @@ const DeleteAssignmentModal = ({ assignment, onClose, onConfirm }) => {
         </div>
 
         {/* Buttons */}
-        <div className='mt-6 flex justify-end gap-3'>
-          <button
-            type='button'
-            onClick={onClose}
-            className='btn-secondary '
-          >
+        <div className='mt-6 flex items-center gap-3 justify-end border-t border-gray-200 dark:border-gray-700 pt-4'>
+          <button type='button' onClick={onClose} className='btn-secondary '>
             Cancel
           </button>
 
-          <button
-            type='button'
-            onClick={onConfirm}
-            className='btn-delete-2 '
-          >
+          <button type='button' onClick={onConfirm} className='btn-delete-2 '>
             Delete Assignment
           </button>
         </div>

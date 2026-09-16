@@ -131,13 +131,13 @@ const AddStudentModal = ({ onClose, onAdd, departments, levels, statuses }) => {
 
       {/* add student */}
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className='space-y-5'>
         <div className='mt-6 space-y-4'>
           <fieldset>
             {/* student name */}
 
             <div className='flex flex-col gap-2'>
-              <label htmlFor='student-name' className='text-xs text-gray-700 dark:text-gray-200'>
+              <label htmlFor='student-name' className='input-label'>
                 Student Name <span className='text-red-500'>*</span>
               </label>
 
@@ -163,7 +163,7 @@ const AddStudentModal = ({ onClose, onAdd, departments, levels, statuses }) => {
             {/* email */}
 
             <div className='flex flex-col gap-2'>
-              <label htmlFor='student-email' className='text-xs text-gray-700 dark:text-gray-200'>
+              <label htmlFor='student-email' className='input-label'>
                 Student Email <span className='text-red-500'>*</span>
               </label>
 
@@ -188,7 +188,7 @@ const AddStudentModal = ({ onClose, onAdd, departments, levels, statuses }) => {
 
             {/* gender */}
             <div className='flex flex-col gap-2'>
-              <label htmlFor='gender' className='text-xs text-gray-700 dark:text-gray-200'>
+              <label htmlFor='gender' className='input-label'>
                 Gender <span className='text-red-500 dark:text-red-300'>*</span>
               </label>
 
@@ -216,7 +216,7 @@ const AddStudentModal = ({ onClose, onAdd, departments, levels, statuses }) => {
 
             {/* department */}
             <div className='flex flex-col gap-2'>
-              <label htmlFor='department' className='text-xs text-gray-700 dark:text-gray-200'>
+              <label htmlFor='department' className='input-label'>
                 Department <span className='text-red-500 dark:text-red-300'>*</span>
               </label>
 
@@ -251,7 +251,7 @@ const AddStudentModal = ({ onClose, onAdd, departments, levels, statuses }) => {
 
             {/* level */}
             <div className='flex flex-col gap-2'>
-              <label htmlFor='level' className='text-xs text-gray-700 dark:text-gray-200'>
+              <label htmlFor='level' className='input-label'>
                 Level <span className='text-red-500 dark:text-red-300'>*</span>
               </label>
 
@@ -283,7 +283,7 @@ const AddStudentModal = ({ onClose, onAdd, departments, levels, statuses }) => {
             {/* student phone */}
 
             <div className='flex flex-col gap-2'>
-              <label htmlFor='student-phone' className='text-xs text-gray-700 dark:text-gray-200'>
+              <label htmlFor='student-phone' className='input-label'>
                 Student Phone <span className='text-red-500'>*</span>
               </label>
 
@@ -308,7 +308,7 @@ const AddStudentModal = ({ onClose, onAdd, departments, levels, statuses }) => {
 
             {/* status */}
             <div className='flex flex-col gap-2'>
-              <label htmlFor='status' className='text-xs text-gray-700 dark:text-gray-200'>
+              <label htmlFor='status' className='input-label'>
                 Status <span className='text-red-500 dark:text-red-300'>*</span>
               </label>
 

@@ -2,7 +2,6 @@ import { useState } from 'react'
 import Modal from '../Modals/Modal'
 import { X } from 'lucide-react'
 import { PiStudentFill } from 'react-icons/pi'
-import toast from 'react-hot-toast'
 
 const EditStudentModal = ({ student, onClose, onUpdate, departments, levels, statuses }) => {
   const [formData, setFormData] = useState({
@@ -113,13 +112,28 @@ const EditStudentModal = ({ student, onClose, onUpdate, departments, levels, sta
       </div>
 
       {/* edit student */}
-      <form onSubmit={handleSubmit}>
-        <div className='mt-6 space-y-4'>
+      <form onSubmit={handleSubmit} className='space-y-5'>
+        <div className='mt-6 '>
           <fieldset>
+            {/* student id */}
+            <div>
+              <label htmlFor='studentId' className='input-label'>
+                Student ID
+              </label>
+
+              <input
+                id='studentId'
+                type='text'
+                value={student.studentId}
+                disabled
+                className='w-full rounded-md cursor-not-allowed border border-gray-200 bg-gray-100 px-3 py-2.5 text-sm text-gray-500 dark:border-gray-700 dark:bg-slate-800 dark:text-gray-500'
+              />
+            </div>
+
             {/* student name */}
 
             <div className='flex flex-col gap-2'>
-              <label htmlFor='student-name' className='text-xs text-gray-700 dark:text-gray-200'>
+              <label htmlFor='student-name' className='input-label'>
                 Student Name
               </label>
 
@@ -147,7 +161,7 @@ const EditStudentModal = ({ student, onClose, onUpdate, departments, levels, sta
             {/* email */}
 
             <div className='flex flex-col gap-2'>
-              <label htmlFor='student-email' className='text-xs text-gray-700 dark:text-gray-200'>
+              <label htmlFor='student-email' className='input-label'>
                 Student Email
               </label>
 
@@ -172,7 +186,7 @@ const EditStudentModal = ({ student, onClose, onUpdate, departments, levels, sta
 
             {/* gender */}
             <div className='flex flex-col gap-2'>
-              <label htmlFor='gender' className='text-xs text-gray-700 dark:text-gray-200'>
+              <label htmlFor='gender' className='input-label'>
                 Gender
               </label>
 
@@ -201,7 +215,7 @@ const EditStudentModal = ({ student, onClose, onUpdate, departments, levels, sta
 
             {/* department */}
             <div className='flex flex-col gap-2'>
-              <label htmlFor='department' className='text-xs text-gray-700 dark:text-gray-200'>
+              <label htmlFor='department' className='input-label'>
                 Department
               </label>
 
@@ -236,7 +250,7 @@ const EditStudentModal = ({ student, onClose, onUpdate, departments, levels, sta
 
             {/* level */}
             <div className='flex flex-col gap-2'>
-              <label htmlFor='level' className='text-xs text-gray-700 dark:text-gray-200'>
+              <label htmlFor='level' className='input-label'>
                 Level
               </label>
 
@@ -268,7 +282,7 @@ const EditStudentModal = ({ student, onClose, onUpdate, departments, levels, sta
             {/* student phone */}
 
             <div className='flex flex-col gap-2'>
-              <label htmlFor='student-phone' className='text-xs text-gray-700 dark:text-gray-200'>
+              <label htmlFor='student-phone' className='input-label'>
                 Student Phone
               </label>
 
@@ -293,7 +307,7 @@ const EditStudentModal = ({ student, onClose, onUpdate, departments, levels, sta
 
             {/* status */}
             <div className='flex flex-col gap-2'>
-              <label htmlFor='status' className='text-xs text-gray-700 dark:text-gray-200'>
+              <label htmlFor='status' className='input-label'>
                 Status
               </label>
 

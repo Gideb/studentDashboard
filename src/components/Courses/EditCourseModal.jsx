@@ -96,12 +96,12 @@ const EditCourseModal = ({ onClose, onUpdate, statuses, departments, course }) =
       </div>
 
       {/* Update course form */}
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className='space-y-5'>
         <div className='mt-6 space-y-4'>
-          <fieldset className='space-y-4'>
+          <fieldset>
             {/* Course Name */}
             <div className='flex flex-col gap-2'>
-              <label htmlFor='course-name' className='text-xs text-gray-700 dark:text-gray-200'>
+              <label htmlFor='course-name' className='input-label'>
                 Course Name
               </label>
 
@@ -130,7 +130,7 @@ const EditCourseModal = ({ onClose, onUpdate, statuses, departments, course }) =
 
             {/* Course Code */}
             <div className='flex flex-col gap-2'>
-              <label htmlFor='course-code' className='text-xs text-gray-700 dark:text-gray-200'>
+              <label htmlFor='course-code' className='input-label'>
                 Course Code
               </label>
 
@@ -138,9 +138,9 @@ const EditCourseModal = ({ onClose, onUpdate, statuses, departments, course }) =
                 type='text'
                 name='course-code'
                 id='course-code'
-                className='input-box bg-gray-100 dark:bg-gray-800 cursor-not-allowed'
                 value={course.code}
-                readOnly
+                disabled
+                className='w-full rounded-md cursor-not-allowed border border-gray-200 bg-gray-100 px-3 py-2.5 text-sm text-gray-500 dark:border-gray-700 dark:bg-slate-800 dark:text-gray-500'
               />
 
               <p className='text-[11px] text-gray-500 dark:text-gray-400'>
@@ -150,7 +150,7 @@ const EditCourseModal = ({ onClose, onUpdate, statuses, departments, course }) =
 
             {/* Department */}
             <div className='flex flex-col gap-2'>
-              <label htmlFor='department' className='text-xs text-gray-700 dark:text-gray-200'>
+              <label htmlFor='department' className='input-label'>
                 Department
               </label>
 
@@ -189,7 +189,7 @@ const EditCourseModal = ({ onClose, onUpdate, statuses, departments, course }) =
 
             {/* Lecturer */}
             <div className='flex flex-col gap-2'>
-              <label htmlFor='lecturer' className='text-xs text-gray-700 dark:text-gray-200'>
+              <label htmlFor='lecturer' className='input-label'>
                 Lecturer
               </label>
 
@@ -218,7 +218,7 @@ const EditCourseModal = ({ onClose, onUpdate, statuses, departments, course }) =
 
             {/* Number of Students */}
             <div className='flex flex-col gap-2'>
-              <label htmlFor='students' className='text-xs text-gray-700 dark:text-gray-200'>
+              <label htmlFor='students' className='input-label'>
                 Number of Students reading course
               </label>
 
@@ -248,7 +248,7 @@ const EditCourseModal = ({ onClose, onUpdate, statuses, departments, course }) =
 
             {/* Course Status */}
             <div className='flex flex-col gap-2'>
-              <label htmlFor='status' className='text-xs text-gray-700 dark:text-gray-200'>
+              <label htmlFor='status' className='input-label'>
                 Course Status
               </label>
 

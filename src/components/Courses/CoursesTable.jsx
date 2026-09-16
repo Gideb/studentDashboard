@@ -13,25 +13,25 @@ const CoursesTable = ({ courses, onEdit, onDelete }) => {
         <caption className='sr-only'>List of available courses</caption>
         <thead className='bg-gray-100 dark:bg-gray-800 '>
           <tr className=''>
-            <th className='px-4 py-5 text-xs font-semibold uppercase tracking-wider text-gray-600 dark:text-gray-300 '>
+            <th className='px-6 py-5 text-xs font-semibold uppercase tracking-wider text-gray-600 dark:text-gray-300 '>
               Course
             </th>
-            <th className='px-4 py-5 text-xs font-semibold uppercase tracking-wider text-gray-600 dark:text-gray-300 border-l border-gray-300 dark:border-gray-700'>
+            <th className='px-6 py-5 text-xs font-semibold uppercase tracking-wider text-gray-600 dark:text-gray-300 '>
               Code
             </th>
-            <th className='px-4 py-5 text-xs font-semibold uppercase tracking-wider text-gray-600 dark:text-gray-300 border-l border-gray-300 dark:border-gray-700'>
+            <th className='px-6 py-5 text-xs font-semibold uppercase tracking-wider text-gray-600 dark:text-gray-300 '>
               Department
             </th>
-            <th className='px-4 py-5 text-xs font-semibold uppercase tracking-wider text-gray-600 dark:text-gray-300 border-l border-gray-300 dark:border-gray-700'>
+            <th className='px-6 py-5 text-xs font-semibold uppercase tracking-wider text-gray-600 dark:text-gray-300 '>
               Lecturer
             </th>
-            <th className='px-4 py-5 text-xs font-semibold uppercase tracking-wider text-gray-600 dark:text-gray-300 border-l border-gray-300 dark:border-gray-700'>
+            <th className='px-6 py-5 text-xs font-semibold uppercase tracking-wider text-gray-600 dark:text-gray-300 '>
               Students
             </th>
-            <th className='px-4 py-5 text-xs font-semibold uppercase tracking-wider text-gray-600 dark:text-gray-300 border-l border-gray-300 dark:border-gray-700'>
+            <th className='px-6 py-5 text-xs font-semibold uppercase tracking-wider text-gray-600 dark:text-gray-300 '>
               Status
             </th>
-            <th className='px-4 py-5 text-xs font-semibold uppercase tracking-wider text-gray-600 dark:text-gray-300 border-l border-gray-300 dark:border-gray-700'>
+            <th className='px-6 py-5 text-xs font-semibold uppercase tracking-wider text-gray-600 dark:text-gray-300 '>
               Actions
             </th>
           </tr>
@@ -41,22 +41,22 @@ const CoursesTable = ({ courses, onEdit, onDelete }) => {
           {courses.length > 0 ? (
             courses.map(course => (
               <tr className='border-t border-gray-200 dark:border-gray-700' key={course.id}>
-                <td className='px-4 py-3 text-sm font-normal text-gray-600 dark:text-gray-300 border-l border-gray-300 dark:border-gray-700'>
+                <td className='px-6 py-4 text-sm font-normal text-gray-600 dark:text-gray-300 '>
                   {course.name}
                 </td>
-                <td className='px-4 py-3 text-sm font-normal text-gray-600 dark:text-gray-300 border-l border-gray-300 dark:border-gray-700'>
+                <td className='px-6 py-4 text-sm font-normal text-gray-600 dark:text-gray-300 '>
                   {course.code}
                 </td>
-                <td className='px-4 py-3 text-sm font-normal text-gray-600 dark:text-gray-300 border-l border-gray-300 dark:border-gray-700'>
+                <td className='px-6 py-4 text-sm font-normal text-gray-600 dark:text-gray-300 '>
                   {course.department}
                 </td>
-                <td className='px-4 py-3 text-sm font-normal text-gray-600 dark:text-gray-300 border-l border-gray-300 dark:border-gray-700'>
+                <td className='px-6 py-4 text-sm font-normal text-gray-600 dark:text-gray-300 '>
                   {course.lecturer}
                 </td>
-                <td className='px-4 py-3 text-sm font-normal text-gray-600 dark:text-gray-300 border-l border-gray-300 dark:border-gray-700'>
+                <td className='px-6 py-4 text-sm font-normal text-gray-600 dark:text-gray-300 '>
                   {course.students}
                 </td>
-                <td className='px-4 py-3 font-normal text-gray-600 dark:text-gray-300 border-l border-gray-300 dark:border-gray-700 '>
+                <td className='px-6 py-4 font-normal text-gray-600 dark:text-gray-300  '>
                   <span
                     className={`inline-flex gap-2 items-center rounded-full text-xs py-1 px-2  ${STATUS[course.status]}`}
                   >
@@ -64,7 +64,7 @@ const CoursesTable = ({ courses, onEdit, onDelete }) => {
                     {course.status}
                   </span>
                 </td>
-                <td className='px-4 py-3 text-sm font-normal text-gray-600 dark:text-gray-300 border-l border-gray-300 dark:border-gray-700'>
+                <td className='px-6 py-4 text-sm font-normal text-gray-600 dark:text-gray-300 '>
                   <div className='flex items-center  gap-3'>
                     <button
                       type='button'

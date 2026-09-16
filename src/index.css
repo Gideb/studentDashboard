@@ -53,5 +53,10 @@ body {
 }
 
 .input-select {
-  @apply border focus:border-primary dark:focus:border-dark dark:text-gray-200 dark:bg-gray-800 dark:text-gray-200 outline-0 py-2 px-4 rounded-md text-sm w-full sm:py-2.5 sm:text-sm mb-1;
+  @apply border focus:border-primary dark:focus:border-dark dark:bg-slate-800 dark:text-gray-200 outline-0 py-2 px-4 rounded-md text-sm w-full sm:py-2.5 sm:text-sm mb-1;
+}
+
+
+.input-label {
+  @apply mb-1.5 block text-xs sm:text-sm font-medium text-primary dark:text-gray-300
 }

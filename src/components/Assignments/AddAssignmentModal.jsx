@@ -120,10 +120,7 @@ const AddAssignmentModal = ({ onClose, onAdd, courses, statuses }) => {
         <form onSubmit={handleSubmit} className='space-y-5'>
           {/* Assignment Title */}
           <div>
-            <label
-              htmlFor='title'
-              className='mb-1.5 block text-sm font-medium text-primary dark:text-gray-300'
-            >
+            <label htmlFor='title' className='input-label'>
               Assignment Title
             </label>
 
@@ -146,10 +143,7 @@ const AddAssignmentModal = ({ onClose, onAdd, courses, statuses }) => {
 
           {/* Course */}
           <div>
-            <label
-              htmlFor='course'
-              className='mb-1.5 block text-sm font-medium text-primary dark:text-gray-300'
-            >
+            <label htmlFor='course' className='input-label'>
               Course
             </label>
 
@@ -180,10 +174,7 @@ const AddAssignmentModal = ({ onClose, onAdd, courses, statuses }) => {
 
           {/* Lecturer */}
           <div>
-            <label
-              htmlFor='lecturer'
-              className='mb-1.5 block text-sm font-medium text-primary dark:text-gray-300'
-            >
+            <label htmlFor='lecturer' className='input-label'>
               Lecturer
             </label>
 
@@ -206,10 +197,7 @@ const AddAssignmentModal = ({ onClose, onAdd, courses, statuses }) => {
 
           {/* Due Date */}
           <div>
-            <label
-              htmlFor='dueDate'
-              className='mb-1.5 block text-sm font-medium text-primary dark:text-gray-300'
-            >
+            <label htmlFor='dueDate' className='input-label'>
               Due Date
             </label>
 
@@ -233,10 +221,7 @@ const AddAssignmentModal = ({ onClose, onAdd, courses, statuses }) => {
           <div className='grid grid-cols-1 gap-4 sm:grid-cols-2'>
             {/* Total Students */}
             <div>
-              <label
-                htmlFor='totalStudents'
-                className='mb-1.5 block text-sm font-medium text-primary dark:text-gray-300'
-              >
+              <label htmlFor='totalStudents' className='input-label'>
                 Total Students
               </label>
 
@@ -262,10 +247,7 @@ const AddAssignmentModal = ({ onClose, onAdd, courses, statuses }) => {
 
             {/* Submissions */}
             <div>
-              <label
-                htmlFor='submissions'
-                className='mb-1.5 block text-sm font-medium text-primary dark:text-gray-300'
-              >
+              <label htmlFor='submissions' className='input-label'>
                 Submissions
               </label>
 
@@ -292,10 +274,7 @@ const AddAssignmentModal = ({ onClose, onAdd, courses, statuses }) => {
 
           {/* Status */}
           <div>
-            <label
-              htmlFor='status'
-              className='mb-1.5 block text-sm font-medium text-primary dark:text-gray-300'
-            >
+            <label htmlFor='status' className='input-label'>
               Status
             </label>
 
