@@ -1,4 +1,3 @@
-
 import Modal from '../Modals/Modal'
 import { LuTrash2 } from 'react-icons/lu'
 
@@ -42,15 +41,14 @@ const DeleteStudentModal = ({ student, onClose, onConfirm }) => {
             <div className='flex justify-between gap-4'>
               <span className='text-secondary dark:text-gray-500'>Student</span>
 
-              <div className='flex flex-col'><span className='text-right font-medium text-primary dark:text-gray-300'>
-                {student.name}
-              </span>
-              <span className='text-right text-xs  text-primary dark:text-gray-500'>
-                {student.email}
-              </span>
-
+              <div className='flex flex-col'>
+                <span className='text-right font-medium text-primary dark:text-gray-300'>
+                  {student.name}
+                </span>
+                <span className='text-right text-xs  text-primary dark:text-gray-500'>
+                  {student.email}
+                </span>
               </div>
-              
             </div>
 
             <div className='flex justify-between gap-4'>
@@ -64,9 +62,7 @@ const DeleteStudentModal = ({ student, onClose, onConfirm }) => {
             <div className='flex justify-between gap-4'>
               <span className='text-secondary dark:text-gray-500'>Level</span>
 
-              <span className='font-medium text-primary dark:text-gray-300'>
-                {student.level}
-              </span>
+              <span className='font-medium text-primary dark:text-gray-300'>{student.level}</span>
             </div>
           </div>
         </div>

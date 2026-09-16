@@ -2,7 +2,7 @@ import { GrLocationPin } from 'react-icons/gr'
 
 const ClassCard = ({ subject, day, time, location }) => {
   return (
-    <div className='rounded-xl bg-white p-5 shadow-sm dark:bg-gray-900'>
+    <div className='rounded-md bg-white p-5 shadow-sm dark:bg-gray-900'>
       <h3 className='text-xl sm:text-2xl font-bold text-gray-900 dark:text-white'>{subject}</h3>
 
       <div className='flex justify-start items-center my-1 gap-6'>

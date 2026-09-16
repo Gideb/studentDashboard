@@ -2,7 +2,7 @@ import { useState } from 'react'
 import Modal from '../Modals/Modal'
 
 import { X } from 'lucide-react'
-import { PiGraduationCapFill } from 'react-icons/pi'
+import { PiGraduationCapFill, PiStudentFill } from 'react-icons/pi'
 
 const AddCourseModal = ({ onAdd, onClose, departments, statuses }) => {
   const [formData, setFormData] = useState({
@@ -84,66 +84,50 @@ const AddCourseModal = ({ onAdd, onClose, departments, statuses }) => {
 
   return (
     <Modal onClose={onClose} labelledBy='add-course-details'>
-      <div className='flex items-start justify-between gap-3 border-b border-gray-200 dark:border-gray-700 pb-4 '>
-        <div>
-          <div className='flex items-center gap-2 mt-1'>
-            <PiGraduationCapFill size={20} className='text-black dark:text-white' />
-            <h2
-              id='add-course-details'
-              className='text-xl font-semibold text-black dark:text-white'
-            >
-              Add Course
-            </h2>
-          </div>
-          <legend className='text-xs '>Enter details to add course to system</legend>
-        </div>
+      <div className='mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-dark/70 text-primary dark:bg-primary/20 dark:text-dark'>
+        <PiStudentFill size={22} />
+      </div>
+      <div className='mb-6 text-center border-b border-gray-200 pb-3'>
+        <h2 id='add-course-title' className='text-xl font-semibold text-primary dark:text-dark'>
+          Add Course
+        </h2>
 
-        <button
-          type='button'
-          onClick={onClose}
-          aria-label='Close modal'
-          className='flex items-center justify-center  p-2 rounded-full text-gray-600 hover:text-gray-900 dark:text-gray-200 dark:hover:text-white transition-all'
-        >
-          <X className='h-4 w-4' />
-        </button>
+        <p className='mt-1 text-sm text-secondary dark:text-gray-400'>Enter the course details.</p>
       </div>
 
       {/* add course form */}
       <form onSubmit={handleSubmit} className='space-y-5'>
-        <div className='mt-6 space-y-4 '>
-          <fieldset>
-            <div className='sr-only'>
-              <legend className='text-xs '>
-                Fill out the form to add course details to system
-              </legend>
-            </div>
+        <div className='mt-6  '>
+          <div className='sr-only'>
+            <legend className='text-xs '>Fill out the form to add course details to system</legend>
+          </div>
 
-            {/* add course name */}
-            <div className='flex flex-col gap-2 mt-1'>
-              <label htmlFor='course-name' className='input-label'>
-                Course Name <span className='text-red-500'>*</span>
-              </label>
+          {/* add course name */}
+          <div className='flex flex-col gap-1 mt-2'>
+            <label htmlFor='course-name' className='input-label'>
+              Course Name <span className='text-red-500'>*</span>
+            </label>
 
-              <input
-                type='text'
-                name='course-name'
-                id='course-name'
-                className='input-box'
-                placeholder='Course Name'
-                value={formData.name}
-                onChange={event => {
-                  setFormData({
-                    ...formData,
-                    name: event.target.value,
-                  })
-                  setError({ ...error, name: '' })
-                }}
-              />
-              {error.name && <p className='text-red-500 text-xs'>{error.name}</p>}
-            </div>
+            <input
+              type='text'
+              name='course-name'
+              id='course-name'
+              className='input-box'
+              placeholder='Course Name'
+              value={formData.name}
+              onChange={event => {
+                setFormData({
+                  ...formData,
+                  name: event.target.value,
+                })
+                setError({ ...error, name: '' })
+              }}
+            />
+            {error.name && <p className='text-red-500 text-xs'>{error.name}</p>}
+          </div>
 
-            {/* add course code */}
-            {/*  <div className='flex flex-col gap-2 mt-1'>
+          {/* add course code */}
+          {/*  <div className='flex flex-col gap-1 mt-2'>
               <label htmlFor='course-code' className='input-label'>
                 Course Code <span className='text-red-500'>*</span>
               </label>
@@ -166,70 +150,71 @@ const AddCourseModal = ({ onAdd, onClose, departments, statuses }) => {
               {error.code && <p className='text-red-500 text-xs'>{error.code}</p>}
             </div> */}
 
-            {/* Department */}
+          {/* Department */}
 
-            <div className='flex flex-col gap-2 mt-1'>
-              <label htmlFor='students' className='input-label'>
-                Department <span className='text-red-500'>*</span>
-              </label>
+          <div className='flex flex-col gap-1 mt-2'>
+            <label htmlFor='students' className='input-label'>
+              Department <span className='text-red-500'>*</span>
+            </label>
 
-              <select
-                name='department'
-                id='department'
-                className='input-select'
-                value={formData.department}
-                onChange={event => {
-                  setFormData({
-                    ...formData,
-                    department: event.target.value,
-                  })
-                  setError({ ...error, department: '' })
-                }}
-              >
-                <option value='' className='dark:bg-gray-800 dark:text-gray-400'>
-                  Select Department
+            <select
+              name='department'
+              id='department'
+              className='input-box'
+              value={formData.department}
+              onChange={event => {
+                setFormData({
+                  ...formData,
+                  department: event.target.value,
+                })
+                setError({ ...error, department: '' })
+              }}
+            >
+              <option value='' className='dark:bg-gray-800 dark:text-gray-400'>
+                Select Department
+              </option>
+              {departments.map(department => (
+                <option
+                  key={department}
+                  value={department}
+                  className='dark:bg-gray-800 dark:text-gray-200'
+                >
+                  {department}
                 </option>
-                {departments.map(department => (
-                  <option
-                    key={department}
-                    value={department}
-                    className='dark:bg-gray-800 dark:text-gray-200'
-                  >
-                    {department}
-                  </option>
-                ))}
-              </select>
-              {error.department && <p className='text-red-500 text-xs'>{error.department}</p>}
-            </div>
+              ))}
+            </select>
+            {error.department && <p className='text-red-500 text-xs'>{error.department}</p>}
+          </div>
 
-            {/* add lecturer */}
-            <div className='flex flex-col gap-2 mt-1'>
-              <label htmlFor='lecturer' className='input-label'>
-                Lecturer <span className='text-red-500'>*</span>
-              </label>
+          {/* add lecturer */}
+          <div className='flex flex-col gap-1 mt-2'>
+            <label htmlFor='lecturer' className='input-label'>
+              Lecturer <span className='text-red-500'>*</span>
+            </label>
 
-              <input
-                type='text'
-                name='lecturer'
-                id='lecturer'
-                className='input-box'
-                placeholder='Lecturer'
-                value={formData.lecturer}
-                onChange={event => {
-                  setFormData({
-                    ...formData,
-                    lecturer: event.target.value,
-                  })
-                  setError({ ...error, lecturer: '' })
-                }}
-              />
-              {error.lecturer && <p className='text-red-500 text-xs'>{error.lecturer}</p>}
-            </div>
+            <input
+              type='text'
+              name='lecturer'
+              id='lecturer'
+              className='input-box'
+              placeholder='Lecturer'
+              value={formData.lecturer}
+              onChange={event => {
+                setFormData({
+                  ...formData,
+                  lecturer: event.target.value,
+                })
+                setError({ ...error, lecturer: '' })
+              }}
+            />
+            {error.lecturer && <p className='text-red-500 text-xs'>{error.lecturer}</p>}
+          </div>
 
+          <div className='grid sm:grid-cols-2 gap-4'>
             {/* number of students */}
-            <div className='flex flex-col gap-2 mt-1'>
+            <div className='flex flex-col gap-1 mt-2'>
               <label htmlFor='students' className='input-label'>
-                Number of Students reading course <span className='text-red-500'>*</span>
+                Students reading course <span className='text-red-500'>*</span>
               </label>
 
               <input
@@ -252,7 +237,7 @@ const AddCourseModal = ({ onAdd, onClose, departments, statuses }) => {
 
             {/* course status */}
 
-            <div className='flex flex-col gap-2 mt-1'>
+            <div className='flex flex-col gap-1 mt-2'>
               <label htmlFor='students' className='input-label'>
                 Course Status <span className='text-red-500'>*</span>
               </label>
@@ -260,7 +245,7 @@ const AddCourseModal = ({ onAdd, onClose, departments, statuses }) => {
               <select
                 name='status'
                 id='status'
-                className='input-select'
+                className='input-box'
                 value={formData.status}
                 onChange={event => {
                   setFormData({
@@ -285,10 +270,10 @@ const AddCourseModal = ({ onAdd, onClose, departments, statuses }) => {
               </select>
               {error.status && <p className='text-red-500 text-xs'>{error.status}</p>}
             </div>
-          </fieldset>
+          </div>
 
           {/* footer */}
-          <div className='flex gap-3 items-center justify-end'>
+          <div className='flex gap-3 items-center justify-end mt-6 border-t pt-4 border-gray-400 dark:border-gray-700'>
             <button className='btn-secondary' type='button' onClick={onClose}>
               Cancel
             </button>

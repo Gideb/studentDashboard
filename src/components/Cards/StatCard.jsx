@@ -1,6 +1,6 @@
 const StatCard = ({ icon: Icon, title, value, description }) => {
   return (
-    <div className='rounded-xl bg-white p-5 shadow-sm dark:bg-slate-800'>
+    <div className='rounded-md bg-white p-5 shadow-sm dark:bg-slate-800'>
       <div className='flex items-start gap-4'>
         <div className='bg-gray-100 dark:bg-gray-700 p-3 rounded-lg flex items-center justify-center'>
           {Icon && <Icon size={22} className='text-primary dark:text-dark' />}

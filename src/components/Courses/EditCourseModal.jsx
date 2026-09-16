@@ -157,7 +157,7 @@ const EditCourseModal = ({ onClose, onUpdate, statuses, departments, course }) =
               <select
                 name='department'
                 id='department'
-                className='input-select'
+                className='input-box'
                 value={formData.department}
                 onChange={event => {
                   setFormData({
@@ -255,7 +255,7 @@ const EditCourseModal = ({ onClose, onUpdate, statuses, departments, course }) =
               <select
                 name='status'
                 id='status'
-                className='input-select'
+                className='input-box'
                 value={formData.status}
                 onChange={event => {
                   setFormData({

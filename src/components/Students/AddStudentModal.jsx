@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import Modal from '../Modals/Modal'
 import { PiStudentFill } from 'react-icons/pi'
-import { X } from 'lucide-react'
 
 const AddStudentModal = ({ onClose, onAdd, departments, levels, statuses }) => {
   const [formData, setFormData] = useState({
@@ -103,91 +102,78 @@ const AddStudentModal = ({ onClose, onAdd, departments, levels, statuses }) => {
   return (
     <Modal onClose={onClose} labelledBy='add-student-details'>
       {/* header */}
-      <div className='flex items-start justify-between gap-3 border-b border-gray-200 dark:border-gray-700 pb-4'>
-        <div className='flex gap-3'>
-          <div className='flex items-center px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-800'>
-            <PiStudentFill size={24} className='text-black dark:text-white' />
-          </div>
-          <div className='flex flex-col items-left gap-1 mt-1'>
-            <h2
-              id='add-student-details'
-              className='text-lg sm:text-xl font-semibold text-black dark:text-white'
-            >
-              Add Student Details
-            </h2>
-            <p className='text-xs'>Enter details to add student to system</p>
-          </div>
-        </div>
+      <div className='mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-dark/70 text-primary dark:bg-primary/20 dark:text-dark'>
+        <PiStudentFill size={22} />
+      </div>
+      <div className='mb-6 text-center border-b border-gray-200 pb-3'>
+        <h2 id='add-student-title' className='text-xl font-semibold text-primary dark:text-dark'>
+          Add Student
+        </h2>
 
-        <button
-          type='button'
-          onClick={onClose}
-          aria-label='Close modal'
-          className='flex items-center  justify-center p-2 hover:bg-gray-50 hover:dark:bg-gray-800  rounded-full text-gray-600 hover:text-gray-900 dark:text-gray-200 dark:hover:text-white transition-all'
-        >
-          <X className='h-4 w-4' />
-        </button>
+        <p className='mt-1 text-sm text-secondary dark:text-gray-400'>
+          Enter the student's details.
+        </p>
       </div>
 
       {/* add student */}
 
       <form onSubmit={handleSubmit} className='space-y-5'>
-        <div className='mt-6 space-y-4'>
-          <fieldset>
-            {/* student name */}
+        <div className='mt-6 '>
+          {/* student name */}
 
-            <div className='flex flex-col gap-2'>
-              <label htmlFor='student-name' className='input-label'>
-                Student Name <span className='text-red-500'>*</span>
-              </label>
+          <div className='flex flex-col gap-1 mt-2'>
+            <label htmlFor='student-name' className='input-label'>
+              Student Name <span className='text-red-500'>*</span>
+            </label>
 
-              <input
-                type='text'
-                name='student-name'
-                id='student-name'
-                className={`input-box ${error.name ? 'border-red-500' : ''}`}
-                placeholder='Joe Biden'
+            <input
+              type='text'
+              name='student-name'
+              id='student-name'
+              className={`input-box ${error.name ? 'border-red-500' : ''}`}
+              placeholder='Joe Biden'
 
-                value={formData.name}
-                onChange={event => {
-                  setFormData({
-                    ...formData,
-                    name: event.target.value,
-                  })
-                  setError({ ...error, name: '' })
-                }}
-              />
-              {error.name && <p className='text-red-500 text-xs'>{error.name}</p>}
-            </div>
+              value={formData.name}
+              onChange={event => {
+                setFormData({
+                  ...formData,
+                  name: event.target.value,
+                })
+                setError({ ...error, name: '' })
+              }}
+            />
+            {error.name && <p className='text-red-500 text-xs'>{error.name}</p>}
+          </div>
 
-            {/* email */}
+          {/* email */}
 
-            <div className='flex flex-col gap-2'>
-              <label htmlFor='student-email' className='input-label'>
-                Student Email <span className='text-red-500'>*</span>
-              </label>
+          <div className='flex flex-col gap-1 mt-2'>
+            <label htmlFor='student-email' className='input-label'>
+              Student Email <span className='text-red-500'>*</span>
+            </label>
 
-              <input
-                type='email'
-                name='student-email'
-                id='student-email'
-                className={`input-box ${error.email ? 'border-red-500' : ''}`}
-                placeholder='joe.biden@gmail.com'
+            <input
+              type='email'
+              name='student-email'
+              id='student-email'
+              className={`input-box ${error.email ? 'border-red-500' : ''}`}
+              placeholder='joe.biden@gmail.com'
 
-                value={formData.email}
-                onChange={event => {
-                  setFormData({
-                    ...formData,
-                    email: event.target.value,
-                  })
-                  setError({ ...error, email: '' })
-                }}
-              />
-              {error.email && <p className='text-red-500 text-xs'>{error.email}</p>}
-            </div>
+              value={formData.email}
+              onChange={event => {
+                setFormData({
+                  ...formData,
+                  email: event.target.value,
+                })
+                setError({ ...error, email: '' })
+              }}
+            />
+            {error.email && <p className='text-red-500 text-xs'>{error.email}</p>}
+          </div>
 
+          <div className='grid gap-4 sm:grid-cols-2'>
             {/* gender */}
-            <div className='flex flex-col gap-2'>
+            <div className='flex flex-col gap-1 mt-2'>
               <label htmlFor='gender' className='input-label'>
                 Gender <span className='text-red-500 dark:text-red-300'>*</span>
               </label>
@@ -195,7 +181,7 @@ const AddStudentModal = ({ onClose, onAdd, departments, levels, statuses }) => {
               <select
                 name='gender'
                 id='gender'
-                className='input-select'
+                className='input-box'
                 value={formData.gender}
                 onChange={event => {
                   setFormData({
@@ -215,7 +201,7 @@ const AddStudentModal = ({ onClose, onAdd, departments, levels, statuses }) => {
             </div>
 
             {/* department */}
-            <div className='flex flex-col gap-2'>
+            <div className='flex flex-col gap-1 mt-2'>
               <label htmlFor='department' className='input-label'>
                 Department <span className='text-red-500 dark:text-red-300'>*</span>
               </label>
@@ -223,7 +209,7 @@ const AddStudentModal = ({ onClose, onAdd, departments, levels, statuses }) => {
               <select
                 name='department'
                 id='department'
-                className='input-select'
+                className='input-box'
                 value={formData.department}
                 onChange={event => {
                   setFormData({
@@ -248,9 +234,11 @@ const AddStudentModal = ({ onClose, onAdd, departments, levels, statuses }) => {
               </select>
               {error.department && <p className='text-red-500 text-xs'>{error.department}</p>}
             </div>
+          </div>
 
+          <div className='grid gap-4 sm:grid-cols-2'>
             {/* level */}
-            <div className='flex flex-col gap-2'>
+            <div className='flex flex-col gap-1 mt-2'>
               <label htmlFor='level' className='input-label'>
                 Level <span className='text-red-500 dark:text-red-300'>*</span>
               </label>
@@ -258,7 +246,7 @@ const AddStudentModal = ({ onClose, onAdd, departments, levels, statuses }) => {
               <select
                 name='level'
                 id='level'
-                className='input-select'
+                className='input-box'
                 value={formData.level}
                 onChange={event => {
                   setFormData({
@@ -282,7 +270,7 @@ const AddStudentModal = ({ onClose, onAdd, departments, levels, statuses }) => {
 
             {/* student phone */}
 
-            <div className='flex flex-col gap-2'>
+            <div className='flex flex-col gap-1 mt-2'>
               <label htmlFor='student-phone' className='input-label'>
                 Student Phone <span className='text-red-500'>*</span>
               </label>
@@ -305,45 +293,41 @@ const AddStudentModal = ({ onClose, onAdd, departments, levels, statuses }) => {
               />
               {error.phone && <p className='text-red-500 text-xs'>{error.phone}</p>}
             </div>
+          </div>
 
-            {/* status */}
-            <div className='flex flex-col gap-2'>
-              <label htmlFor='status' className='input-label'>
-                Status <span className='text-red-500 dark:text-red-300'>*</span>
-              </label>
+          {/* status */}
+          <div className='flex flex-col gap-1 mt-2'>
+            <label htmlFor='status' className='input-label'>
+              Status <span className='text-red-500 dark:text-red-300'>*</span>
+            </label>
 
-              <select
-                name='status'
-                id='status'
-                className='input-select'
-                value={formData.status}
-                onChange={event => {
-                  setFormData({
-                    ...formData,
-                    status: event.target.value,
-                  })
-                  setError({ ...error, status: '' })
-                }}
-              >
-                <option value='' disabled className='dark:bg-gray-800 dark:text-gray-400'>
-                  Choose Status
+            <select
+              name='status'
+              id='status'
+              className='input-box'
+              value={formData.status}
+              onChange={event => {
+                setFormData({
+                  ...formData,
+                  status: event.target.value,
+                })
+                setError({ ...error, status: '' })
+              }}
+            >
+              <option value='' disabled className='dark:bg-gray-800 dark:text-gray-400'>
+                Choose Status
+              </option>
+              {statuses.map(status => (
+                <option key={status} value={status} className='dark:bg-gray-800 dark:text-gray-200'>
+                  {status}
                 </option>
-                {statuses.map(status => (
-                  <option
-                    key={status}
-                    value={status}
-                    className='dark:bg-gray-800 dark:text-gray-200'
-                  >
-                    {status}
-                  </option>
-                ))}
-              </select>
-              {error.status && <p className='text-red-500 text-xs'>{error.status}</p>}
-            </div>
-          </fieldset>
+              ))}
+            </select>
+            {error.status && <p className='text-red-500 text-xs'>{error.status}</p>}
+          </div>
         </div>
 
-        {/* FOOTER */}
+        {/* buttons */}
         <div className='mt-6 flex items-center gap-3 justify-end border-t border-gray-200 dark:border-gray-700 pt-4'>
           <button
             aria-label='Close add-student-modal'

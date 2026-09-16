@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import Modal from '../Modals/Modal'
+import { PiStudentFill } from 'react-icons/pi'
 
 const EditAssignmentModal = ({ assignment, onClose, onUpdate, courses, statuses }) => {
   const [formData, setFormData] = useState({
@@ -93,6 +94,10 @@ const EditAssignmentModal = ({ assignment, onClose, onUpdate, courses, statuses 
   return (
     <Modal onClose={onClose} labelledBy='edit-assignment-title'>
       <div className='max-h-[90vh] overflow-y-auto'>
+        <div className='mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-dark/70 text-primary dark:bg-primary/20 dark:text-dark'>
+          <PiStudentFill size={22} />
+        </div>
+        <div className='mb-6 text-center border-b border-gray-200 pb-3'></div>
         {/* Header */}
         <div className='mb-6'>
           <h2
@@ -157,7 +162,7 @@ const EditAssignmentModal = ({ assignment, onClose, onUpdate, courses, statuses 
               name='course'
               value={formData.course}
               onChange={handleChange}
-              className={`input-select ${
+              className={`input-box ${
                 errors.course
                   ? 'border-red-500'
                   : 'border-gray-200 focus:border-primary dark:border-gray-700'
@@ -284,7 +289,7 @@ const EditAssignmentModal = ({ assignment, onClose, onUpdate, courses, statuses 
               name='status'
               value={formData.status}
               onChange={handleChange}
-              className={`input-select ${
+              className={`input-box ${
                 errors.status
                   ? 'border-red-500'
                   : 'border-gray-200 focus:border-primary dark:border-gray-700'

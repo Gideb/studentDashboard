@@ -49,14 +49,9 @@ body {
 }
 
 .input-box {
-  @apply text-xs text-gray-900 dark:text-gray-100 border rounded-md focus:border-primary dark:focus:border-dark px-4 py-2 sm:py-2.5 sm:text-sm mb-2 focus:outline-0 w-full placeholder:text-gray-400;
+  @apply text-xs sm:text-sm text-gray-900 dark:text-white rounded-md focus:border-primary dark:focus:border-dark px-4 py-2 sm:py-2.5  mb-1 w-full placeholder:text-gray-400 border border-gray-300  dark:border-gray-700 bg-white dark:bg-slate-800 outline-none;
 }
-
-.input-select {
-  @apply border focus:border-primary dark:focus:border-dark dark:bg-slate-800 dark:text-gray-200 outline-0 py-2 px-4 rounded-md text-sm w-full sm:py-2.5 sm:text-sm mb-1;
-}
-
 
 .input-label {
-  @apply mb-1.5 block text-xs sm:text-sm font-medium text-primary dark:text-gray-300
+  @apply mb-1.5 block text-xs sm:text-sm font-medium text-primary dark:text-gray-300;
 }

@@ -76,14 +76,14 @@ const AssignmentsTable = ({
 
   if (assignments.length === 0) {
     return (
-      <div className='rounded-xl border border-gray-200 bg-white p-10 text-center dark:border-gray-700 dark:bg-slate-900'>
+      <div className='rounded-md border border-gray-200 bg-white p-10 text-center dark:border-gray-700 dark:bg-slate-900'>
         <p className='text-sm text-secondary dark:text-gray-400'>No assignments found.</p>
       </div>
     )
   }
 
   return (
-    <div className='overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-gray-700 dark:bg-slate-900'>
+    <div className='overflow-hidden rounded-md border border-gray-200 bg-white dark:border-gray-700 dark:bg-slate-900'>
       {/* 
           Desktop Table
        */}

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import Modal from '../Modals/Modal'
+import { PiStudentFill } from 'react-icons/pi'
 
 const AddAssignmentModal = ({ onClose, onAdd, courses, statuses }) => {
   const [formData, setFormData] = useState({
@@ -104,20 +105,23 @@ const AddAssignmentModal = ({ onClose, onAdd, courses, statuses }) => {
     <Modal onClose={onClose} labelledBy='add-assignment-title'>
       <div className='max-h-[90vh] overflow-y-auto'>
         {/* Header */}
-        <div className='mb-6'>
+        <div className='mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-dark/70 text-primary dark:bg-primary/20 dark:text-dark'>
+          <PiStudentFill size={22} />
+        </div>
+        <div className='mb-6 text-center border-b border-gray-200 dark:border-gray-700 pb-3'>
           <h2
             id='add-assignment-title'
-            className='text-xl font-semibold text-primary dark:text-white'
+            className='text-xl font-semibold text-primary dark:text-dark'
           >
             Add Assignment
           </h2>
 
           <p className='mt-1 text-sm text-secondary dark:text-gray-400'>
-            Create a new assignment and set its submission details.
+            Add assignment and set it's submission details.
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className='space-y-5'>
+        <form onSubmit={handleSubmit} className='space-y-3'>
           {/* Assignment Title */}
           <div>
             <label htmlFor='title' className='input-label'>
@@ -152,7 +156,7 @@ const AddAssignmentModal = ({ onClose, onAdd, courses, statuses }) => {
               name='course'
               value={formData.course}
               onChange={handleChange}
-              className={`input-select ${
+              className={`input-box ${
                 errors.course
                   ? 'border-red-500'
                   : 'border-gray-200 focus:border-primary dark:border-gray-700'
@@ -283,7 +287,7 @@ const AddAssignmentModal = ({ onClose, onAdd, courses, statuses }) => {
               name='status'
               value={formData.status}
               onChange={handleChange}
-              className={`input-select ${
+              className={`input-box ${
                 errors.status
                   ? 'border-red-500'
                   : 'border-gray-200 focus:border-primary dark:border-gray-700'

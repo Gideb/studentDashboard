@@ -98,11 +98,7 @@ const Assignments = () => {
             </p>
           </div>
 
-          <button
-            type='button'
-            onClick={() => setIsAddAssignmentOpen(true)}
-            className=' add-btn'
-          >
+          <button type='button' onClick={() => setIsAddAssignmentOpen(true)} className=' add-btn'>
             + Add Assignment
           </button>
         </div>

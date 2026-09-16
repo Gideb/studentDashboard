@@ -193,7 +193,7 @@ const EditStudentModal = ({ student, onClose, onUpdate, departments, levels, sta
               <select
                 name='gender'
                 id='gender'
-                className='input-select'
+                className='input-box'
                 value={formData.gender}
                 onChange={event => {
                   setFormData({
@@ -222,7 +222,7 @@ const EditStudentModal = ({ student, onClose, onUpdate, departments, levels, sta
               <select
                 name='department'
                 id='department'
-                className='input-select'
+                className='input-box'
                 value={formData.department}
                 onChange={event => {
                   setFormData({
@@ -257,7 +257,7 @@ const EditStudentModal = ({ student, onClose, onUpdate, departments, levels, sta
               <select
                 name='level'
                 id='level'
-                className='input-select'
+                className='input-box'
                 value={formData.level}
                 onChange={event => {
                   setFormData({
