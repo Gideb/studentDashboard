@@ -87,7 +87,8 @@ const Courses = () => {
               Manage all available courses
             </p>
           </div>
-          <button className='add-btn self-start' onClick={() => setIsAddCourseOpen(true)}>
+          <button className='add-btn self-start group' onClick={() => setIsAddCourseOpen(true)}>
+            <span className='absolute inset-0 -z-10 translate-x-full bg-indigo-600 transition-transform duration-300 ease-out group-hover:translate-x-0'></span>
             + Add Course
           </button>
         </div>

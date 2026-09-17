@@ -93,7 +93,7 @@ const EditResultModal = ({ result, onClose, onUpdate, courses }) => {
 
   return (
     <Modal onClose={onClose} labelledBy='edit-result-title'>
-      <div className='max-h-[90vh] overflow-y-auto'>
+      <div className='max-h-[90vh] '>
         <div className='mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-dark/70 text-primary dark:bg-primary/50 dark:text-dark'>
           <PiStudentFill size={22} />
         </div>
@@ -282,7 +282,7 @@ const EditResultModal = ({ result, onClose, onUpdate, courses }) => {
           </div>
 
           {/* Buttons */}
-          <div className='flex justify-end gap-3 border-t border-gray-200 pt-5 dark:border-gray-700'>
+          <div className='flex justify-end gap-3 border-t border-gray-200 py-5 dark:border-gray-700'>
             <button type='button' onClick={onClose} className='btn-secondary'>
               Cancel
             </button>

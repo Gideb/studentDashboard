@@ -40,7 +40,12 @@ const Sidebar = ({ activeMenu, toggleSideMenu, openSideMenu, closeMobileMenu }) 
 
         {openSideMenu ? (
           <div className='flex items-center justify-between w-full'>
-            <img src={darkMode ? smd_logo_dark : smd_logo} alt='SMD logo' className='w-14' />
+            <img
+              src={darkMode ? smd_logo_dark : smd_logo}
+              alt='SMD logo'
+              className='w-14'
+            
+            />
 
             <button type='button' onClick={toggleSideMenu} aria-label='Collapse side menu'>
               <PiSidebarSimpleDuotone className='text-3xl text-primary dark:text-dark cursor-pointer' />

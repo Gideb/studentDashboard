@@ -89,7 +89,8 @@ const Results = () => {
             </p>
           </div>
 
-          <button type='button' onClick={() => setIsAddResultOpen(true)} className='add-btn'>
+          <button type='button' onClick={() => setIsAddResultOpen(true)} className='add-btn group'>
+            <span className='absolute inset-0 -z-10 translate-x-full bg-indigo-600 transition-transform duration-300 ease-out group-hover:translate-x-0'></span>
             + Add Result
           </button>
         </div>
@@ -144,7 +145,7 @@ const Results = () => {
       )}
 
       {/* Edit Result Modal */}
-       {resultToEdit && (
+      {resultToEdit && (
         <EditResultModal
           result={resultToEdit}
           onClose={() => setResultToEdit(null)}
@@ -154,7 +155,7 @@ const Results = () => {
       )}
 
       {/* Delete Result Modal */}
-       {resultToDelete && (
+      {resultToDelete && (
         <DeleteResultModal
           result={resultToDelete}
           onClose={() => setResultToDelete(null)}

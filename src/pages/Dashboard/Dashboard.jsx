@@ -60,11 +60,11 @@ const Dashboard = () => {
 
           <section className='space-y-3 my-4 sm:my-5 px-3 sm:px-6 py-2 sm:py-5 bg-gray-50 dark:bg-slate-950 rounded-lg'>
             <div className='flex items-center justify-start gap-3'>
-              <div className='bg-dark dark:bg-primary p-3 rounded-lg'>
+              <div className='bg-primary/30 dark:bg-dark p-3 rounded-lg'>
                 <LuBookOpenText
                   aria-hidden='true'
                   size={22}
-                  className='text-primary dark:text-dark'
+                  className='dark:text-primary text-primary'
                 />
               </div>
 

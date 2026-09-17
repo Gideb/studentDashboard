@@ -91,11 +91,11 @@ const AddResultModal = ({ onClose, onAdd, courses }) => {
 
   return (
     <Modal onClose={onClose} labelledBy='add-result-title'>
-      <div className='max-h-[90vh] overflow-y-auto'>
+      <div className='max-h-[90vh]'>
         <div className='mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-dark/70 text-primary dark:bg-primary/20 dark:text-dark'>
           <PiStudentFill size={22} />
         </div>
-        <div className='mb-6 text-center border-b border-gray-200 pb-3'>
+        <div className='mb-6 text-center border-b border-gray-200 dark:border-gray-700 pb-3'>
           <h2 id='add-result-title' className='text-xl font-semibold text-primary dark:text-dark'>
             Add Result
           </h2>
@@ -265,7 +265,7 @@ const AddResultModal = ({ onClose, onAdd, courses }) => {
           </div>
 
           {/* Buttons */}
-          <div className='flex justify-end gap-3 border-t border-gray-200 pt-5 dark:border-gray-700'>
+          <div className='flex justify-end gap-3 border-t border-gray-200 py-5 dark:border-gray-700'>
             <button type='button' onClick={onClose} className='btn-secondary'>
               Cancel
             </button>

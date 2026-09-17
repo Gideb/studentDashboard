@@ -103,7 +103,7 @@ const AddAssignmentModal = ({ onClose, onAdd, courses, statuses }) => {
 
   return (
     <Modal onClose={onClose} labelledBy='add-assignment-title'>
-      <div className='max-h-[90vh] overflow-y-auto'>
+      <div className='max-h-[90vh] '>
         {/* Header */}
         <div className='mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-dark/70 text-primary dark:bg-primary/20 dark:text-dark'>
           <PiStudentFill size={22} />
@@ -308,12 +308,14 @@ const AddAssignmentModal = ({ onClose, onAdd, courses, statuses }) => {
           </div>
 
           {/* Buttons */}
-          <div className='flex justify-end gap-3 border-t border-gray-200 pt-5 dark:border-gray-700'>
-            <button type='button' onClick={onClose} className='btn-secondary '>
+          <div className='flex justify-end gap-3 border-t border-gray-200 py-5 dark:border-gray-700'>
+            <button type='button' onClick={onClose} className='btn-secondary'>
+              
               Cancel
             </button>
 
-            <button type='submit' className=' btn-primary-2'>
+            <button type='submit' className='btn-primary-2 group'>
+              <span className='slide-color'></span>
               Add Assignment
             </button>
           </div>

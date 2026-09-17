@@ -7,7 +7,7 @@
 @theme {
   --font-display: 'Poppins', 'sans-serif';
   --breakpoint-3xl: 1920px;
-  --color-primary: #5c4b2d;
+  --color-primary: #5e210c;
   --color-dark: #f2e7d3;
   --color-secondary: #020617;
 }
@@ -25,7 +25,11 @@ body {
 }
 
 .btn-primary-2 {
-  @apply text-xs   font-medium bg-primary text-white dark:bg-dark dark:text-gray-800 cursor-pointer border border-primary hover:text-primary dark:hover:border-dark dark:hover:text-dark hover:bg-transparent py-2.5 px-4 rounded-sm;
+  @apply text-xs font-medium bg-primary text-white dark:bg-dark dark:text-gray-800 cursor-pointer border border-primary/80 dark:hover:border-dark hover:bg-primary/80 dark:hover:bg-dark/90 transition-colors duration-300 py-2.5 px-4 rounded-sm relative  overflow-hidden;
+}
+
+.slide-color {
+  @apply inset-0 -z-10 translate-y-full bg-indigo-600 transition-transform duration-300 ease-out group-hover:translate-y-0
 }
 
 .btn-primary {
@@ -45,7 +49,7 @@ body {
 }
 
 .add-btn {
-  @apply text-xs  font-medium text-white transition-colors bg-primary dark:bg-dark dark:text-black hover:bg-primary/80 dark:hover:bg-dark/90  rounded-sm cursor-pointer py-2.5 px-4;
+  @apply text-xs  font-medium text-white transition-colors bg-primary dark:bg-dark dark:text-black hover:bg-primary/80 dark:hover:bg-dark/90  rounded-sm cursor-pointer py-2.5 px-4  relative overflow-hidden duration-300;
 }
 
 .input-box {
