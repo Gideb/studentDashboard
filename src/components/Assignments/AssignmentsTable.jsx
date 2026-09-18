@@ -186,9 +186,9 @@ const AssignmentsTable = ({
                   {/* Assignment */}
                   <td className='px-6 py-4'>
                     <div>
-                      <p className='font-medium text-primary dark:text-white'>{assignment.title}</p>
+                      <p className='text-sm font-medium text-gray-700 dark:text-white'>{assignment.title}</p>
 
-                      <p className='mt-1 text-xs text-secondary dark:text-gray-500'>
+                      <p className='mt-1 text-xs text-gray-600 dark:text-gray-500'>
                         {assignment.assignmentId}
                       </p>
                     </div>
@@ -196,21 +196,21 @@ const AssignmentsTable = ({
 
                   {/* Course */}
                   <td className='px-6 py-4'>
-                    <span className='text-sm text-primary dark:text-gray-300'>
+                    <span className='text-sm text-gray-700 dark:text-gray-300'>
                       {assignment.course}
                     </span>
                   </td>
 
                   {/* Lecturer */}
                   <td className='px-6 py-4'>
-                    <span className='text-sm text-primary dark:text-gray-300'>
+                    <span className='text-sm text-gray-700 dark:text-gray-300'>
                       {assignment.lecturer}
                     </span>
                   </td>
 
                   {/* Due Date */}
                   <td className='px-6 py-4'>
-                    <span className='text-sm text-primary dark:text-gray-300'>
+                    <span className='text-sm text-gray-700 dark:text-gray-300'>
                       {assignment.dueDate}
                     </span>
                   </td>

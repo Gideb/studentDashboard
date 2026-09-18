@@ -90,59 +90,59 @@ const ResultsTable = ({
         <table className='w-full min-w-250 text-left'>
           <thead className='border-b border-gray-200 bg-gray-50 dark:border-gray-700 dark:bg-slate-800'>
             <tr>
-              <th className='px-5 py-4 text-xs font-semibold uppercase tracking-wide text-secondary dark:text-gray-400'>
+              <th className='  px-5 py-4 text-xs font-semibold uppercase tracking-wide text-secondary dark:text-gray-400'>
                 <button
                   type='button'
                   onClick={() => handleSort('studentName')}
-                  className='flex items-center gap-1'
+                  className='flex items-center gap-1 hover:text-primary dark:hover:text-dark'
                 >
                   Student
                   <SortIcon field='studentName' />
                 </button>
               </th>
 
-              <th className='px-5 py-4 text-xs font-semibold uppercase tracking-wide text-secondary dark:text-gray-400'>
+              <th className='  px-5 py-4 text-xs font-semibold uppercase tracking-wide text-secondary dark:text-gray-400'>
                 <button
                   type='button'
                   onClick={() => handleSort('course')}
-                  className='flex items-center gap-1'
+                  className='flex items-center gap-1 hover:text-primary dark:hover:text-dark'
                 >
                   Course
                   <SortIcon field='course' />
                 </button>
               </th>
 
-              <th className='px-5 py-4 text-xs font-semibold uppercase tracking-wide text-secondary dark:text-gray-400'>
+              <th className='  px-5 py-4 text-xs font-semibold uppercase tracking-wide text-secondary dark:text-gray-400'>
                 <button
                   type='button'
                   onClick={() => handleSort('assessment')}
-                  className='flex items-center gap-1'
+                  className='flex items-center gap-1 hover:text-primary dark:hover:text-dark'
                 >
                   Assessment
                   <SortIcon field='assessment' />
                 </button>
               </th>
 
-              <th className='px-5 py-4 text-xs font-semibold uppercase tracking-wide text-secondary dark:text-gray-400'>
+              <th className='  px-5 py-4 text-xs font-semibold uppercase tracking-wide text-secondary dark:text-gray-400'>
                 <button
                   type='button'
                   onClick={() => handleSort('score')}
-                  className='flex items-center gap-1'
+                  className='flex items-center gap-1 hover:text-primary dark:hover:text-dark'
                 >
                   Score
                   <SortIcon field='score' />
                 </button>
               </th>
 
-              <th className='px-5 py-4 text-xs font-semibold uppercase tracking-wide text-secondary dark:text-gray-400'>
+              <th className='  px-5 py-4 text-xs font-semibold uppercase tracking-wide text-secondary dark:text-gray-400'>
                 Grade
               </th>
 
-              <th className='px-5 py-4 text-xs font-semibold uppercase tracking-wide text-secondary dark:text-gray-400'>
+              <th className='  px-5 py-4 text-xs font-semibold uppercase tracking-wide text-secondary dark:text-gray-400'>
                 Semester
               </th>
 
-              <th className='px-5 py-4 text-right text-xs font-semibold uppercase tracking-wide text-secondary dark:text-gray-400'>
+              <th className='  px-5 py-4 text-right text-xs font-semibold uppercase tracking-wide text-secondary dark:text-gray-400'>
                 Actions
               </th>
             </tr>
@@ -159,7 +159,7 @@ const ResultsTable = ({
                 >
                   <td className='px-5 py-4'>
                     <div>
-                      <p className='font-medium text-primary dark:text-white'>
+                      <p className='font-medium text-gray-700 dark:text-white'>
                         {result.studentName}
                       </p>
 
@@ -171,7 +171,7 @@ const ResultsTable = ({
 
                   <td className='px-5 py-4'>
                     <div>
-                      <p className='text-sm font-medium text-primary dark:text-white'>
+                      <p className='text-sm font-medium text-gray-700 dark:text-white'>
                         {result.course}
                       </p>
 
@@ -181,12 +181,12 @@ const ResultsTable = ({
                     </div>
                   </td>
 
-                  <td className='px-5 py-4 text-sm text-primary dark:text-gray-300'>
+                  <td className='px-5 py-4 text-sm text-gray-700 dark:text-gray-300'>
                     {result.assessment}
                   </td>
 
                   <td className='px-5 py-4'>
-                    <span className='font-semibold text-primary dark:text-white'>
+                    <span className='font-medium text-sm text-gray-700 dark:text-white'>
                       {result.score}%
                     </span>
                   </td>

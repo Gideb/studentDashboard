@@ -23,7 +23,7 @@ const UpcomingEvents = ({ events, onEventClick }) => {
     }
   } */
 
- /*  const formatEventDate = date => {
+  /*  const formatEventDate = date => {
     return new Date(`${date}T00:00:00`).toLocaleDateString('en-US', {
       weekday: 'short',
       month: 'short',
@@ -34,7 +34,7 @@ const UpcomingEvents = ({ events, onEventClick }) => {
   return (
     <div className='rounded-xl border border-gray-200 bg-white dark:border-gray-700 dark:bg-slate-900'>
       <div className='border-b border-gray-200 px-4 py-4 dark:border-gray-700'>
-        <h2 className='font-semibold text-primary dark:text-white'>Upcoming Events</h2>
+        <h2 className='font-semibold text-primary dark:text-dark'>Upcoming Events</h2>
 
         <p className='mt-1 text-xs text-secondary dark:text-gray-400'>Your next scheduled events</p>
       </div>

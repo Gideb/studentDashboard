@@ -24,7 +24,7 @@ const AssignmentsFilter = ({
             value={search}
             onChange={e => setSearch(e.target.value)}
             placeholder='Search assignments...'
-            className='w-full rounded-lg border border-gray-200 bg-white py-2.5 pl-10 pr-4 text-sm text-primary outline-none transition placeholder:text-gray-400 focus:border-primary dark:border-gray-700 dark:bg-slate-800 dark:text-white'
+            className='w-full rounded-lg border border-gray-200 bg-white py-2.5 pl-10 pr-4 text-sm text-gray-700 outline-none transition placeholder:text-gray-400 focus:border-primary dark:border-gray-700 dark:bg-slate-800 dark:text-white'
           />
         </div>
 
@@ -34,7 +34,7 @@ const AssignmentsFilter = ({
           <select
             value={selectedCourse}
             onChange={e => setSelectedCourse(e.target.value)}
-            className='rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-sm text-primary outline-none focus:border-primary dark:border-gray-700 dark:bg-slate-800 dark:text-white'
+            className='rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-sm text-gray-700 outline-none focus:border-primary dark:border-gray-700 dark:bg-slate-800 dark:text-white'
           >
             <option value='All'>All Courses</option>
 
@@ -49,7 +49,7 @@ const AssignmentsFilter = ({
           <select
             value={selectedStatus}
             onChange={e => setSelectedStatus(e.target.value)}
-            className='rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-sm text-primary outline-none focus:border-primary dark:border-gray-700 dark:bg-slate-800 dark:text-white'
+            className='rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-sm text-gray-700 outline-none focus:border-primary dark:border-gray-700 dark:bg-slate-800 dark:text-white'
           >
             <option value='All'>All Status</option>
 
@@ -65,7 +65,7 @@ const AssignmentsFilter = ({
             <button
               type='button'
               onClick={clearFilters}
-              className='flex items-center justify-center gap-2 rounded-lg border border-gray-200 px-3 py-2.5 text-sm font-medium text-secondary transition hover:bg-gray-50 hover:text-primary dark:border-gray-700 dark:text-gray-400 dark:hover:bg-slate-800 dark:hover:text-white'
+              className='flex items-center justify-center gap-2 rounded-lg border border-gray-200 px-3 py-2.5 text-sm font-medium text-secondary transition hover:bg-gray-50 hover:text-gray-700 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-slate-800 dark:hover:text-white'
             >
               <LuX />
               Clear

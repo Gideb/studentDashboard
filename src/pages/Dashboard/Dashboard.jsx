@@ -2,11 +2,12 @@ import AssignmentCard from '../../components/Cards/AssignmentCard'
 import ClassCard from '../../components/Cards/ClassCard'
 import StatCard from '../../components/Cards/StatCard'
 import { stats, assignments, classes, results } from '../../data/dashboardData'
-import { TbReportAnalytics, TbSchoolBell } from 'react-icons/tb'
-import { LuBookOpenText } from 'react-icons/lu'
+import { TbReportAnalytics } from 'react-icons/tb'
+import { LuClipboardList } from 'react-icons/lu'
 import ResultsTable from '../../components/ResultsTable'
 import DashboardLayout from '../../layouts/DashboardLayout'
 import { useEffect, useState } from 'react'
+import { SiGoogleclassroom } from 'react-icons/si'
 
 const Dashboard = () => {
   const [greeting, setGreeting] = useState('')
@@ -60,11 +61,11 @@ const Dashboard = () => {
 
           <section className='space-y-3 my-4 sm:my-5 px-3 sm:px-6 py-2 sm:py-5 bg-gray-50 dark:bg-slate-950 rounded-lg'>
             <div className='flex items-center justify-start gap-3'>
-              <div className='bg-primary/30 dark:bg-dark p-3 rounded-lg'>
-                <LuBookOpenText
+              <div className='bg-dark/50 dark:bg-primary/40 p-3 rounded-lg'>
+                <LuClipboardList
                   aria-hidden='true'
                   size={22}
-                  className='dark:text-primary text-primary'
+                  className='dark:text-dark text-primary'
                 />
               </div>
 
@@ -93,8 +94,8 @@ const Dashboard = () => {
 
           <section className='space-y-3 my-4 sm:my-5 px-3 sm:px-6 py-2 sm:py-5 bg-gray-50 dark:bg-slate-950 rounded-lg'>
             <div className='flex items-center justify-start gap-3'>
-              <div className='bg-dark dark:bg-primary p-3 rounded-lg'>
-                <TbSchoolBell
+              <div className='bg-dark/50 dark:bg-primary/40 p-3 rounded-lg'>
+                <SiGoogleclassroom
                   size={22}
                   aria-hidden='true'
                   className='text-primary dark:text-dark'
@@ -126,7 +127,7 @@ const Dashboard = () => {
         {/* recent results */}
         <section className='space-y-3 my-4 sm:my-5 px-3 sm:px-6 py-2 sm:py-5 bg-gray-50 dark:bg-slate-950 rounded-lg'>
           <div className='flex items-center justify-start gap-3'>
-            <div className='bg-dark dark:bg-primary p-3 rounded-lg'>
+            <div className='bg-dark/50 dark:bg-primary/40 p-3 rounded-lg'>
               <TbReportAnalytics
                 size={22}
                 className='text-primary dark:text-dark'
@@ -155,14 +156,14 @@ const Dashboard = () => {
 
                   <th
                     scope='col'
-                    className='border-l border-gray-300 dark:border-gray-500 px-4 py-4 sm:py-6 text-sm font-semibold tracking-wider uppercase text-primary dark:text-dark'
+                    className=' px-4 py-4 sm:py-6 text-sm font-semibold tracking-wider uppercase text-primary dark:text-dark'
                   >
                     Score
                   </th>
 
                   <th
                     scope='col'
-                    className='border-l border-gray-300 dark:border-gray-500 px-4 py-4 sm:py-6 text-sm font-semibold tracking-wider uppercase text-primary dark:text-dark'
+                    className=' px-4 py-4 sm:py-6 text-sm font-semibold tracking-wider uppercase text-primary dark:text-dark'
                   >
                     Grade
                   </th>

@@ -1,8 +1,8 @@
 import { FaUsers } from 'react-icons/fa6'
 import { GiGraduateCap } from 'react-icons/gi'
 import {
-  LuBookOpenText,
-  LuCalendar1,
+  LuCalendarDays,
+  LuClipboardList,
   LuFileChartColumnIncreasing,
   LuLogOut,
   LuSettings2,
@@ -30,7 +30,7 @@ export const SIDE_MENU_DATA = [
   },
   {
     id: '04',
-    icon: LuBookOpenText,
+    icon: LuClipboardList,
     title: 'Assignments',
     path: '/assignments',
   },
@@ -42,7 +42,7 @@ export const SIDE_MENU_DATA = [
   },
   {
     id: '06',
-    icon: LuCalendar1,
+    icon: LuCalendarDays,
     title: 'Calendar',
     path: '/calendar',
   },

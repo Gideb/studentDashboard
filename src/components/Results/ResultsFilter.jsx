@@ -30,7 +30,7 @@ const ResultsFilter = ({
             value={search}
             onChange={e => setSearch(e.target.value)}
             placeholder='Search student, result ID, course...'
-            className='w-full rounded-lg border border-gray-200 bg-white py-2.5 pl-10 pr-4 text-sm text-primary outline-none transition placeholder:text-gray-400 focus:border-primary dark:border-gray-700 dark:bg-slate-800 dark:text-white'
+            className='w-full rounded-lg border border-gray-200 bg-white py-2.5 pl-10 pr-4 text-sm text-gray-800 outline-none transition placeholder:text-gray-400 focus:border-primary dark:border-gray-700 dark:bg-slate-800 dark:text-white'
           />
         </div>
 
@@ -39,7 +39,7 @@ const ResultsFilter = ({
           <select
             value={selectedCourse}
             onChange={e => setSelectedCourse(e.target.value)}
-            className='rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-sm text-primary outline-none focus:border-primary dark:border-gray-700 dark:bg-slate-800 dark:text-white'
+            className='rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-sm text-gray-800 outline-none focus:border-primary dark:border-gray-700 dark:bg-slate-800 dark:text-white'
           >
             <option value='All'>All Courses</option>
 
@@ -53,7 +53,7 @@ const ResultsFilter = ({
           <select
             value={selectedAssessment}
             onChange={e => setSelectedAssessment(e.target.value)}
-            className='rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-sm text-primary outline-none focus:border-primary dark:border-gray-700 dark:bg-slate-800 dark:text-white'
+            className='rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-sm text-gray-800 outline-none focus:border-primary dark:border-gray-700 dark:bg-slate-800 dark:text-white'
           >
             <option value='All'>All Assessments</option>
 
@@ -67,7 +67,7 @@ const ResultsFilter = ({
           <select
             value={selectedSemester}
             onChange={e => setSelectedSemester(e.target.value)}
-            className='rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-sm text-primary outline-none focus:border-primary dark:border-gray-700 dark:bg-slate-800 dark:text-white'
+            className='rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-sm text-gray-800 outline-none focus:border-primary dark:border-gray-700 dark:bg-slate-800 dark:text-white'
           >
             <option value='All'>All Semesters</option>
 
@@ -81,7 +81,7 @@ const ResultsFilter = ({
           <select
             value={selectedAcademicYear}
             onChange={e => setSelectedAcademicYear(e.target.value)}
-            className='rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-sm text-primary outline-none focus:border-primary dark:border-gray-700 dark:bg-slate-800 dark:text-white'
+            className='rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-sm text-gray-800 outline-none focus:border-primary dark:border-gray-700 dark:bg-slate-800 dark:text-white'
           >
             <option value='All'>All Academic Years</option>
 
@@ -96,7 +96,7 @@ const ResultsFilter = ({
             <button
               type='button'
               onClick={clearFilters}
-              className='flex items-center justify-center gap-2 rounded-lg border border-gray-200 px-3 py-2.5 text-sm font-medium text-secondary transition hover:bg-gray-50 hover:text-primary dark:border-gray-700 dark:text-gray-400 dark:hover:bg-slate-800 dark:hover:text-white'
+              className='flex items-center justify-center gap-2 rounded-lg border border-gray-200 px-3 py-2.5 text-sm font-medium text-secondary transition hover:bg-gray-50 hover:text-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-slate-800 dark:hover:text-white'
             >
               <LuX />
               Clear
