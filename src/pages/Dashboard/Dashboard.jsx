@@ -36,6 +36,7 @@ const Dashboard = () => {
   return (
     <DashboardLayout activeMenu='Dashboard'>
       <main className='my-5 mx-auto space-y-5 px-2 sm:px-6 py-5 sm:py-8 bg-gray-50 dark:bg-slate-950 rounded-lg'>
+      <main className='my-5 mx-auto space-y-5 px-2 sm:px-6 py-5 sm:py-8 bg-gray-50 dark:bg-slate-950 rounded-lg'>
         <div className='mb-3 sm:mb-6'>
           <h1 className='text-2xl font-bold text-primary dark:text-dark'>
             {`${finalGreeting}, Gideb 👋`}
@@ -51,6 +52,7 @@ const Dashboard = () => {
           <h2 className='sr-only'>Study Statistics</h2>
 
           <div className='grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 my-4 sm:my-6 px-3 sm:px-6'>
+            {dashboardStats.map(stat => (
             {dashboardStats.map(stat => (
               <StatCard
                 key={stat.title}
@@ -76,6 +78,7 @@ const Dashboard = () => {
                 />
               </div>
 
+              <h2 className='text-xl font-semibold text-primary dark:text-dark'>
               <h2 className='text-xl font-semibold text-primary dark:text-dark'>
                 Recent Assignments
               </h2>
@@ -133,6 +136,7 @@ const Dashboard = () => {
 
         {/* recent results */}
 
+
         <section className='space-y-3 my-4 sm:my-5 px-3 sm:px-6 py-2 sm:py-5 bg-gray-50 dark:bg-slate-950 rounded-lg'>
           <div className='flex items-center justify-start gap-3'>
             <div className='bg-dark/50 dark:bg-primary/40 p-3 rounded-lg'>
@@ -154,6 +158,7 @@ const Dashboard = () => {
                 Recent academic results showing subjects, scores, and grades
               </caption>
 
+
               <thead className='bg-gray-200 dark:bg-gray-700'>
                 <tr>
                   <th
@@ -173,12 +178,14 @@ const Dashboard = () => {
                   <th
                     scope='col'
                     className='px-4 py-4 sm:py-6 text-sm font-semibold tracking-wider uppercase text-primary dark:text-dark'
+                    className='px-4 py-4 sm:py-6 text-sm font-semibold tracking-wider uppercase text-primary dark:text-dark'
                   >
                     Score
                   </th>
 
                   <th
                     scope='col'
+                    className='px-4 py-4 sm:py-6 text-sm font-semibold tracking-wider uppercase text-primary dark:text-dark'
                     className='px-4 py-4 sm:py-6 text-sm font-semibold tracking-wider uppercase text-primary dark:text-dark'
                   >
                     Grade
