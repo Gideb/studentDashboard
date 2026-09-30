@@ -1,16 +1,23 @@
 import AssignmentCard from '../../components/Cards/AssignmentCard'
 import ClassCard from '../../components/Cards/ClassCard'
 import StatCard from '../../components/Cards/StatCard'
-import { stats, assignments, classes, results } from '../../data/dashboardData'
+
+import { formatDashboardDate } from '../../utils/dashboardUtils'
+
 import { TbReportAnalytics } from 'react-icons/tb'
 import { LuClipboardList } from 'react-icons/lu'
+import { SiGoogleclassroom } from 'react-icons/si'
+
 import ResultsTable from '../../components/ResultsTable'
+
 import DashboardLayout from '../../layouts/DashboardLayout'
 import { useEffect, useState } from 'react'
-import { SiGoogleclassroom } from 'react-icons/si'
+import useDashboard from '../../hooks/useDashboard'
 
 const Dashboard = () => {
   const [greeting, setGreeting] = useState('')
+
+  const { dashboardStats, recentAssignments, upcomingClasses, recentResults } = useDashboard()
 
   useEffect(() => {
     const currentHour = new Date().getHours()
@@ -24,14 +31,14 @@ const Dashboard = () => {
     }
   }, [])
 
-  const finalGreeting = greeting || 'Good day, John 👋 '
+  const finalGreeting = greeting || 'Good day'
 
   return (
     <DashboardLayout activeMenu='Dashboard'>
-      <main className=' my-5 mx-auto space-y-5 px-2 sm:px-6 py-5 sm:py-8  bg-gray-50 dark:bg-slate-950 rounded-lg'>
+      <main className='my-5 mx-auto space-y-5 px-2 sm:px-6 py-5 sm:py-8 bg-gray-50 dark:bg-slate-950 rounded-lg'>
         <div className='mb-3 sm:mb-6'>
           <h1 className='text-2xl font-bold text-primary dark:text-dark'>
-            {`${finalGreeting}, John 👋`}
+            {`${finalGreeting}, Gideb 👋`}
           </h1>
 
           <p className='text-gray-500 dark:text-gray-400'>
@@ -44,7 +51,7 @@ const Dashboard = () => {
           <h2 className='sr-only'>Study Statistics</h2>
 
           <div className='grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 my-4 sm:my-6 px-3 sm:px-6'>
-            {stats.map(stat => (
+            {dashboardStats.map(stat => (
               <StatCard
                 key={stat.title}
                 icon={stat.Icon}
@@ -69,7 +76,7 @@ const Dashboard = () => {
                 />
               </div>
 
-              <h2 className='text-xl font-semibold text-primary dark:text-dark '>
+              <h2 className='text-xl font-semibold text-primary dark:text-dark'>
                 Recent Assignments
               </h2>
             </div>
@@ -77,12 +84,12 @@ const Dashboard = () => {
             <p className='text-sm text-gray-500'>View your recent assignments.</p>
 
             <ul className='grid grid-cols-1 gap-4 mt-6'>
-              {assignments.map(assignment => (
-                <li key={assignment.title}>
+              {recentAssignments.map(assignment => (
+                <li key={assignment.id}>
                   <AssignmentCard
                     title={assignment.title}
-                    subject={assignment.subject}
-                    dueDate={assignment.dueDate}
+                    subject={assignment.course}
+                    dueDate={formatDashboardDate(assignment.dueDate)}
                     status={assignment.status}
                   />
                 </li>
@@ -110,12 +117,12 @@ const Dashboard = () => {
             <p className='text-sm text-gray-500'>Keep up with your classes.</p>
 
             <ul className='grid grid-cols-1 gap-4 mt-6'>
-              {classes.map(aclass => (
-                <li key={`${aclass.subject}-${aclass.day}-${aclass.time}`}>
+              {upcomingClasses.map(aclass => (
+                <li key={aclass.id}>
                   <ClassCard
-                    subject={aclass.subject}
-                    day={aclass.day}
-                    time={aclass.time}
+                    subject={aclass.title}
+                    day={formatDashboardDate(aclass.date)}
+                    time={`${aclass.startTime} - ${aclass.endTime}`}
                     location={aclass.location}
                   />
                 </li>
@@ -125,6 +132,7 @@ const Dashboard = () => {
         </div>
 
         {/* recent results */}
+
         <section className='space-y-3 my-4 sm:my-5 px-3 sm:px-6 py-2 sm:py-5 bg-gray-50 dark:bg-slate-950 rounded-lg'>
           <div className='flex items-center justify-start gap-3'>
             <div className='bg-dark/50 dark:bg-primary/40 p-3 rounded-lg'>
@@ -145,40 +153,73 @@ const Dashboard = () => {
               <caption className='sr-only'>
                 Recent academic results showing subjects, scores, and grades
               </caption>
+
               <thead className='bg-gray-200 dark:bg-gray-700'>
                 <tr>
                   <th
                     scope='col'
                     className='px-4 sm:px-6 py-4 sm:py-6 text-sm font-semibold tracking-wider uppercase text-primary dark:text-dark'
                   >
-                    Subject
+                    Course Code
                   </th>
 
                   <th
                     scope='col'
-                    className=' px-4 py-4 sm:py-6 text-sm font-semibold tracking-wider uppercase text-primary dark:text-dark'
+                    className='px-4 py-4 sm:py-6 text-sm font-semibold tracking-wider uppercase text-primary dark:text-dark'
+                  >
+                    Course
+                  </th>
+
+                  <th
+                    scope='col'
+                    className='px-4 py-4 sm:py-6 text-sm font-semibold tracking-wider uppercase text-primary dark:text-dark'
                   >
                     Score
                   </th>
 
                   <th
                     scope='col'
-                    className=' px-4 py-4 sm:py-6 text-sm font-semibold tracking-wider uppercase text-primary dark:text-dark'
+                    className='px-4 py-4 sm:py-6 text-sm font-semibold tracking-wider uppercase text-primary dark:text-dark'
                   >
                     Grade
+                  </th>
+
+                  <th
+                    scope='col'
+                    className='px-4 py-4 sm:py-6 text-sm font-semibold tracking-wider uppercase text-primary dark:text-dark'
+                  >
+                    Semester
                   </th>
                 </tr>
               </thead>
 
               <tbody>
-                {results.map(result => (
-                  <ResultsTable
-                    key={result.id}
-                    subject={result.subject}
-                    score={result.score}
-                    grade={result.grade}
-                  />
-                ))}
+                {recentResults.map(result => {
+                  const score = Number(result.score)
+
+                  let grade = 'F'
+
+                  if (score >= 80) {
+                    grade = 'A'
+                  } else if (score >= 70) {
+                    grade = 'B'
+                  } else if (score >= 60) {
+                    grade = 'C'
+                  } else if (score >= 50) {
+                    grade = 'D'
+                  }
+
+                  return (
+                    <ResultsTable
+                      key={result.id}
+                      code={result.courseCode}
+                      course={result.course}
+                      score={result.score}
+                      semester={result.semester}
+                      grade={grade}
+                    />
+                  )
+                })}
               </tbody>
             </table>
           </div>

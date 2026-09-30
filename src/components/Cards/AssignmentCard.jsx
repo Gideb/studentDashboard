@@ -15,7 +15,7 @@ const AssignmentCard = ({ subject, title, dueDate, status }) => {
         <p className='text-sm text-gray-500 dark:text-gray-400 font-medium'>{subject}</p>
       </div>
 
-      <h3 className='my-1 text-xl sm:text-2xl font-bold text-gray-900 dark:text-white'>{title}</h3>
+      <h3 className='my-1 text-lg sm:text-xl font-semibold text-gray-900 dark:text-white'>{title}</h3>
 
       <div className='flex justify-between items-center mt-2 sm:mt-1'>
         <p
