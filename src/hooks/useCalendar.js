@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { calendarEvents } from '../data/CalendarData'
 import { generateId } from '../utils/generateId'
 import useTableControls from './useTableControls'
+import { notifyStorageChange, STORAGE_EVENTS } from '../utils/storageEvents'
 
 const CALENDAR_STORAGE_KEY = 'calendarEvents'
 
@@ -22,8 +23,14 @@ const useCalendar = () => {
   const [selectedCourse, setSelectedCourse] = useState('All')
   const [selectedDate, setSelectedDate] = useState('')
 
+ /*  useEffect(() => {
+    localStorage.setItem(CALENDAR_STORAGE_KEY, JSON.stringify(eventList))
+  }, [eventList]) */
+
   useEffect(() => {
     localStorage.setItem(CALENDAR_STORAGE_KEY, JSON.stringify(eventList))
+
+    notifyStorageChange(STORAGE_EVENTS.CALENDAR_UPDATED)
   }, [eventList])
 
   // Unique filter values
@@ -73,6 +80,49 @@ const useCalendar = () => {
     selectedCourse !== 'All' ||
     selectedDate !== ''
 
+  const addEvent = newEvent => {
+    const newId = generateId(eventList)
+
+    const newEventId = `EVT-${String(newId).padStart(3, '0')}`
+
+    const eventToAdd = {
+      id: newId,
+      eventId: newEventId,
+      title: newEvent.title,
+      type: newEvent.type,
+      course: newEvent.course || '',
+      lecturer: newEvent.lecturer || '',
+      date: newEvent.date,
+      startTime: newEvent.startTime,
+      endTime: newEvent.endTime,
+      location: newEvent.location,
+      description: newEvent.description || '',
+    }
+
+    setEventList(prev => [...prev, eventToAdd])
+  }
+
+  const updateEvent = updatedEvent => {
+    setEventList(prev =>
+      prev.map(event =>
+        event.id === updatedEvent.id
+          ? {
+              ...event,
+              ...updatedEvent,
+            }
+          : event
+      )
+    )
+  }
+
+  const deleteEvent = eventId => {
+    setEventList(prev => prev.filter(event => event.id !== eventId))
+  }
+
+
+ 
+
+  /*   
   // Add event
   const addEvent = newEvent => {
     const newId = generateId(eventList)
@@ -114,7 +164,7 @@ const useCalendar = () => {
   const deleteEvent = eventId => {
     setEventList(prev => prev.filter(event => event.id !== eventId))
   }
-
+ */
   // Clear filters
   const clearFilters = () => {
     setSearch('')

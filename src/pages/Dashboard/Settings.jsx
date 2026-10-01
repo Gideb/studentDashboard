@@ -25,7 +25,7 @@ const Settings = () => {
 
   return (
     <DashboardLayout activeMenu='Settings'>
-      <div className='space-y-6 my-5 mx-auto w-full min-w-0 px-3 sm:px-6 py-5 sm:py-8'>
+      <div className='space-y-6 my-5 mx-auto w-full min-w-0 px-3 sm:px-6 py-5 sm:py-8 max-w-7xl'>
         {/* Header */}
         <div>
           <h1 className='text-2xl font-semibold text-primary dark:text-dark'>Settings</h1>

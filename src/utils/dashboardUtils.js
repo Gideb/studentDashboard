@@ -1,16 +1,20 @@
 export const getUpcomingEvents = (events, type, limit = 4) => {
-  const today = new Date()
-  today.setHours(0, 0, 0, 0)
+  const now = new Date()
 
   return events
     .filter(event => {
       if (event.type !== type) return false
 
-      const eventDate = new Date(`${event.date}T00:00:00`)
+      const eventDateTime = new Date(`${event.date}T${event.startTime}:00`)
 
-      return eventDate >= today
+      return eventDateTime >= now
     })
-    .sort((a, b) => new Date(`${a.date}T00:00:00`) - new Date(`${b.date}T00:00:00`))
+    .sort((a, b) => {
+      const dateA = new Date(`${a.date}T${a.startTime}:00`)
+      const dateB = new Date(`${b.date}T${b.startTime}:00`)
+
+      return dateA - dateB
+    })
     .slice(0, limit)
 }
 

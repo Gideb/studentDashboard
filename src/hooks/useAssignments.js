@@ -2,13 +2,13 @@ import { useEffect, useState } from 'react'
 import { assignments } from '../data/AssignmentsData'
 import { generateId } from '../utils/generateId'
 import useTableControls from './useTableControls'
+import { notifyStorageChange, STORAGE_EVENTS } from '../utils/storageEvents'
 
 const ASSIGNMENTS_STORAGE_KEY = 'assignments'
 
 const useAssignments = () => {
-  // ==============================
   // Assignment Data
-  // ==============================
+
   const [assignmentList, setAssignmentList] = useState(() => {
     try {
       const savedAssignments = localStorage.getItem(ASSIGNMENTS_STORAGE_KEY)
@@ -21,29 +21,33 @@ const useAssignments = () => {
     }
   })
 
-  // ==============================
   // Filters
-  // ==============================
+
   const [selectedCourse, setSelectedCourse] = useState('All')
   const [selectedStatus, setSelectedStatus] = useState('All')
 
-  // ==============================
   // Save to localStorage
-  // ==============================
-  useEffect(() => {
+
+  /*  useEffect(() => {
     localStorage.setItem(ASSIGNMENTS_STORAGE_KEY, JSON.stringify(assignmentList))
   }, [assignmentList])
 
-  // ==============================
+ */
+
+  useEffect(() => {
+    localStorage.setItem(ASSIGNMENTS_STORAGE_KEY, JSON.stringify(assignmentList))
+
+    notifyStorageChange(STORAGE_EVENTS.ASSIGNMENTS_UPDATED)
+  }, [assignmentList])
+
   // Filter Options
-  // ==============================
+
   const uniqueCourses = [...new Set(assignmentList.map(assignment => assignment.course))]
 
   const uniqueStatus = [...new Set(assignmentList.map(assignment => assignment.status))]
 
-  // ==============================
   // Course + Status Filtering
-  // ==============================
+
   const assignmentFilteredData = assignmentList.filter(assignment => {
     const matchesCourse = selectedCourse === 'All' || assignment.course === selectedCourse
 
@@ -52,9 +56,8 @@ const useAssignments = () => {
     return matchesCourse && matchesStatus
   })
 
-  // ==============================
   // Search, Sort & Pagination
-  // ==============================
+
   const {
     search,
     setSearch,
@@ -83,15 +86,13 @@ const useAssignments = () => {
     resetDependencies: [selectedCourse, selectedStatus],
   })
 
-  // ==============================
   // Active Filters
-  // ==============================
+
   const hasActiveFilters =
     search.trim() !== '' || selectedCourse !== 'All' || selectedStatus !== 'All'
 
-  // ==============================
   // Add Assignment
-  // ==============================
+
   const addAssignment = newAssignment => {
     const newId = generateId(assignmentList)
 
@@ -112,9 +113,8 @@ const useAssignments = () => {
     setAssignmentList(prev => [...prev, assignmentToAdd])
   }
 
-  // ==============================
   // Update Assignment
-  // ==============================
+
   const updateAssignment = updatedAssignment => {
     setAssignmentList(prev =>
       prev.map(assignment =>
@@ -128,25 +128,22 @@ const useAssignments = () => {
     )
   }
 
-  // ==============================
   // Delete Assignment
-  // ==============================
+
   const deleteAssignment = assignmentId => {
     setAssignmentList(prev => prev.filter(assignment => assignment.id !== assignmentId))
   }
 
-  // ==============================
   // Clear Filters
-  // ==============================
+
   const clearFilters = () => {
     setSearch('')
     setSelectedCourse('All')
     setSelectedStatus('All')
   }
 
-  // ==============================
   // Return
-  // ==============================
+
   return {
     assignmentList,
 

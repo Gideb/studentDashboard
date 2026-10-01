@@ -1,15 +1,11 @@
 import AssignmentCard from '../../components/Cards/AssignmentCard'
 import ClassCard from '../../components/Cards/ClassCard'
 import StatCard from '../../components/Cards/StatCard'
-
 import { formatDashboardDate } from '../../utils/dashboardUtils'
-
 import { TbReportAnalytics } from 'react-icons/tb'
 import { LuClipboardList } from 'react-icons/lu'
 import { SiGoogleclassroom } from 'react-icons/si'
-
 import ResultsTable from '../../components/ResultsTable'
-
 import DashboardLayout from '../../layouts/DashboardLayout'
 import { useEffect, useState } from 'react'
 import useDashboard from '../../hooks/useDashboard'
@@ -46,7 +42,7 @@ const Dashboard = () => {
           </p>
         </div>
 
-        {/* statistics */}
+        {/* Statistics */}
         <section>
           <h2 className='sr-only'>Study Statistics</h2>
 
@@ -64,8 +60,7 @@ const Dashboard = () => {
         </section>
 
         <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-          {/* recent assignments */}
-
+          {/* Recent Assignments */}
           <section className='space-y-3 my-4 sm:my-5 px-3 sm:px-6 py-2 sm:py-5 bg-gray-50 dark:bg-slate-950 rounded-lg'>
             <div className='flex items-center justify-start gap-3'>
               <div className='bg-dark/50 dark:bg-primary/40 p-3 rounded-lg'>
@@ -83,22 +78,25 @@ const Dashboard = () => {
 
             <p className='text-sm text-gray-500'>View your recent assignments.</p>
 
-            <ul className='grid grid-cols-1 gap-4 mt-6'>
-              {recentAssignments.map(assignment => (
-                <li key={assignment.id}>
-                  <AssignmentCard
-                    title={assignment.title}
-                    subject={assignment.course}
-                    dueDate={formatDashboardDate(assignment.dueDate)}
-                    status={assignment.status}
-                  />
-                </li>
-              ))}
-            </ul>
+            {recentAssignments.length > 0 ? (
+              <ul className='grid grid-cols-1 gap-4 mt-6'>
+                {recentAssignments.map(assignment => (
+                  <li key={assignment.id}>
+                    <AssignmentCard
+                      title={assignment.title}
+                      subject={assignment.course}
+                      dueDate={formatDashboardDate(assignment.dueDate)}
+                      status={assignment.status}
+                    />
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className='mt-6 text-sm text-gray-500'>No recent assignments.</p>
+            )}
           </section>
 
-          {/* upcoming classes */}
-
+          {/* Upcoming Classes */}
           <section className='space-y-3 my-4 sm:my-5 px-3 sm:px-6 py-2 sm:py-5 bg-gray-50 dark:bg-slate-950 rounded-lg'>
             <div className='flex items-center justify-start gap-3'>
               <div className='bg-dark/50 dark:bg-primary/40 p-3 rounded-lg'>
@@ -116,23 +114,26 @@ const Dashboard = () => {
 
             <p className='text-sm text-gray-500'>Keep up with your classes.</p>
 
-            <ul className='grid grid-cols-1 gap-4 mt-6'>
-              {upcomingClasses.map(aclass => (
-                <li key={aclass.id}>
-                  <ClassCard
-                    subject={aclass.title}
-                    day={formatDashboardDate(aclass.date)}
-                    time={`${aclass.startTime} - ${aclass.endTime}`}
-                    location={aclass.location}
-                  />
-                </li>
-              ))}
-            </ul>
+            {upcomingClasses.length > 0 ? (
+              <ul className='grid grid-cols-1 gap-4 mt-6'>
+                {upcomingClasses.map(aclass => (
+                  <li key={aclass.id}>
+                    <ClassCard
+                      subject={aclass.title}
+                      day={formatDashboardDate(aclass.date)}
+                      time={`${aclass.startTime} - ${aclass.endTime}`}
+                      location={aclass.location}
+                    />
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className='mt-6 text-sm text-gray-500'>No upcoming classes.</p>
+            )}
           </section>
         </div>
 
-        {/* recent results */}
-
+        {/* Recent Results */}
         <section className='space-y-3 my-4 sm:my-5 px-3 sm:px-6 py-2 sm:py-5 bg-gray-50 dark:bg-slate-950 rounded-lg'>
           <div className='flex items-center justify-start gap-3'>
             <div className='bg-dark/50 dark:bg-primary/40 p-3 rounded-lg'>
@@ -151,7 +152,7 @@ const Dashboard = () => {
           <div className='w-full mx-auto overflow-hidden rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 shadow-sm'>
             <table className='w-full text-left'>
               <caption className='sr-only'>
-                Recent academic results showing subjects, scores, and grades
+                Recent academic results showing courses, scores, grades, and semesters
               </caption>
 
               <thead className='bg-gray-200 dark:bg-gray-700'>
@@ -177,7 +178,12 @@ const Dashboard = () => {
                     Score
                   </th>
 
-                  <th scope='col'>Grade</th>
+                  <th
+                    scope='col'
+                    className='px-4 py-4 sm:py-6 text-sm font-semibold tracking-wider uppercase text-primary dark:text-dark'
+                  >
+                    Grade
+                  </th>
 
                   <th
                     scope='col'

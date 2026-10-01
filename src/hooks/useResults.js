@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { results } from '../data/ResultsData'
 import { generateId } from '../utils/generateId'
 import useTableControls from './useTableControls'
+import { notifyStorageChange, STORAGE_EVENTS } from '../utils/storageEvents'
 
 const RESULTS_STORAGE_KEY = 'results'
 
@@ -23,8 +24,14 @@ const useResults = () => {
   const [selectedSemester, setSelectedSemester] = useState('All')
   const [selectedAcademicYear, setSelectedAcademicYear] = useState('All')
 
+/*   useEffect(() => {
+    localStorage.setItem(RESULTS_STORAGE_KEY, JSON.stringify(resultList))
+  }, [resultList]) */
+
   useEffect(() => {
     localStorage.setItem(RESULTS_STORAGE_KEY, JSON.stringify(resultList))
+
+    notifyStorageChange(STORAGE_EVENTS.RESULTS_UPDATED)
   }, [resultList])
 
   // Get unique filter values
