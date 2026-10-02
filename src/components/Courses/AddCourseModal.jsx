@@ -1,8 +1,6 @@
 import { useState } from 'react'
 import Modal from '../Modals/Modal'
-
-import { X } from 'lucide-react'
-import { PiGraduationCapFill, PiStudentFill } from 'react-icons/pi'
+import { PiStudentFill } from 'react-icons/pi'
 
 const AddCourseModal = ({ onAdd, onClose, departments, statuses }) => {
   const [formData, setFormData] = useState({
@@ -87,7 +85,7 @@ const AddCourseModal = ({ onAdd, onClose, departments, statuses }) => {
       <div className='mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-dark/70 text-primary dark:bg-primary/20 dark:text-dark'>
         <PiStudentFill size={22} />
       </div>
-      <div className='mb-6 text-center border-b border-gray-200 pb-3'>
+      <div className='mb-6 text-center border-b border-gray-200 dark:border-gray-700 pb-3'>
         <h2 id='add-course-title' className='text-xl font-semibold text-primary dark:text-dark'>
           Add Course
         </h2>

@@ -34,7 +34,7 @@ const useDashboard = () => {
     },
   ])
 
-/*   useEffect(() => {
+  /*   useEffect(() => {
     const getStoredData = (key, fallbackData) => {
       try {
         const savedData = localStorage.getItem(key)
@@ -100,101 +100,95 @@ const useDashboard = () => {
   }, [])
  */
 
+  useEffect(() => {
+    const loadDashboardData = () => {
+      const getStoredData = (key, fallbackData) => {
+        try {
+          const savedData = localStorage.getItem(key)
 
+          if (!savedData) {
+            return fallbackData
+          }
 
-useEffect(() => {
-  const loadDashboardData = () => {
-    const getStoredData = (key, fallbackData) => {
-      try {
-        const savedData = localStorage.getItem(key)
+          const parsedData = JSON.parse(savedData)
 
-        if (!savedData) {
+          return Array.isArray(parsedData) ? parsedData : fallbackData
+        } catch (error) {
+          console.error(`Failed to load ${key}:`, error)
           return fallbackData
         }
-
-        const parsedData = JSON.parse(savedData)
-
-        return Array.isArray(parsedData) ? parsedData : fallbackData
-      } catch (error) {
-        console.error(`Failed to load ${key}:`, error)
-        return fallbackData
       }
+
+      const storedCourses = getStoredData('courses', courses)
+      const storedAssignments = getStoredData('assignments', assignmentData)
+      const storedResults = getStoredData('results', resultData)
+      const storedCalendarEvents = getStoredData('calendarEvents', calendarEvents)
+
+      const activeCourses = storedCourses.filter(course => course.status === 'Active')
+
+      const pendingAssignments = storedAssignments.filter(
+        assignment => assignment.status === 'Pending' || assignment.status === 'In Progress'
+      )
+
+      const average =
+        storedResults.length > 0
+          ? storedResults.reduce((total, result) => total + Number(result.score), 0) /
+            storedResults.length
+          : 0
+
+      setRecentAssignments(getRecentAssignments(storedAssignments))
+
+      setUpcomingClasses(getUpcomingEvents(storedCalendarEvents, 'Class'))
+
+      setRecentResults(storedResults.slice(0, 5))
+
+      setDashboardStats([
+        {
+          Icon: GiGraduateCap,
+          title: 'Courses',
+          value: activeCourses.length,
+          description: 'Active courses',
+        },
+        {
+          Icon: GrTask,
+          title: 'Tasks',
+          value: pendingAssignments.length,
+          description: 'Unsubmitted assignments',
+        },
+        {
+          Icon: GrLineChart,
+          title: 'Average',
+          value: `${average.toFixed(1)}%`,
+          description: 'Overall average',
+        },
+      ])
     }
 
-    const storedCourses = getStoredData('courses', courses)
-    const storedAssignments = getStoredData('assignments', assignmentData)
-    const storedResults = getStoredData('results', resultData)
-    const storedCalendarEvents = getStoredData('calendarEvents', calendarEvents)
-
-    const activeCourses = storedCourses.filter(course => course.status === 'Active')
-
-    const pendingAssignments = storedAssignments.filter(
-      assignment => assignment.status === 'Pending' || assignment.status === 'In Progress'
-    )
-
-    const average =
-      storedResults.length > 0
-        ? storedResults.reduce((total, result) => total + Number(result.score), 0) /
-          storedResults.length
-        : 0
-
-    setRecentAssignments(getRecentAssignments(storedAssignments))
-
-    setUpcomingClasses(getUpcomingEvents(storedCalendarEvents, 'Class'))
-
-    setRecentResults(storedResults.slice(0, 5))
-
-    setDashboardStats([
-      {
-        Icon: GiGraduateCap,
-        title: 'Courses',
-        value: activeCourses.length,
-        description: 'Active courses',
-      },
-      {
-        Icon: GrTask,
-        title: 'Tasks',
-        value: pendingAssignments.length,
-        description: 'Unsubmitted assignments',
-      },
-      {
-        Icon: GrLineChart,
-        title: 'Average',
-        value: `${average.toFixed(1)}%`,
-        description: 'Overall average',
-      },
-    ])
-  }
-
-  loadDashboardData()
-
-  const handleCalendarUpdate = () => {
     loadDashboardData()
-  }
 
-  const handleAssignmentUpdate = () => {
-    loadDashboardData()
-  }
+    const handleCourseUpdate = () => loadDashboardData()
+    const handleCalendarUpdate = () => loadDashboardData()
+    const handleAssignmentUpdate = () => loadDashboardData()
+    const handleResultUpdate = () => loadDashboardData()
 
-  const handleResultUpdate = () => {
-    loadDashboardData()
-  }
+    window.addEventListener(STORAGE_EVENTS.COURSES_UPDATED, handleCourseUpdate)
 
-  window.addEventListener(STORAGE_EVENTS.CALENDAR_UPDATED, handleCalendarUpdate)
+    window.addEventListener(STORAGE_EVENTS.CALENDAR_UPDATED, handleCalendarUpdate)
 
-  window.addEventListener(STORAGE_EVENTS.ASSIGNMENTS_UPDATED, handleAssignmentUpdate)
+    window.addEventListener(STORAGE_EVENTS.ASSIGNMENTS_UPDATED, handleAssignmentUpdate)
 
-  window.addEventListener(STORAGE_EVENTS.RESULTS_UPDATED, handleResultUpdate)
+    window.addEventListener(STORAGE_EVENTS.RESULTS_UPDATED, handleResultUpdate)
 
-  return () => {
-    window.removeEventListener(STORAGE_EVENTS.CALENDAR_UPDATED, handleCalendarUpdate)
+    return () => {
+      window.removeEventListener(STORAGE_EVENTS.COURSES_UPDATED, handleCourseUpdate)
 
-    window.removeEventListener(STORAGE_EVENTS.ASSIGNMENTS_UPDATED, handleAssignmentUpdate)
+      window.removeEventListener(STORAGE_EVENTS.CALENDAR_UPDATED, handleCalendarUpdate)
 
-    window.removeEventListener(STORAGE_EVENTS.RESULTS_UPDATED, handleResultUpdate)
-  }
-}, [])
+      window.removeEventListener(STORAGE_EVENTS.ASSIGNMENTS_UPDATED, handleAssignmentUpdate)
 
+      window.removeEventListener(STORAGE_EVENTS.RESULTS_UPDATED, handleResultUpdate)
+    }
+  }, [])
 
   return {
     dashboardStats,

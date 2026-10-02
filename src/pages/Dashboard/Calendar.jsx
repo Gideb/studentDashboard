@@ -1,11 +1,14 @@
 import { useMemo, useState } from 'react'
-import { LuCalendarDays } from 'react-icons/lu'
 import DashboardLayout from '../../layouts/DashboardLayout'
 import useCalendar from '../../hooks/useCalendar'
 import CalendarFilters from '../../components/Calendar/CalendarFilters'
 import CalendarGrid from '../../components/Calendar/CalendarGrid'
 import UpcomingEvents from '../../components/Calendar/UpcomingEvents'
 import EventDetailsModal from '../../components/Calendar/EventDetailsModal'
+import AddEditEventModal from '../../components/Calendar/AddEditEventModal'
+import { LuCalendarDays, LuPlus } from 'react-icons/lu'
+import toast from 'react-hot-toast'
+import DeleteEventModal from '../../components/Calendar/DeleteEventModal'
 
 const Calendar = () => {
   const {
@@ -20,11 +23,42 @@ const Calendar = () => {
     uniqueCourses,
     hasActiveFilters,
     clearFilters,
+    addEvent,
+    updateEvent,
+    deleteEvent,
   } = useCalendar()
 
+  const [isEventModalOpen, setIsEventModalOpen] = useState(false)
+  const [eventToEdit, setEventToEdit] = useState(null)
+  const [eventToDelete, setEventToDelete] = useState(null)
   const [currentDate, setCurrentDate] = useState(new Date())
-
   const [selectedEvent, setSelectedEvent] = useState(null)
+
+  const handleAddEvent = () => {
+    setEventToEdit(null)
+    setIsEventModalOpen(true)
+  }
+
+  const handleEditEvent = event => {
+    setEventToEdit(event)
+    setSelectedEvent(null)
+    setIsEventModalOpen(true)
+  }
+
+  const handleDeleteEvent = event => {
+    setEventToDelete(event)
+    setSelectedEvent(null)
+  }
+
+  const confirmDeleteEvent = () => {
+    if (!eventToDelete) {
+      return
+    }
+
+    deleteEvent(eventToDelete.id)
+    setEventToDelete(null)
+    toast.success('Event deleted successfully!')
+  }
 
   const upcomingEvents = useMemo(() => {
     const todayString = new Date().toISOString().split('T')[0]
@@ -48,7 +82,7 @@ const Calendar = () => {
   }
 
   return (
-    <DashboardLayout activeMenu="Calendar">
+    <DashboardLayout activeMenu='Calendar'>
       <div className='space-y-6 my-5 mx-auto w-full min-w-0 px-3 sm:px-6 py-5 sm:py-8'>
         {/* Page Header */}
         <div className='flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between'>
@@ -60,14 +94,25 @@ const Calendar = () => {
             </p>
           </div>
 
-          <button
-            type='button'
-            onClick={goToToday}
-            className='add-btn flex gap-2 items-center'
-          >
-            <LuCalendarDays />
-            Today
-          </button>
+          <div className='flex flex-col gap-3 sm:flex-row sm:items-center'>
+            <button
+              type='button'
+              onClick={goToToday}
+              className='add-btn flex items-center justify-center gap-2'
+            >
+              <LuCalendarDays />
+              Today
+            </button>
+
+            <button
+              type='button'
+              onClick={handleAddEvent}
+              className='add-btn flex items-center justify-center gap-2'
+            >
+              <LuPlus />
+              Add Event
+            </button>
+          </div>
         </div>
 
         {/* Filters */}
@@ -99,7 +144,33 @@ const Calendar = () => {
         </div>
 
         {/* Event Details */}
-        <EventDetailsModal event={selectedEvent} onClose={() => setSelectedEvent(null)} />
+
+        <EventDetailsModal
+          event={selectedEvent}
+          onClose={() => setSelectedEvent(null)}
+          onEdit={handleEditEvent}
+          onDelete={handleDeleteEvent}
+        />
+
+        {/* add / edit event modal */}
+        <AddEditEventModal
+          isOpen={isEventModalOpen}
+          onClose={() => {
+            setIsEventModalOpen(false)
+            setEventToEdit(null)
+          }}
+          onAdd={eventToEdit ? updateEvent : addEvent}
+          event={eventToEdit}
+          mode={eventToEdit ? 'edit' : 'add'}
+        />
+
+        {eventToDelete && (
+          <DeleteEventModal
+            onClose={() => setEventToDelete(null)}
+            eventToDelete={eventToDelete}
+            confirmDeleteEvent={confirmDeleteEvent}
+          />
+        )}
       </div>
     </DashboardLayout>
   )

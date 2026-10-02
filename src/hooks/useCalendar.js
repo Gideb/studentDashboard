@@ -23,7 +23,7 @@ const useCalendar = () => {
   const [selectedCourse, setSelectedCourse] = useState('All')
   const [selectedDate, setSelectedDate] = useState('')
 
- /*  useEffect(() => {
+  /*  useEffect(() => {
     localStorage.setItem(CALENDAR_STORAGE_KEY, JSON.stringify(eventList))
   }, [eventList]) */
 
@@ -118,9 +118,6 @@ const useCalendar = () => {
   const deleteEvent = eventId => {
     setEventList(prev => prev.filter(event => event.id !== eventId))
   }
-
-
- 
 
   /*   
   // Add event

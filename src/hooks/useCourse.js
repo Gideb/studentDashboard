@@ -3,6 +3,7 @@ import { courses } from '../data/CoursesData'
 import { generateCourseCode } from '../utils/courseCode'
 import { generateId } from '../utils/generateId'
 import useTableControls from './useTableControls'
+import { notifyStorageChange, STORAGE_EVENTS } from '../utils/storageEvents'
 
 const COURSES_STORAGE_KEY = 'courses'
 
@@ -33,9 +34,11 @@ const useCourses = () => {
   // Save courses to localStorage
   // -----------------------------
 
-  useEffect(() => {
-    localStorage.setItem(COURSES_STORAGE_KEY, JSON.stringify(courseList))
-  }, [courseList])
+ useEffect(() => {
+   localStorage.setItem(COURSES_STORAGE_KEY, JSON.stringify(courseList))
+
+   notifyStorageChange(STORAGE_EVENTS.COURSES_UPDATED)
+ }, [courseList])
 
   // -----------------------------
   // Filter options

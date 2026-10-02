@@ -3,10 +3,10 @@ export const getEventStyle = type => {
     case 'Class':
       return 'bg-blue-100 text-blue-700 dark:bg-blue-500/20 dark:text-blue-400'
 
-    case 'Exam':
+    case 'Deadline':
       return 'bg-red-100 text-red-700 dark:bg-red-500/20 dark:text-red-400'
 
-    case 'Deadline':
+    case 'Exam':
       return 'bg-orange-100 text-orange-700 dark:bg-orange-500/20 dark:text-orange-400'
 
     case 'Meeting':

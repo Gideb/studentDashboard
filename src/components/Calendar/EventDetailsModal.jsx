@@ -1,38 +1,8 @@
+import { LuPencil, LuTrash2 } from 'react-icons/lu'
 import { getEventStyle, formatLongEventDate } from '../../utils/calendarUtils'
 
-const EventDetailsModal = ({ event, onClose }) => {
+const EventDetailsModal = ({ event, onClose, onEdit, onDelete }) => {
   if (!event) return null
-
-  /*   const getEventStyle = type => {
-    switch (type) {
-      case 'Class':
-        return 'bg-blue-100 text-blue-700 dark:bg-blue-500/20 dark:text-blue-400'
-
-      case 'Exam':
-        return 'bg-red-100 text-red-700 dark:bg-red-500/20 dark:text-red-400'
-
-      case 'Deadline':
-        return 'bg-orange-100 text-orange-700 dark:bg-orange-500/20 dark:text-orange-400'
-
-      case 'Meeting':
-        return 'bg-purple-100 text-purple-700 dark:bg-purple-500/20 dark:text-purple-400'
-
-      case 'Event':
-        return 'bg-green-100 text-green-700 dark:bg-green-500/20 dark:text-green-400'
-
-      default:
-        return 'bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300'
-    }
-  }
-
-  const formatEventDate = date => {
-    return new Date(`${date}T00:00:00`).toLocaleDateString('en-US', {
-      weekday: 'long',
-      month: 'long',
-      day: 'numeric',
-      year: 'numeric',
-    })
-  } */
 
   return (
     <div
@@ -117,14 +87,30 @@ const EventDetailsModal = ({ event, onClose }) => {
           )}
         </div>
 
-        <div className='mt-6 flex justify-end'>
-          <button
-            type='button'
-            onClick={onClose}
-            className='btn-primary-2'
-          >
+        <div className='mt-6 flex flex-col-reverse gap-3 border-t border-gray-200 pt-5 dark:border-gray-700 sm:flex-row sm:justify-between'>
+          <button type='button' onClick={onClose} className='btn-primary-2'>
             Close
           </button>
+
+          <div className='flex flex-col gap-3 sm:flex-row'>
+            <button
+              type='button'
+              onClick={() => onEdit(event)}
+              className='btn-secondary flex gap-2 items-center'
+            >
+              <LuPencil />
+              Edit
+            </button>
+
+            <button
+              type='button'
+              onClick={() => onDelete(event)}
+              className='btn-delete-2 flex gap-2 items-center'
+            >
+              <LuTrash2 />
+              Delete
+            </button>
+          </div>
         </div>
       </div>
     </div>
