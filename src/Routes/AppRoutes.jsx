@@ -9,6 +9,7 @@ import Assignments from '../pages/Dashboard/Assignments'
 import Calendar from '../pages/Dashboard/Calendar'
 import Settings from '../pages/Dashboard/Settings'
 import AuthLayout from '../layouts/AuthLayout'
+import ProtectedRoute from '../components/ProtectedRoute'
 
 const AppRoutes = () => {
   return (
@@ -17,7 +18,16 @@ const AppRoutes = () => {
         <Route path='/' element={<Dashboard />} />
         <Route path='/dashboard' element={<Dashboard />} />
         <Route path='/courses' element={<Courses />} />
-        <Route path='/students' element={<Students />} />
+
+        <Route
+          path='/students'
+          element={
+            <ProtectedRoute permission='students'>
+              <Students />
+            </ProtectedRoute>
+          }
+        />
+
         <Route path='/calendar' element={<Calendar />} />
         <Route path='/assignments' element={<Assignments />} />
         <Route path='/results' element={<Results />} />

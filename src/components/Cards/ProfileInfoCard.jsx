@@ -3,6 +3,7 @@ import { PiStudentFill } from 'react-icons/pi'
 import { LuLogOut, LuSettings } from 'react-icons/lu'
 import profile from '../../assets/images/profile.png'
 import { useNavigate } from 'react-router-dom'
+import { defaultSettings } from '../../data/SettingsData'
 
 const ProfileInfoCard = () => {
   const [dropdown, setDropdown] = useState(false)
@@ -33,7 +34,7 @@ const ProfileInfoCard = () => {
       >
         <PiStudentFill size={20} />
 
-        <h6 className='text-sm text-gray-800 dark:text-white hidden sm:flex'>John Chen</h6>
+        <h6 className='text-sm text-gray-800 dark:text-white hidden sm:flex'>{defaultSettings.profile.name}</h6>
 
         {/* {dropdown ? <PiCaretUp /> : <PiCaretDown />} */}
       </div>
@@ -52,7 +53,7 @@ const ProfileInfoCard = () => {
             {/* account info */}
             <div className='flex flex-col items-start space-y-1 sm:space-y-1.5'>
               <h6 className='text-base sm:text-xl text-gray-900 font-semibold dark:text-white'>
-                John Chen
+                {defaultSettings.profile.name}
               </h6>
 
               <p className='text-xs sm:text-sm text-gray-600 dark:text-white/70'>
@@ -78,7 +79,7 @@ const ProfileInfoCard = () => {
 
               <button
                 className='flex items-center gap-1 sm:gap-2 mt-1 sm:mt-2 pl-1 sm:pl-2 font-semibold cursor-pointer'
-                onClick={() => navigate('/logout')}
+                onClick={() => navigate('/login')}
               >
                 <LuLogOut className='text-xs sm:text-base text-red-500 dark:text-red-600' />
 

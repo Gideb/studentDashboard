@@ -1,9 +1,9 @@
 export const defaultSettings = {
   profile: {
-    name: 'John Chen',
-    email: 'john.chen@example.com',
+    name: 'Suu Lee ',
+    email: 'suu.lee@example.com',
     department: 'Computer Science',
-    phone: '0240000000',
+    phone: '0552649953',
   },
 
   notifications: {
@@ -14,6 +14,6 @@ export const defaultSettings = {
 
   academic: {
     academicYear: '2025/2026',
-    semester: 'First Semester',
+    semester: 'Second Semester',
   },
 }
