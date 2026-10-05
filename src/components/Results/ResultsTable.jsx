@@ -333,8 +333,8 @@ const ResultsTable = ({
 
       {/* Footer / Pagination */}
       {resultList.length > 0 && (
-        <div className='flex flex-col gap-4 border-t border-gray-200 px-5 py-4 sm:flex-row sm:items-center sm:justify-between dark:border-gray-700'>
-          <p className='text-sm text-secondary dark:text-gray-400'>
+        <div className='flex gap-4 border-t border-gray-200 px-4 py-4 flex-row items-center justify-between dark:border-gray-700'>
+          <p className='text-xs sm:text-sm text-secondary dark:text-gray-400'>
             Showing{' '}
             <span className='font-medium text-primary dark:text-white'>{startIndex + 1}</span> to{' '}
             <span className='font-medium text-primary dark:text-white'>
@@ -368,9 +368,9 @@ const ResultsTable = ({
                     key={page}
                     type='button'
                     onClick={() => setCurrentPage(page)}
-                    className={`h-9 w-9 rounded-lg text-sm font-medium transition ${
+                    className={`h-9 min-w-4 sm:min-w-9 rounded-lg px-2 text-xs sm:text-sm font-medium transition ${
                       currentPage === page
-                        ? 'bg-primary text-white'
+                        ? 'bg-primary dark:bg-dark dark:text-primary text-white'
                         : 'text-secondary hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-slate-800'
                     }`}
                   >
