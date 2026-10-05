@@ -145,26 +145,72 @@ const useDashboard = () => {
 
       setRecentResults(storedResults.slice(0, 5))
 
-      setDashboardStats([
-        {
-          Icon: GiGraduateCap,
-          title: 'Courses',
-          value: activeCourses.length,
-          description: 'Active courses',
-        },
-        {
-          Icon: GrTask,
-          title: 'Tasks',
-          value: pendingAssignments.length,
-          description: 'Unsubmitted assignments',
-        },
-        {
-          Icon: GrLineChart,
-          title: 'Average',
-          value: `${average.toFixed(1)}%`,
-          description: 'Overall average',
-        },
-      ])
+     const statsByRole = {
+       administrator: [
+         {
+           Icon: GiGraduateCap,
+           title: 'Courses',
+           value: activeCourses.length,
+           description: 'Active courses',
+         },
+         {
+           Icon: GrTask,
+           title: 'Tasks',
+           value: pendingAssignments.length,
+           description: 'Pending assignments',
+         },
+         {
+           Icon: GrLineChart,
+           title: 'Average',
+           value: `${average.toFixed(1)}%`,
+           description: 'Overall average',
+         },
+       ],
+
+       lecturer: [
+         {
+           Icon: GiGraduateCap,
+           title: 'Courses',
+           value: activeCourses.length,
+           description: 'Courses you teach',
+         },
+         {
+           Icon: GrTask,
+           title: 'Assignments',
+           value: pendingAssignments.length,
+           description: 'Active assignments',
+         },
+         {
+           Icon: GrLineChart,
+           title: 'Average',
+           value: `${average.toFixed(1)}%`,
+           description: 'Class average',
+         },
+       ],
+
+       student: [
+         {
+           Icon: GiGraduateCap,
+           title: 'Courses',
+           value: activeCourses.length,
+           description: 'Enrolled courses',
+         },
+         {
+           Icon: GrTask,
+           title: 'Assignments',
+           value: pendingAssignments.length,
+           description: 'Pending assignments',
+         },
+         {
+           Icon: GrLineChart,
+           title: 'Average',
+           value: `${average.toFixed(1)}%`,
+           description: 'Your average',
+         },
+       ],
+     }
+
+     setDashboardStats(statsByRole[role] || statsByRole.student)
     }
 
     loadDashboardData()

@@ -95,18 +95,17 @@ const Students = () => {
             </p>
           </div>
 
-          <button
-            type='button'
-            className='add-btn group'
-            onClick={() => setIsAddStudentOpen(true)}
-          >
+          <button type='button' className='add-btn group' onClick={() => setIsAddStudentOpen(true)}>
             <span className='absolute inset-0 -z-10 translate-x-full bg-indigo-600 transition-transform duration-300 ease-out group-hover:translate-x-0'></span>
             + Add Student
           </button>
         </div>
 
         {/* Filters needs work */}
-        <section id='students-filter' className='bg-gray-50 p-4 rounded-lg border border-gray-200 flex flex-col gap-3 sm:flex-row sm:items-center'>
+        <section
+          id='students-filter'
+          className='bg-gray-50 dark:bg-gray-900 p-4 rounded-lg border border-gray-200 dark:border-secondary flex flex-col gap-3 sm:flex-row sm:items-center'
+        >
           <div className='flex-1'>
             <StudentsFilter
               search={search}

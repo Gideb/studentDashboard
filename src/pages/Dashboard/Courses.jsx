@@ -97,7 +97,7 @@ const Courses = () => {
 
         <section
           id='course-filter'
-          className='bg-gray-50 p-4 rounded-lg border border-gray-200 flex flex-col gap-3 sm:flex-row sm:items-center'
+          className='bg-gray-50 dark:bg-gray-900 p-4 rounded-lg border border-gray-200 dark:border-secondary flex flex-col gap-3 sm:flex-row sm:items-center'
         >
           <div className='flex-1'>
             <CourseFilter

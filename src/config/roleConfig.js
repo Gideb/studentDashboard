@@ -19,6 +19,26 @@ export const ROLE_PERMISSIONS = {
     results: true,
     calendar: true,
     settings: true,
+
+    studentsCreate: true,
+    studentsEdit: true,
+    studentsDelete: true,
+
+    coursesCreate: true,
+    coursesEdit: true,
+    coursesDelete: true,
+
+    assignmentsCreate: true,
+    assignmentsEdit: true,
+    assignmentsDelete: true,
+
+    resultsCreate: true,
+    resultsEdit: true,
+    resultsDelete: true,
+
+    calendarCreate: true,
+    calendarEdit: true,
+    calendarDelete: true,
   },
 
   [ROLES.LECTURER]: {
@@ -29,6 +49,26 @@ export const ROLE_PERMISSIONS = {
     results: true,
     calendar: true,
     settings: true,
+
+    studentsCreate: false,
+    studentsEdit: false,
+    studentsDelete: false,
+
+    coursesCreate: false,
+    coursesEdit: false,
+    coursesDelete: false,
+
+    assignmentsCreate: true,
+    assignmentsEdit: true,
+    assignmentsDelete: true,
+
+    resultsCreate: true,
+    resultsEdit: true,
+    resultsDelete: true,
+
+    calendarCreate: true,
+    calendarEdit: true,
+    calendarDelete: true,
   },
 
   [ROLES.STUDENT]: {
@@ -39,5 +79,25 @@ export const ROLE_PERMISSIONS = {
     results: true,
     calendar: true,
     settings: true,
+
+    studentsCreate: false,
+    studentsEdit: false,
+    studentsDelete: false,
+
+    coursesCreate: false,
+    coursesEdit: false,
+    coursesDelete: false,
+
+    assignmentsCreate: false,
+    assignmentsEdit: false,
+    assignmentsDelete: false,
+
+    resultsCreate: false,
+    resultsEdit: false,
+    resultsDelete: false,
+
+    calendarCreate: false,
+    calendarEdit: false,
+    calendarDelete: false,
   },
 }
