@@ -13,7 +13,8 @@ import useDashboard from '../../hooks/useDashboard'
 const Dashboard = () => {
   const [greeting, setGreeting] = useState('')
 
-  const { dashboardStats, recentAssignments, upcomingClasses, recentResults } = useDashboard()
+  const { dashboardStats, recentAssignments, upcomingClasses, recentResults, roleLabel } =
+    useDashboard()
 
   useEffect(() => {
     const currentHour = new Date().getHours()
@@ -34,11 +35,11 @@ const Dashboard = () => {
       <main className='my-5 mx-auto space-y-5 px-2 sm:px-6 py-5 sm:py-8 bg-gray-50 dark:bg-slate-950 rounded-lg'>
         <div className='mb-3 sm:mb-6'>
           <h1 className='text-2xl font-bold text-primary dark:text-dark'>
-            {`${finalGreeting}, Gideb 👋`}
+            {`${finalGreeting}, ${roleLabel} 👋`}
           </h1>
 
           <p className='text-gray-500 dark:text-gray-400'>
-            Here's what's happening with your studies.
+            Here's what's happening with your {roleLabel.toLowerCase()} dashboard.
           </p>
         </div>
 

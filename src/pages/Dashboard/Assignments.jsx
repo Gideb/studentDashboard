@@ -52,9 +52,7 @@ const Assignments = () => {
 
   const [assignmentToDelete, setAssignmentToDelete] = useState(null)
 
-  // ==============================
   // Add Assignment
-  // ==============================
 
   const handleAddAssignment = newAssignment => {
     addAssignment(newAssignment)
@@ -63,9 +61,7 @@ const Assignments = () => {
     toast.success('Assignment successfully added!')
   }
 
-  // ==============================
   // Edit Assignment
-  // ==============================
 
   const handleEditAssignment = updatedAssignment => {
     updateAssignment(updatedAssignment)
@@ -74,9 +70,7 @@ const Assignments = () => {
     toast.success('Assignment successfully updated!')
   }
 
-  // ==============================
   // Delete Assignment
-  // ==============================
 
   const handleDeleteAssignment = () => {
     deleteAssignment(assignmentToDelete.id)
@@ -93,7 +87,7 @@ const Assignments = () => {
           <div>
             <h1 className='text-2xl font-semibold text-primary dark:text-dark'>Assignments</h1>
 
-            <p className='mt-1 text-sm text-secondary dark:text-gray-400'>
+            <p className='mt-1 text-xs sm:text-sm text-secondary dark:text-gray-400'>
               Manage assignments and track student submissions.
             </p>
           </div>

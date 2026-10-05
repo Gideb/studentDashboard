@@ -16,8 +16,24 @@ const AppRoutes = () => {
     <Router>
       <Routes>
         <Route path='/' element={<Dashboard />} />
-        <Route path='/dashboard' element={<Dashboard />} />
-        <Route path='/courses' element={<Courses />} />
+
+        <Route
+          path='/dashboard'
+          element={
+            <ProtectedRoute permission='dashboard'>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path='/courses'
+          element={
+            <ProtectedRoute permission='courses'>
+              <Courses />
+            </ProtectedRoute>
+          }
+        />
 
         <Route
           path='/students'
@@ -28,10 +44,41 @@ const AppRoutes = () => {
           }
         />
 
-        <Route path='/calendar' element={<Calendar />} />
-        <Route path='/assignments' element={<Assignments />} />
-        <Route path='/results' element={<Results />} />
-        <Route path='/settings' element={<Settings />} />
+        <Route
+          path='/assignments'
+          element={
+            <ProtectedRoute permission='assignments'>
+              <Assignments />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path='/results'
+          element={
+            <ProtectedRoute permission='results'>
+              <Results />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path='/calendar'
+          element={
+            <ProtectedRoute permission='calendar'>
+              <Calendar />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path='/settings'
+          element={
+            <ProtectedRoute permission='settings'>
+              <Settings />
+            </ProtectedRoute>
+          }
+        />
 
         <Route element={<AuthLayout />}>
           <Route path='/login' element={<Login />} />

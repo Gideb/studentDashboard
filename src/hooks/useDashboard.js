@@ -7,8 +7,11 @@ import { getUpcomingEvents, getRecentAssignments } from '../utils/dashboardUtils
 import { GiGraduateCap } from 'react-icons/gi'
 import { GrLineChart, GrTask } from 'react-icons/gr'
 import { STORAGE_EVENTS } from '../utils/storageEvents'
+import useRole from './useRole'
 
 const useDashboard = () => {
+  const { role, roleLabel, hasPermission } = useRole()
+
   const [recentAssignments, setRecentAssignments] = useState([])
   const [upcomingClasses, setUpcomingClasses] = useState([])
   const [recentResults, setRecentResults] = useState([])
@@ -195,6 +198,9 @@ const useDashboard = () => {
     recentAssignments,
     upcomingClasses,
     recentResults,
+    role,
+    roleLabel,
+    hasPermission,
   }
 }
 

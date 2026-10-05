@@ -7,7 +7,7 @@ import toast from 'react-hot-toast'
 import EditCourseModal from '../../components/Courses/EditCourseModal'
 import DeleteCourseModal from '../../components/Courses/DeleteCourseModal'
 import useCourses from '../../hooks/useCourse'
-import { LuChevronLeft, LuChevronRight } from 'react-icons/lu'
+import { LuChevronLeft, LuChevronRight, LuEllipsis } from 'react-icons/lu'
 
 const Courses = () => {
   const [isAddCourseOpen, setIsAddCourseOpen] = useState(false)
@@ -87,7 +87,7 @@ const Courses = () => {
               Manage all available courses
             </p>
           </div>
-          <button className='add-btn self-start group' onClick={() => setIsAddCourseOpen(true)}>
+          <button type='button' className='add-btn group' onClick={() => setIsAddCourseOpen(true)}>
             <span className='absolute inset-0 -z-10 translate-x-full bg-indigo-600 transition-transform duration-300 ease-out group-hover:translate-x-0'></span>
             + Add Course
           </button>
@@ -95,7 +95,10 @@ const Courses = () => {
 
         {/* filter courses */}
 
-        <section id='course-filter' className='flex flex-col gap-3 sm:flex-row sm:items-center'>
+        <section
+          id='course-filter'
+          className='bg-gray-50 p-4 rounded-lg border border-gray-200 flex flex-col gap-3 sm:flex-row sm:items-center'
+        >
           <div className='flex-1'>
             <CourseFilter
               search={search}
@@ -184,19 +187,19 @@ const Courses = () => {
                   page === '...' ? (
                     <span
                       key={`ellipsis-${index}`}
-                      className='px-2 text-xs text-gray-500 dark:text-gray-400'
+                      className='flex h-9 w-4 sm:w-9 items-center justify-center text-xs sm:text-sm text-secondary dark:text-gray-500'
                     >
-                      ...
+                      <LuEllipsis />
                     </span>
                   ) : (
                     <button
                       key={page}
                       type='button'
                       onClick={() => setCurrentPage(page)}
-                      className={`min-w-9 rounded-md border cursor-pointer px-2 py-1 text-xs ${
+                      className={`h-9 min-w-4 sm:min-w-9 rounded-lg px-2 text-xs sm:text-sm font-medium transition ${
                         currentPage === page
-                          ? 'border-primary bg-primary dark:bg-dark text-white dark:text-black'
-                          : 'border-gray-300 dark:border-gray-700 dark:text-white'
+                          ? 'bg-primary dark:bg-dark dark:text-primary text-white'
+                          : 'text-secondary hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-slate-800'
                       }`}
                     >
                       {page}

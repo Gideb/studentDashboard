@@ -7,7 +7,7 @@ import StudentsFilter from '../../components/Students/StudentsFilter'
 import AddStudentModal from '../../components/Students/AddStudentModal'
 import EditStudentModal from '../../components/Students/EditStudentModal'
 import DeleteStudentModal from '../../components/Students/DeleteStudentModal'
-import { LuChevronLeft, LuChevronRight } from 'react-icons/lu'
+import { LuChevronLeft, LuChevronRight, LuEllipsis } from 'react-icons/lu'
 
 const Students = () => {
   const {
@@ -90,14 +90,14 @@ const Students = () => {
           <div>
             <h1 className='text-2xl font-semibold text-primary dark:text-dark'>Students</h1>
 
-            <p className='text-xs text-gray-600 dark:text-gray-400 sm:text-sm'>
+            <p className='text-xs text-secondary dark:text-gray-400 sm:text-sm'>
               Manage all registered students
             </p>
           </div>
 
           <button
             type='button'
-            className='add-btn self-start group'
+            className='add-btn group'
             onClick={() => setIsAddStudentOpen(true)}
           >
             <span className='absolute inset-0 -z-10 translate-x-full bg-indigo-600 transition-transform duration-300 ease-out group-hover:translate-x-0'></span>
@@ -106,7 +106,7 @@ const Students = () => {
         </div>
 
         {/* Filters needs work */}
-        <section id='students-filter' className='flex flex-col gap-3 sm:flex-row sm:items-center'>
+        <section id='students-filter' className='bg-gray-50 p-4 rounded-lg border border-gray-200 flex flex-col gap-3 sm:flex-row sm:items-center'>
           <div className='flex-1'>
             <StudentsFilter
               search={search}
@@ -191,19 +191,19 @@ const Students = () => {
                   page === '...' ? (
                     <span
                       key={`ellipsis-${index}`}
-                      className='px-2 text-xs sm:text-sm text-gray-500 dark:text-gray-400'
+                      className='flex h-9 w-4 sm:w-9 items-center justify-center text-xs sm:text-sm text-secondary dark:text-gray-500'
                     >
-                      ...
+                      <LuEllipsis />
                     </span>
                   ) : (
                     <button
                       key={page}
                       type='button'
                       onClick={() => setCurrentPage(page)}
-                      className={`min-w-9 rounded-md border px-2 py-1 sm:px-3 sm:py-2  text-xs sm:text-sm ${
+                      className={`h-9 min-w-4 sm:min-w-9 rounded-lg px-2 text-xs sm:text-sm font-medium transition ${
                         currentPage === page
-                          ? 'border-primary bg-primary dark:bg-dark dark:border-dark text-white dark:text-black'
-                          : 'border-gray-300 dark:border-gray-700 dark:text-white'
+                          ? 'bg-primary dark:bg-dark dark:text-primary text-white'
+                          : 'text-secondary hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-slate-800'
                       }`}
                     >
                       {page}
