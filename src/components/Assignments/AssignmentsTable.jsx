@@ -165,9 +165,11 @@ const AssignmentsTable = ({
               </th>
 
               {/* Actions */}
-              <th className='px-6 py-4 text-right text-xs font-semibold uppercase tracking-wide text-secondary dark:text-gray-400'>
-                Actions
-              </th>
+              {onEdit || onDelete ? (
+                <th className='px-6 py-4 text-right text-xs font-semibold uppercase tracking-wide text-secondary dark:text-gray-400'>
+                  Actions
+                </th>
+              ) : null}
             </tr>
           </thead>
 
@@ -186,7 +188,9 @@ const AssignmentsTable = ({
                   {/* Assignment */}
                   <td className='px-6 py-4'>
                     <div>
-                      <p className='text-sm font-medium text-gray-700 dark:text-white'>{assignment.title}</p>
+                      <p className='text-sm font-medium text-gray-700 dark:text-white'>
+                        {assignment.title}
+                      </p>
 
                       <p className='mt-1 text-xs text-gray-600 dark:text-gray-500'>
                         {assignment.assignmentId}
@@ -253,23 +257,27 @@ const AssignmentsTable = ({
                   {/* Actions */}
                   <td className='px-6 py-4'>
                     <div className='flex justify-end gap-2'>
-                      <button
-                        type='button'
-                        onClick={() => onEdit(assignment)}
-                        className='rounded-lg p-2 text-secondary transition hover:bg-gray-100 hover:text-primary dark:text-gray-400 dark:hover:bg-slate-800 dark:hover:text-white'
-                        aria-label={`Edit ${assignment.title}`}
-                      >
-                        <LuPencil className='text-base' />
-                      </button>
+                      {onEdit && (
+                        <button
+                          type='button'
+                          onClick={() => onEdit(assignment)}
+                          className='rounded-lg p-2 text-secondary transition hover:bg-gray-100 hover:text-primary dark:text-gray-400 dark:hover:bg-slate-800 dark:hover:text-white'
+                          aria-label={`Edit ${assignment.title}`}
+                        >
+                          <LuPencil className='text-base' />
+                        </button>
+                      )}
 
-                      <button
-                        type='button'
-                        onClick={() => onDelete(assignment)}
-                        className='rounded-lg p-2 text-secondary transition hover:bg-red-50 hover:text-red-600 dark:text-gray-400 dark:hover:bg-red-500/10 dark:hover:text-red-400'
-                        aria-label={`Delete ${assignment.title}`}
-                      >
-                        <LuTrash2 className='text-base' />
-                      </button>
+                      {onDelete && (
+                        <button
+                          type='button'
+                          onClick={() => onDelete(assignment)}
+                          className='rounded-lg p-2 text-secondary transition hover:bg-red-50 hover:text-red-600 dark:text-gray-400 dark:hover:bg-red-500/10 dark:hover:text-red-400'
+                          aria-label={`Delete ${assignment.title}`}
+                        >
+                          <LuTrash2 className='text-base' />
+                        </button>
+                      )}
                     </div>
                   </td>
                 </tr>
@@ -363,25 +371,31 @@ const AssignmentsTable = ({
               </div>
 
               {/* Mobile Actions */}
-              <div className='mt-4 flex justify-end gap-2'>
-                <button
-                  type='button'
-                  onClick={() => onEdit(assignment)}
-                  className='flex items-center gap-2 rounded-lg border border-gray-200 px-3 py-2 text-xs font-medium text-primary transition hover:bg-gray-50 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-slate-800'
-                >
-                  <LuPencil />
-                  Edit
-                </button>
+              {(onEdit || onDelete) && (
+                <div className='mt-4 flex justify-end gap-2'>
+                  {onEdit && (
+                    <button
+                      type='button'
+                      onClick={() => onEdit(assignment)}
+                      className='flex items-center gap-2 rounded-lg border border-gray-200 px-3 py-2 text-xs font-medium text-primary transition hover:bg-gray-50 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-slate-800'
+                    >
+                      <LuPencil />
+                      Edit
+                    </button>
+                  )}
 
-                <button
-                  type='button'
-                  onClick={() => onDelete(assignment)}
-                  className='flex items-center gap-2 rounded-lg border border-red-200 px-3 py-2 text-xs font-medium text-red-600 transition hover:bg-red-50 dark:border-red-500/20 dark:text-red-400 dark:hover:bg-red-500/10'
-                >
-                  <LuTrash2 />
-                  Delete
-                </button>
-              </div>
+                  {onDelete && (
+                    <button
+                      type='button'
+                      onClick={() => onDelete(assignment)}
+                      className='flex items-center gap-2 rounded-lg border border-red-200 px-3 py-2 text-xs font-medium text-red-600 transition hover:bg-red-50 dark:border-red-500/20 dark:text-red-400 dark:hover:bg-red-500/10'
+                    >
+                      <LuTrash2 />
+                      Delete
+                    </button>
+                  )}
+                </div>
+              )}
             </div>
           )
         })}

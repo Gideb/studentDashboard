@@ -7,8 +7,15 @@ import EditAssignmentModal from '../../components/Assignments/EditAssignmentModa
 import DeleteAssignmentModal from '../../components/Assignments/DeleteAssignmentModal'
 import useAssignments from '../../hooks/useAssignments'
 import toast from 'react-hot-toast'
+import useRole from '../../hooks/useRole'
 
 const Assignments = () => {
+  const { hasPermission } = useRole()
+
+  const canCreateAssignment = hasPermission('assignmentsCreate')
+  const canEditAssignment = hasPermission('assignmentsEdit')
+  const canDeleteAssignment = hasPermission('assignmentsDelete')
+
   const {
     assignmentList,
     paginatedAssignments,
@@ -92,14 +99,16 @@ const Assignments = () => {
             </p>
           </div>
 
-          <button
-            type='button'
-            onClick={() => setIsAddAssignmentOpen(true)}
-            className='add-btn group'
-          >
-            <span className='absolute inset-0 -z-10 translate-x-full bg-indigo-600 transition-transform duration-300 ease-out group-hover:translate-x-0'></span>
-            + Add Assignment
-          </button>
+          {canCreateAssignment && (
+            <button
+              type='button'
+              onClick={() => setIsAddAssignmentOpen(true)}
+              className='add-btn group'
+            >
+              <span className='absolute inset-0 -z-10 translate-x-full bg-indigo-600 transition-transform duration-300 ease-out group-hover:translate-x-0'></span>
+              + Add Assignment
+            </button>
+          )}
         </div>
 
         {/* Filters */}
@@ -124,8 +133,8 @@ const Assignments = () => {
           setSortBy={setSortBy}
           sortOrder={sortOrder}
           setSortOrder={setSortOrder}
-          onEdit={setAssignmentToEdit}
-          onDelete={setAssignmentToDelete}
+          onEdit={canEditAssignment ? setAssignmentToEdit : undefined}
+          onDelete={canDeleteAssignment ? setAssignmentToDelete : undefined}
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
           assignmentsPerPage={assignmentsPerPage}
@@ -136,8 +145,9 @@ const Assignments = () => {
         />
       </div>
 
+     
       {/* Add Modal */}
-      {isAddAssignmentOpen && (
+      {canCreateAssignment && isAddAssignmentOpen && (
         <AddAssignmentModal
           onClose={() => setIsAddAssignmentOpen(false)}
           onAdd={handleAddAssignment}
@@ -147,7 +157,7 @@ const Assignments = () => {
       )}
 
       {/* Edit Modal */}
-      {assignmentToEdit && (
+      {canEditAssignment && assignmentToEdit && (
         <EditAssignmentModal
           assignment={assignmentToEdit}
           onClose={() => setAssignmentToEdit(null)}
@@ -158,7 +168,7 @@ const Assignments = () => {
       )}
 
       {/* Delete Modal */}
-      {assignmentToDelete && (
+      {canDeleteAssignment && assignmentToDelete && (
         <DeleteAssignmentModal
           assignment={assignmentToDelete}
           onClose={() => setAssignmentToDelete(null)}

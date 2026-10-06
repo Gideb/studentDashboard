@@ -7,8 +7,15 @@ import EditResultModal from '../../components/Results/EditResultModal'
 import DeleteResultModal from '../../components/Results/DeleteResultModal'
 import useResults from '../../hooks/useResults'
 import toast from 'react-hot-toast'
+import useRole from '../../hooks/useRole'
 
 const Results = () => {
+  const { hasPermission } = useRole()
+
+  const canCreateResult = hasPermission('resultsCreate')
+  const canEditResult = hasPermission('resultsEdit')
+  const canDeleteResult = hasPermission('resultsDelete')
+
   const {
     resultList,
     paginatedResults,
@@ -89,10 +96,16 @@ const Results = () => {
             </p>
           </div>
 
-          <button type='button' onClick={() => setIsAddResultOpen(true)} className='add-btn group'>
-            <span className='absolute inset-0 -z-10 translate-x-full bg-indigo-600 transition-transform duration-300 ease-out group-hover:translate-x-0'></span>
-            + Add Result
-          </button>
+          {canCreateResult && (
+            <button
+              type='button'
+              onClick={() => setIsAddResultOpen(true)}
+              className='add-btn group'
+            >
+              <span className='absolute inset-0 -z-10 translate-x-full bg-indigo-600 transition-transform duration-300 ease-out group-hover:translate-x-0'></span>
+              + Add Result
+            </button>
+          )}
         </div>
 
         {/* Filters */}
@@ -123,8 +136,8 @@ const Results = () => {
           setSortBy={setSortBy}
           sortOrder={sortOrder}
           setSortOrder={setSortOrder}
-          onEdit={setResultToEdit}
-          onDelete={setResultToDelete}
+          onEdit={canEditResult ? setResultToEdit : undefined}
+          onDelete={canDeleteResult ? setResultToDelete : undefined}
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
           resultsPerPage={resultsPerPage}
@@ -136,7 +149,7 @@ const Results = () => {
       </div>
 
       {/* Add Result Modal */}
-      {isAddResultOpen && (
+      {canCreateResult && isAddResultOpen && (
         <AddResultModal
           onClose={() => setIsAddResultOpen(false)}
           onAdd={handleAddResult}
@@ -145,7 +158,7 @@ const Results = () => {
       )}
 
       {/* Edit Result Modal */}
-      {resultToEdit && (
+      {canEditResult && resultToEdit && (
         <EditResultModal
           result={resultToEdit}
           onClose={() => setResultToEdit(null)}
@@ -155,7 +168,7 @@ const Results = () => {
       )}
 
       {/* Delete Result Modal */}
-      {resultToDelete && (
+      {canDeleteResult && resultToDelete && (
         <DeleteResultModal
           result={resultToDelete}
           onClose={() => setResultToDelete(null)}

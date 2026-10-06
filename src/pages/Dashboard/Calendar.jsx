@@ -9,8 +9,15 @@ import AddEditEventModal from '../../components/Calendar/AddEditEventModal'
 import { LuCalendarDays, LuPlus } from 'react-icons/lu'
 import toast from 'react-hot-toast'
 import DeleteEventModal from '../../components/Calendar/DeleteEventModal'
+import useRole from '../../hooks/useRole'
 
 const Calendar = () => {
+  const { hasPermission } = useRole()
+
+  const canCreateEvent = hasPermission('calendarCreate')
+  const canEditEvent = hasPermission('calendarEdit')
+  const canDeleteEvent = hasPermission('calendarDelete')
+
   const {
     eventList,
     selectedType,
@@ -104,14 +111,16 @@ const Calendar = () => {
               Today
             </button>
 
-            <button
-              type='button'
-              onClick={handleAddEvent}
-              className='add-btn flex items-center justify-center gap-2'
-            >
-              <LuPlus />
-              Add Event
-            </button>
+            {canCreateEvent && (
+              <button
+                type='button'
+                onClick={handleAddEvent}
+                className='add-btn flex items-center justify-center gap-2'
+              >
+                <LuPlus />
+                Add Event
+              </button>
+            )}
           </div>
         </div>
 
@@ -148,8 +157,9 @@ const Calendar = () => {
         <EventDetailsModal
           event={selectedEvent}
           onClose={() => setSelectedEvent(null)}
-          onEdit={handleEditEvent}
-          onDelete={handleDeleteEvent}
+
+          onEdit={canEditEvent ? handleEditEvent : undefined}
+          onDelete={canDeleteEvent ? handleDeleteEvent : undefined}
         />
 
         {/* add / edit event modal */}
@@ -164,7 +174,7 @@ const Calendar = () => {
           mode={eventToEdit ? 'edit' : 'add'}
         />
 
-        {eventToDelete && (
+        {canDeleteEvent && eventToDelete && (
           <DeleteEventModal
             onClose={() => setEventToDelete(null)}
             eventToDelete={eventToDelete}
