@@ -142,9 +142,11 @@ const ResultsTable = ({
                 Semester
               </th>
 
-              <th className='  px-5 py-4 text-right text-xs font-semibold uppercase tracking-wide text-secondary dark:text-gray-400'>
-                Actions
-              </th>
+              {onEdit && (
+                <th className='  px-5 py-4 text-right text-xs font-semibold uppercase tracking-wide text-secondary dark:text-gray-400'>
+                  Actions
+                </th>
+              )}
             </tr>
           </thead>
 
@@ -207,23 +209,27 @@ const ResultsTable = ({
 
                   <td className='px-5 py-4'>
                     <div className='flex justify-end gap-2'>
-                      <button
-                        type='button'
-                        onClick={() => onEdit(result)}
-                        className='rounded-lg p-2 text-gray-500 transition hover:bg-gray-100 hover:text-primary dark:text-gray-400 dark:hover:bg-slate-700 dark:hover:text-white'
-                        title='Edit result'
-                      >
-                        <LuPencil />
-                      </button>
+                      {onEdit && (
+                        <button
+                          type='button'
+                          onClick={() => onEdit(result)}
+                          className='rounded-lg p-2 text-gray-500 transition hover:bg-gray-100 hover:text-primary dark:text-gray-400 dark:hover:bg-slate-700 dark:hover:text-white'
+                          title='Edit result'
+                        >
+                          <LuPencil />
+                        </button>
+                      )}
 
-                      <button
-                        type='button'
-                        onClick={() => onDelete(result)}
-                        className='rounded-lg p-2 text-gray-500 transition hover:bg-red-50 hover:text-red-600 dark:text-gray-400 dark:hover:bg-red-900/20 dark:hover:text-red-400'
-                        title='Delete result'
-                      >
-                        <LuTrash2 />
-                      </button>
+                      {onDelete && (
+                        <button
+                          type='button'
+                          onClick={() => onDelete(result)}
+                          className='rounded-lg p-2 text-gray-500 transition hover:bg-red-50 hover:text-red-600 dark:text-gray-400 dark:hover:bg-red-900/20 dark:hover:text-red-400'
+                          title='Delete result'
+                        >
+                          <LuTrash2 />
+                        </button>
+                      )}
                     </div>
                   </td>
                 </tr>

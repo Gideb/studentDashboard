@@ -31,9 +31,11 @@ const CoursesTable = ({ courses, onEdit, onDelete }) => {
             <th className='px-6 py-5 text-xs font-semibold uppercase tracking-wider text-gray-600 dark:text-gray-300 '>
               Status
             </th>
-            <th className='px-6 py-5 text-xs font-semibold uppercase tracking-wider text-gray-600 dark:text-gray-300 '>
-              Actions
-            </th>
+            {(onEdit || onDelete) && (
+              <th className='px-6 py-5 text-xs font-semibold uppercase tracking-wider text-gray-600 dark:text-gray-300 '>
+                Actions
+              </th>
+            )}
           </tr>
         </thead>
 
@@ -64,34 +66,42 @@ const CoursesTable = ({ courses, onEdit, onDelete }) => {
                     {course.status}
                   </span>
                 </td>
-                <td className='px-6 py-4 text-sm font-normal text-gray-600 dark:text-gray-300 '>
-                  <div className='flex items-center  gap-3'>
-                    <button
-                      type='button'
-                      onClick={() => onEdit(course)}
-                      className='btn-primary flex gap-2 items-center '
-                    >
-                      <LuPen size={11} />
-                      Edit
-                    </button>
+                {(onEdit || onDelete) && (
+                  <td className='px-6 py-4 text-sm font-normal text-gray-600 dark:text-gray-300'>
+                    <div className='flex items-center gap-3'>
+                      {onEdit && (
+                        <button
+                          type='button'
+                          onClick={() => onEdit(course)}
+                          className='btn-primary flex items-center gap-2'
+                        >
+                          <LuPen size={11} />
+                          Edit
+                        </button>
+                      )}
 
-                    <div className='h-6 border-l border-gray-400 dark:border-gray-600' />
+                      {onEdit && onDelete && (
+                        <div className='h-6 border-l border-gray-400 dark:border-gray-600' />
+                      )}
 
-                    <button
-                      type='button'
-                      onClick={() => onDelete(course)}
-                      className='btn-delete flex gap-2 items-center'
-                    >
-                      <IoTrashBin size={12} />
-                      Delete
-                    </button>
-                  </div>
-                </td>
+                      {onDelete && (
+                        <button
+                          type='button'
+                          onClick={() => onDelete(course)}
+                          className='btn-delete flex items-center gap-2'
+                        >
+                          <IoTrashBin size={12} />
+                          Delete
+                        </button>
+                      )}
+                    </div>
+                  </td>
+                )}
               </tr>
             ))
           ) : (
             <tr>
-              <td colSpan='7' className='px-4 py-10 text-center'>
+              <td colSpan={onEdit || onDelete ? 7 : 6} className='px-4 py-10 text-center'>
                 <p className='font-medium text-gray-700 dark:text-gray-300'>No courses found</p>
 
                 <p className='mt-1 text-sm text-gray-500 dark:text-gray-400'>

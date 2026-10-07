@@ -8,8 +8,15 @@ import EditCourseModal from '../../components/Courses/EditCourseModal'
 import DeleteCourseModal from '../../components/Courses/DeleteCourseModal'
 import useCourses from '../../hooks/useCourse'
 import { LuChevronLeft, LuChevronRight, LuEllipsis } from 'react-icons/lu'
+import useRole from '../../hooks/useRole'
 
 const Courses = () => {
+  const { hasPermission } = useRole()
+
+  const canCreateCourse = hasPermission('coursesCreate')
+  const canEditCourse = hasPermission('coursesEdit')
+  const canDeleteCourse = hasPermission('coursesDelete')
+
   const [isAddCourseOpen, setIsAddCourseOpen] = useState(false)
   const [courseToEdit, setCourseToEdit] = useState(null)
   const [courseToDelete, setCourseToDelete] = useState(null)
@@ -67,10 +74,6 @@ const Courses = () => {
     toast.success('Course details updated!')
   }
 
-  const handleDeleteCourse = course => {
-    setCourseToDelete(course)
-  }
-
   const confirmDeleteCourse = () => {
     deleteCourse(courseToDelete.id)
     setCourseToDelete(null)
@@ -87,10 +90,17 @@ const Courses = () => {
               Manage all available courses
             </p>
           </div>
-          <button type='button' className='add-btn group' onClick={() => setIsAddCourseOpen(true)}>
-            <span className='absolute inset-0 -z-10 translate-x-full bg-indigo-600 transition-transform duration-300 ease-out group-hover:translate-x-0'></span>
-            + Add Course
-          </button>
+
+          {canCreateCourse && (
+            <button
+              type='button'
+              className='add-btn group'
+              onClick={() => setIsAddCourseOpen(true)}
+            >
+              <span className='absolute inset-0 -z-10 translate-x-full bg-indigo-600 transition-transform duration-300 ease-out group-hover:translate-x-0'></span>
+              + Add Course
+            </button>
+          )}
         </div>
 
         {/* filter courses */}
@@ -161,8 +171,8 @@ const Courses = () => {
 
           <CoursesTable
             courses={paginatedCourses}
-            onEdit={course => setCourseToEdit(course)}
-            onDelete={handleDeleteCourse}
+            onEdit={canEditCourse ? setCourseToEdit : undefined}
+            onDelete={canDeleteCourse ? setCourseToDelete : undefined}
           />
 
           {totalPages > 1 && (
@@ -222,7 +232,7 @@ const Courses = () => {
         </section>
 
         {/* add course */}
-        {isAddCourseOpen && (
+        {canCreateCourse && isAddCourseOpen && (
           <AddCourseModal
             onClose={() => setIsAddCourseOpen(false)}
             onAdd={newCourse => {
@@ -235,8 +245,7 @@ const Courses = () => {
         )}
 
         {/* update course */}
-
-        {courseToEdit && (
+        {canEditCourse && courseToEdit && (
           <EditCourseModal
             onClose={closeEditCourse}
             onUpdate={handleEditCourse}
@@ -247,7 +256,7 @@ const Courses = () => {
         )}
 
         {/*  delete course */}
-        {courseToDelete && (
+        {canDeleteCourse && courseToDelete && (
           <DeleteCourseModal
             onClose={cancelDeleteCourse}
             onConfirm={confirmDeleteCourse}

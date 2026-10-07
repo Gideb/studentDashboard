@@ -37,10 +37,11 @@ const StudentsTable = ({ students, onEdit, onDelete }) => {
             <th className='px-4 py-3 text-xs font-semibold uppercase text-gray-600 dark:text-gray-300'>
               Status
             </th>
-
-            <th className='px-4 py-3 text-center text-xs font-semibold uppercase text-gray-600 dark:text-gray-300'>
-              Actions
-            </th>
+            {(onEdit || onDelete) && (
+              <th className='px-4 py-3 text-center text-xs font-semibold uppercase text-gray-600 dark:text-gray-300'>
+                Actions
+              </th>
+            )}
           </tr>
         </thead>
 
@@ -83,24 +84,38 @@ const StudentsTable = ({ students, onEdit, onDelete }) => {
                   </span>
                 </td>
 
-                <td className='px-4 py-4'>
-                  <div className='flex justify-center gap-2'>
-                    <button type='button' onClick={() => onEdit(student)} className='btn-primary'>
-                      <LuPen size={11} />
-                      Edit
-                    </button>
+                {(onEdit || onDelete) && (
+                  <td className='px-4 py-4'>
+                    <div className='flex justify-center gap-2'>
+                      {onEdit && (
+                        <button
+                          type='button'
+                          onClick={() => onEdit(student)}
+                          className='btn-primary'
+                        >
+                          <LuPen size={11} />
+                          Edit
+                        </button>
+                      )}
 
-                    <button type='button' onClick={() => onDelete(student)} className='btn-delete'>
-                      <IoTrashBin size={12} />
-                      Delete
-                    </button>
-                  </div>
-                </td>
+                      {onDelete && (
+                        <button
+                          type='button'
+                          onClick={() => onDelete(student)}
+                          className='btn-delete'
+                        >
+                          <IoTrashBin size={12} />
+                          Delete
+                        </button>
+                      )}
+                    </div>
+                  </td>
+                )}
               </tr>
             ))
           ) : (
             <tr>
-              <td colSpan='7' className='px-4 py-10 text-center'>
+              <td colSpan={onEdit || onDelete ? 7 : 6} className='px-4 py-10 text-center'>
                 <p className='font-medium text-gray-700 dark:text-gray-300'>No students found</p>
 
                 <p className='mt-1 text-sm text-gray-500 dark:text-gray-400'>

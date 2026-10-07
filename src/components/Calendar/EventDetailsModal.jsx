@@ -93,23 +93,27 @@ const EventDetailsModal = ({ event, onClose, onEdit, onDelete }) => {
           </button>
 
           <div className='flex flex-col gap-3 sm:flex-row'>
-            <button
-              type='button'
-              onClick={() => onEdit(event)}
-              className='btn-secondary flex gap-2 items-center'
-            >
-              <LuPencil />
-              Edit
-            </button>
+            {onEdit && (
+              <button
+                type='button'
+                onClick={() => onEdit(event)}
+                className='btn-secondary flex gap-2 items-center'
+              >
+                <LuPencil />
+                Edit
+              </button>
+            )}
 
-            <button
-              type='button'
-              onClick={() => onDelete(event)}
-              className='btn-delete-2 flex gap-2 items-center'
-            >
-              <LuTrash2 />
-              Delete
-            </button>
+            {onDelete && (
+              <button
+                type='button'
+                onClick={() => onDelete(event)}
+                className='btn-delete-2 flex gap-2 items-center'
+              >
+                <LuTrash2 />
+                Delete
+              </button>
+            )}
           </div>
         </div>
       </div>

@@ -41,21 +41,27 @@ const Calendar = () => {
   const [currentDate, setCurrentDate] = useState(new Date())
   const [selectedEvent, setSelectedEvent] = useState(null)
 
-  const handleAddEvent = () => {
-    setEventToEdit(null)
-    setIsEventModalOpen(true)
-  }
+const handleAddEvent = () => {
+  if (!canCreateEvent) return
 
-  const handleEditEvent = event => {
-    setEventToEdit(event)
-    setSelectedEvent(null)
-    setIsEventModalOpen(true)
-  }
+  setEventToEdit(null)
+  setIsEventModalOpen(true)
+}
 
-  const handleDeleteEvent = event => {
-    setEventToDelete(event)
-    setSelectedEvent(null)
-  }
+const handleEditEvent = event => {
+  if (!canEditEvent) return
+
+  setEventToEdit(event)
+  setSelectedEvent(null)
+  setIsEventModalOpen(true)
+}
+
+const handleDeleteEvent = event => {
+  if (!canDeleteEvent) return
+
+  setEventToDelete(event)
+  setSelectedEvent(null)
+}
 
   const confirmDeleteEvent = () => {
     if (!eventToDelete) {
@@ -157,22 +163,23 @@ const Calendar = () => {
         <EventDetailsModal
           event={selectedEvent}
           onClose={() => setSelectedEvent(null)}
-
           onEdit={canEditEvent ? handleEditEvent : undefined}
           onDelete={canDeleteEvent ? handleDeleteEvent : undefined}
         />
 
         {/* add / edit event modal */}
-        <AddEditEventModal
-          isOpen={isEventModalOpen}
-          onClose={() => {
-            setIsEventModalOpen(false)
-            setEventToEdit(null)
-          }}
-          onAdd={eventToEdit ? updateEvent : addEvent}
-          event={eventToEdit}
-          mode={eventToEdit ? 'edit' : 'add'}
-        />
+        {(canCreateEvent || canEditEvent) && (
+          <AddEditEventModal
+            isOpen={isEventModalOpen}
+            onClose={() => {
+              setIsEventModalOpen(false)
+              setEventToEdit(null)
+            }}
+            onAdd={eventToEdit ? updateEvent : addEvent}
+            event={eventToEdit}
+            mode={eventToEdit ? 'edit' : 'add'}
+          />
+        )}
 
         {canDeleteEvent && eventToDelete && (
           <DeleteEventModal

@@ -8,8 +8,15 @@ import AddStudentModal from '../../components/Students/AddStudentModal'
 import EditStudentModal from '../../components/Students/EditStudentModal'
 import DeleteStudentModal from '../../components/Students/DeleteStudentModal'
 import { LuChevronLeft, LuChevronRight, LuEllipsis } from 'react-icons/lu'
+import useRole from '../../hooks/useRole'
 
 const Students = () => {
+  const { hasPermission } = useRole()
+
+  const canCreateStudent = hasPermission('studentsCreate')
+  const canEditStudent = hasPermission('studentsEdit')
+  const canDeleteStudent = hasPermission('studentsDelete')
+
   const {
     studentList,
     filteredStudents,
@@ -95,10 +102,16 @@ const Students = () => {
             </p>
           </div>
 
-          <button type='button' className='add-btn group' onClick={() => setIsAddStudentOpen(true)}>
-            <span className='absolute inset-0 -z-10 translate-x-full bg-indigo-600 transition-transform duration-300 ease-out group-hover:translate-x-0'></span>
-            + Add Student
-          </button>
+          {canCreateStudent && (
+            <button
+              type='button'
+              className='add-btn group'
+              onClick={() => setIsAddStudentOpen(true)}
+            >
+              <span className='absolute inset-0 -z-10 translate-x-full bg-indigo-600 transition-transform duration-300 ease-out group-hover:translate-x-0'></span>
+              + Add Student
+            </button>
+          )}
         </div>
 
         {/* Filters needs work */}
@@ -163,8 +176,8 @@ const Students = () => {
 
           <StudentsTable
             students={paginatedStudents}
-            onEdit={student => setStudentToEdit(student)}
-            onDelete={student => setStudentToDelete(student)}
+                     onEdit={canEditStudent ? setStudentToEdit : undefined}
+            onDelete={canDeleteStudent ? setStudentToDelete : undefined}
           />
 
           {/* Pagination */}
@@ -225,7 +238,7 @@ const Students = () => {
         </section>
 
         {/* add Student */}
-        {isAddStudentOpen && (
+        {canCreateStudent && isAddStudentOpen && (
           <AddStudentModal
             onClose={() => setIsAddStudentOpen(false)}
             onAdd={handleAddStudent}
@@ -235,9 +248,7 @@ const Students = () => {
           />
         )}
 
-        {/* update Student needs work */}
-
-        {studentToEdit && (
+        {canEditStudent && studentToEdit && (
           <EditStudentModal
             onClose={closeEditStudent}
             onUpdate={handleEditStudent}
@@ -248,8 +259,7 @@ const Students = () => {
           />
         )}
 
-        {/*  delete Student needs work */}
-        {studentToDelete && (
+        {canDeleteStudent && studentToDelete && (
           <DeleteStudentModal
             onClose={cancelDeleteStudent}
             onConfirm={confirmDeleteStudent}
