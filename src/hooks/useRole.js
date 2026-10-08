@@ -1,24 +1,10 @@
+import useAuth from './useAuth'
 import { ROLES, ROLE_LABELS, ROLE_PERMISSIONS } from '../config/roleConfig'
 
 const DEFAULT_ROLE = ROLES.STUDENT
 
 const useRole = () => {
-  const getStoredUser = () => {
-    try {
-      const savedUser = localStorage.getItem('user')
-
-      if (!savedUser) {
-        return null
-      }
-
-      return JSON.parse(savedUser)
-    } catch (error) {
-      console.error('Failed to load user:', error)
-      return null
-    }
-  }
-
-  const user = getStoredUser()
+  const { user } = useAuth()
 
   const role = user?.role || DEFAULT_ROLE
 

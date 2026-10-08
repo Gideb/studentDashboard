@@ -5,15 +5,22 @@ import profile from '../../assets/images/profile.png'
 import { useNavigate } from 'react-router-dom'
 import { defaultSettings } from '../../data/SettingsData'
 import useRole from '../../hooks/useRole'
+import useAuth from '../../hooks/useAuth'
 
 const ProfileInfoCard = () => {
-  const {  roleLabel } = useRole()
+  const { roleLabel } = useRole()
+  const { logout } = useAuth()
   
   const [dropdown, setDropdown] = useState(false)
 
   const navigate = useNavigate()
 
   const profileRef = useRef(null)
+
+  const handleLogout = () => {
+    logout()
+    navigate('/login', { replace: true })
+  }
 
   useEffect(() => {
     const handleClickOutside = event => {
@@ -82,7 +89,7 @@ const ProfileInfoCard = () => {
 
               <button
                 className='flex items-center gap-1 sm:gap-2 mt-1 sm:mt-2 pl-1 sm:pl-2 font-semibold cursor-pointer'
-                onClick={() => navigate('/login')}
+                onClick={handleLogout}
               >
                 <LuLogOut className='text-xs sm:text-base text-red-500 dark:text-red-600' />
 

@@ -16,7 +16,7 @@ const AssignmentsFilter = ({
     <div className='rounded-md border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-slate-900'>
       <div className='flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between'>
         {/* Search */}
-        <div className='relative w-full lg:max-w-md'>
+        <div className='relative w-full '>
           <LuSearch className='absolute left-3 top-1/2 -translate-y-1/2 text-gray-400' />
 
           <input

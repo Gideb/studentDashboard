@@ -7,9 +7,7 @@ import useAuth from '../../hooks/useAuth'
 const Login = () => {
   const navigate = useNavigate()
   const location = useLocation()
-
   const { login } = useAuth()
-
   const [formData, setFormData] = useState({ email: '', password: '' })
   const [errors, setErrors] = useState({})
   const [showPassword, setShowPassword] = useState(false)

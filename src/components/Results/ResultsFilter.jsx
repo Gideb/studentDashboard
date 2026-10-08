@@ -20,7 +20,7 @@ const ResultsFilter = ({
 }) => {
   return (
     <div className='rounded-md border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-slate-900'>
-      <div className='flex flex-col gap-4'>
+      <div className='flex flex-col md:flex-row  gap-4'>
         {/* Search */}
         <div className='relative w-full'>
           <LuSearch className='absolute left-3 top-1/2 -translate-y-1/2 text-gray-400' />

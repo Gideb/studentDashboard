@@ -165,11 +165,11 @@ const AssignmentsTable = ({
               </th>
 
               {/* Actions */}
-              {onEdit || onDelete ? (
+              {(onEdit || onDelete) && (
                 <th className='px-6 py-4 text-right text-xs font-semibold uppercase tracking-wide text-secondary dark:text-gray-400'>
                   Actions
                 </th>
-              ) : null}
+              )}
             </tr>
           </thead>
 
@@ -255,31 +255,33 @@ const AssignmentsTable = ({
                   </td>
 
                   {/* Actions */}
-                  <td className='px-6 py-4'>
-                    <div className='flex justify-end gap-2'>
-                      {onEdit && (
-                        <button
-                          type='button'
-                          onClick={() => onEdit(assignment)}
-                          className='rounded-lg p-2 text-secondary transition hover:bg-gray-100 hover:text-primary dark:text-gray-400 dark:hover:bg-slate-800 dark:hover:text-white'
-                          aria-label={`Edit ${assignment.title}`}
-                        >
-                          <LuPencil className='text-base' />
-                        </button>
-                      )}
+                  {(onEdit || onDelete) && (
+                    <td className='px-6 py-4'>
+                      <div className='flex justify-end gap-2'>
+                        {onEdit && (
+                          <button
+                            type='button'
+                            onClick={() => onEdit(assignment)}
+                            className='rounded-lg p-2 text-secondary transition hover:bg-gray-100 hover:text-primary dark:text-gray-400 dark:hover:bg-slate-800 dark:hover:text-white'
+                            aria-label={`Edit ${assignment.title}`}
+                          >
+                            <LuPencil className='text-base' />
+                          </button>
+                        )}
 
-                      {onDelete && (
-                        <button
-                          type='button'
-                          onClick={() => onDelete(assignment)}
-                          className='rounded-lg p-2 text-secondary transition hover:bg-red-50 hover:text-red-600 dark:text-gray-400 dark:hover:bg-red-500/10 dark:hover:text-red-400'
-                          aria-label={`Delete ${assignment.title}`}
-                        >
-                          <LuTrash2 className='text-base' />
-                        </button>
-                      )}
-                    </div>
-                  </td>
+                        {onDelete && (
+                          <button
+                            type='button'
+                            onClick={() => onDelete(assignment)}
+                            className='rounded-lg p-2 text-secondary transition hover:bg-red-50 hover:text-red-600 dark:text-gray-400 dark:hover:bg-red-500/10 dark:hover:text-red-400'
+                            aria-label={`Delete ${assignment.title}`}
+                          >
+                            <LuTrash2 className='text-base' />
+                          </button>
+                        )}
+                      </div>
+                    </td>
+                  )}
                 </tr>
               )
             })}
