@@ -2,8 +2,13 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowRight, Eye, EyeOff, LockKeyhole, Mail } from 'lucide-react'
 import toast from 'react-hot-toast'
+import { useNavigate } from 'react-router-dom'
+import useAuth from '../../hooks/useAuth'
 
 const Login = () => {
+  const navigate = useNavigate()
+  const { login } = useAuth()
+
   const [formData, setFormData] = useState({ email: '', password: '' })
   const [errors, setErrors] = useState({})
   const [showPassword, setShowPassword] = useState(false)
@@ -16,17 +21,36 @@ const Login = () => {
 
   const handleSubmit = event => {
     event.preventDefault()
+
     const nextErrors = {}
 
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())) {
       nextErrors.email = 'Enter a valid email address.'
     }
-    if (!formData.password) nextErrors.password = 'Enter your password.'
+
+    if (!formData.password) {
+      nextErrors.password = 'Enter your password.'
+    }
 
     setErrors(nextErrors)
-    if (Object.keys(nextErrors).length) return
 
-    toast('Sign-in is not connected yet. Connect an authentication service to continue.')
+    if (Object.keys(nextErrors).length) {
+      return
+    }
+
+    const result = login(formData.email, formData.password)
+
+    if (!result.success) {
+      setErrors({
+        email: result.error,
+        password: result.error,
+      })
+
+      return
+    }
+
+    toast.success('Welcome back!')
+    navigate('/dashboard', { replace: true })
   }
 
   return (
@@ -143,8 +167,7 @@ const Login = () => {
       </p>
 
       <p className='mt-8 border-t border-[#dedbd2] pt-4 text-center text-[11px] leading-5 text-slate-500'>
-        Preview mode · Your credentials are not sent or saved. Authentication must be connected
-        before sign-in is available.
+        Demo mode · Your account is stored locally in this browser.
       </p>
     </div>
   )

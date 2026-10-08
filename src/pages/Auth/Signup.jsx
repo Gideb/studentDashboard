@@ -2,8 +2,13 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowRight, Eye, EyeOff, LockKeyhole, Mail, UserRound } from 'lucide-react'
 import toast from 'react-hot-toast'
+import { useNavigate } from 'react-router-dom'
+import useAuth from '../../hooks/useAuth'
 
 const Signup = () => {
+  const navigate = useNavigate()
+  const { signup } = useAuth()
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -50,7 +55,22 @@ const Signup = () => {
     setErrors(nextErrors)
     if (Object.keys(nextErrors).length) return
 
-    toast('Account creation is not connected yet. Connect an authentication service to continue.')
+    const result = signup({
+      name: formData.name,
+      email: formData.email,
+      password: formData.password,
+    })
+
+    if (!result.success) {
+      setErrors({
+        email: result.error,
+      })
+
+      return
+    }
+
+    toast.success('Account created successfully!')
+    navigate('/login')
   }
 
   return (
@@ -226,7 +246,7 @@ const Signup = () => {
               className='mt-1 h-4 w-4 shrink-0 accent-[#8b4329]'
             />
             <span>
-              This is a preview. Account creation is unavailable until authentication is connected.
+              This is a demo account. Your account will be stored locally in this browser.
             </span>
           </label>
           {errors.previewAcknowledged && (

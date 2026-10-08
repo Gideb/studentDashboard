@@ -4,8 +4,11 @@ import { LuLogOut, LuSettings } from 'react-icons/lu'
 import profile from '../../assets/images/profile.png'
 import { useNavigate } from 'react-router-dom'
 import { defaultSettings } from '../../data/SettingsData'
+import useRole from '../../hooks/useRole'
 
 const ProfileInfoCard = () => {
+  const {  roleLabel } = useRole()
+  
   const [dropdown, setDropdown] = useState(false)
 
   const navigate = useNavigate()
@@ -18,7 +21,7 @@ const ProfileInfoCard = () => {
         setDropdown(false)
       }
     }
-
+ 
     document.addEventListener('click', handleClickOutside)
 
     return () => {
@@ -57,7 +60,7 @@ const ProfileInfoCard = () => {
               </h6>
 
               <p className='text-xs sm:text-sm text-gray-600 dark:text-white/70'>
-                Student ● Basic 5
+                {roleLabel}
               </p>
 
               {/* Account Settings */}

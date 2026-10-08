@@ -15,7 +15,14 @@ const AppRoutes = () => {
   return (
     <Router>
       <Routes>
-        <Route path='/' element={<Dashboard />} />
+        <Route
+          path='/'
+          element={
+            <ProtectedRoute permission='dashboard'>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
 
         <Route
           path='/dashboard'
