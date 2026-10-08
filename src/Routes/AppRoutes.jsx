@@ -10,6 +10,7 @@ import Calendar from '../pages/Dashboard/Calendar'
 import Settings from '../pages/Dashboard/Settings'
 import AuthLayout from '../layouts/AuthLayout'
 import ProtectedRoute from '../components/ProtectedRoute'
+import PublicRoute from '../components/PublicRoute'
 
 const AppRoutes = () => {
   return (
@@ -88,8 +89,23 @@ const AppRoutes = () => {
         />
 
         <Route element={<AuthLayout />}>
-          <Route path='/login' element={<Login />} />
-          <Route path='/signup' element={<Signup />} />
+          <Route
+            path='/login'
+            element={
+              <PublicRoute>
+                <Login />
+              </PublicRoute>
+            }
+          />
+
+          <Route
+            path='/signup'
+            element={
+              <PublicRoute>
+                <Signup />
+              </PublicRoute>
+            }
+          />
         </Route>
       </Routes>
     </Router>

@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router-dom'
 import { SIDE_MENU_DATA } from '../data/Side_Menu_Data'
 import { PiSidebarSimpleDuotone } from 'react-icons/pi'
 import smd_logo from '../assets/images/smd-logo.png'
@@ -6,11 +5,14 @@ import smd_logo_dark from '../assets/images/smd-logo-dark.png'
 import { useTheme } from '../context/ThemeContext'
 import { useState } from 'react'
 import useRole from '../hooks/useRole'
+import { useNavigate } from 'react-router-dom'
+import useAuth from '../hooks/useAuth'
 
 const Sidebar = ({ activeMenu, toggleSideMenu, openSideMenu, closeMobileMenu }) => {
+  const navigate = useNavigate()
+  const { logout } = useAuth()
   const { darkMode } = useTheme()
   const { hasPermission } = useRole()
-  const navigate = useNavigate()
 
   const [logoHover, setLogoHover] = useState(false)
 
@@ -28,17 +30,15 @@ const Sidebar = ({ activeMenu, toggleSideMenu, openSideMenu, closeMobileMenu }) 
   }
 
   const handleLogout = () => {
-    localStorage.clear()
-    navigate('/login')
+    logout()
+    navigate('/login', { replace: true })
   }
 
   const visibleMenuItems = SIDE_MENU_DATA.filter(item => {
-    // Logout should always be visible
     if (item.path === '/logout') {
       return true
     }
 
-    // Convert title to the permission key
     const permissionKey = item.title.toLowerCase()
 
     return hasPermission(permissionKey)

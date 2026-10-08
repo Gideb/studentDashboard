@@ -1,12 +1,13 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
 import { ArrowRight, Eye, EyeOff, LockKeyhole, Mail } from 'lucide-react'
 import toast from 'react-hot-toast'
-import { useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import useAuth from '../../hooks/useAuth'
 
 const Login = () => {
   const navigate = useNavigate()
+  const location = useLocation()
+
   const { login } = useAuth()
 
   const [formData, setFormData] = useState({ email: '', password: '' })
@@ -50,7 +51,9 @@ const Login = () => {
     }
 
     toast.success('Welcome back!')
-    navigate('/dashboard', { replace: true })
+    navigate(location.state?.from?.pathname || '/dashboard', {
+      replace: true,
+    })
   }
 
   return (
