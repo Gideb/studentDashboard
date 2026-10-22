@@ -1,21 +1,22 @@
+
 import { useState, useRef, useEffect } from 'react'
 import { PiStudentFill } from 'react-icons/pi'
 import { LuLogOut, LuSettings } from 'react-icons/lu'
 import profile from '../../assets/images/profile.png'
 import { useNavigate } from 'react-router-dom'
-import { defaultSettings } from '../../data/SettingsData'
 import useRole from '../../hooks/useRole'
 import useAuth from '../../hooks/useAuth'
 
 const ProfileInfoCard = () => {
   const { roleLabel } = useRole()
-  const { logout } = useAuth()
-  
+  const { user, logout } = useAuth()
+
   const [dropdown, setDropdown] = useState(false)
-
   const navigate = useNavigate()
-
   const profileRef = useRef(null)
+
+  const displayName = user?.name || 'Student'
+  const displayEmail = user?.email || ''
 
   const handleLogout = () => {
     logout()
@@ -28,7 +29,7 @@ const ProfileInfoCard = () => {
         setDropdown(false)
       }
     }
- 
+
     document.addEventListener('click', handleClickOutside)
 
     return () => {
@@ -38,62 +39,71 @@ const ProfileInfoCard = () => {
 
   return (
     <div className='relative' ref={profileRef}>
-      <div
-        onClick={() => setDropdown(!dropdown)}
-        className='flex  justify-center items-center gap-2 cursor-pointer'
+      <button
+        type='button'
+        onClick={() => setDropdown(prev => !prev)}
+        className='flex items-center justify-center gap-2 cursor-pointer'
       >
         <PiStudentFill size={20} />
-
-        <h6 className='text-sm text-gray-800 dark:text-white hidden sm:flex'>{defaultSettings.profile.name}</h6>
-
-        {/* {dropdown ? <PiCaretUp /> : <PiCaretDown />} */}
-      </div>
+        <span className='hidden text-sm text-gray-800 dark:text-white sm:flex'>
+          {displayName}
+        </span>
+      </button>
 
       {dropdown && (
-        <div className='absolute top-full -right-14 sm:right-0 mt-5 transition -translate-y-2'>
-          <div className=' flex items-center justify-center gap-5 w-60 sm:w-80 px-4 sm:px-6 py-2 sm:py-4 border border-gray-200 dark:border-gray-800 bg-white rounded-lg dark:bg-gray-900 shadow-lg'>
-            {/* profile picture */}
-            <div className='bg-gray-50 dark:bg-gray-600 border-2 border-amber-500 rounded-full w-14 sm:w-20 h-14 sm:h-20  relative'>
-              <div className='overflow-hidden rounded-full w-full h-full '>
-                <img src={profile} className='w-full h-full object-cover ' />
+        <div className='absolute right-0 top-full z-50 mt-3'>
+          <div className='flex w-60 items-center justify-center gap-4 rounded-lg border border-gray-200 bg-white px-4 py-4 shadow-lg dark:border-gray-800 dark:bg-gray-900 sm:w-80 sm:gap-5 sm:px-6'>
+            <div className='relative h-14 w-14 shrink-0 rounded-full border-2 border-amber-500 bg-gray-50 dark:bg-gray-600 sm:h-20 sm:w-20'>
+              <div className='h-full w-full overflow-hidden rounded-full'>
+                <img
+                  src={profile}
+                  alt='Profile'
+                  className='h-full w-full object-cover'
+                />
               </div>
-              <div className='w-3.5 h-3.5 rounded-full bg-green-500  border-2 border-gray-200 dark:border-gray-700 absolute bottom-0.5 right-1 z-30' />
+              <div className='absolute bottom-0.5 right-1 z-30 h-3.5 w-3.5 rounded-full border-2 border-gray-200 bg-green-500 dark:border-gray-700' />
             </div>
 
-            {/* account info */}
-            <div className='flex flex-col items-start space-y-1 sm:space-y-1.5'>
-              <h6 className='text-base sm:text-xl text-gray-900 font-semibold dark:text-white'>
-                {defaultSettings.profile.name}
+            <div className='flex min-w-0 flex-col items-start space-y-1 sm:space-y-1.5'>
+              <h6 className='break-words text-base font-semibold text-gray-900 dark:text-white sm:text-xl'>
+                {displayName}
               </h6>
 
-              <p className='text-xs sm:text-sm text-gray-600 dark:text-white/70'>
+              {displayEmail && (
+                <p className='break-all text-xs text-gray-600 dark:text-white/70'>
+                  {displayEmail}
+                </p>
+              )}
+
+              <p className='text-xs text-gray-600 dark:text-white/70 sm:text-sm'>
                 {roleLabel}
               </p>
 
-              {/* Account Settings */}
-
               <button
-                className='flex items-center gap-1 sm:gap-2 border border-slate-100 rounded-full px-2 py-1 cursor-pointer'
-                onClick={() => navigate('/settings')}
+                type='button'
+                className='flex items-center gap-2 rounded-full border border-slate-100 px-2 py-1'
+                onClick={() => {
+                  setDropdown(false)
+                  navigate('/settings')
+                }}
               >
-                <LuSettings className='text-xs sm:text-sm text-slate-700 dark:text-white/70' />
-
-                <p className='text-[10px]  sm:text-xs text-slate-700 dark:text-white/70'>
+                <LuSettings className='text-slate-700 dark:text-white/70' />
+                <span className='text-xs text-slate-700 dark:text-white/70'>
                   Account Settings
-                </p>
+                </span>
               </button>
 
-              <div className='h-0.5 w-full bg-gray-200 dark:bg-gray-700 hidden sm:flex' />
-
-              {/* Logout */}
+              <div className='hidden h-0.5 w-full bg-gray-200 dark:bg-gray-700 sm:block' />
 
               <button
-                className='flex items-center gap-1 sm:gap-2 mt-1 sm:mt-2 pl-1 sm:pl-2 font-semibold cursor-pointer'
+                type='button'
+                className='mt-2 flex items-center gap-2 pl-1 font-semibold'
                 onClick={handleLogout}
               >
-                <LuLogOut className='text-xs sm:text-base text-red-500 dark:text-red-600' />
-
-                <p className='text-red-500 dark:text-red-600 text-xs sm:text-sm'>Logout</p>
+                <LuLogOut className='text-red-500' />
+                <span className='text-xs text-red-500 sm:text-sm'>
+                  Logout
+                </span>
               </button>
             </div>
           </div>
@@ -104,3 +114,4 @@ const ProfileInfoCard = () => {
 }
 
 export default ProfileInfoCard
+

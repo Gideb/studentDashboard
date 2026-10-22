@@ -1,5 +1,5 @@
-import { useState } from 'react'
 import { LuUser } from 'react-icons/lu'
+import { useState, useEffect } from 'react'
 
 const ProfileSettings = ({ profile, onSave }) => {
   const [formData, setFormData] = useState(profile)
@@ -17,6 +17,10 @@ const ProfileSettings = ({ profile, onSave }) => {
     e.preventDefault()
     onSave(formData)
   }
+
+  useEffect(() => {
+    setFormData(profile)
+  }, [profile])
 
   return (
     <section className='rounded-xl border border-gray-200 bg-white dark:border-gray-700 dark:bg-slate-900'>

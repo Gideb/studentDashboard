@@ -9,8 +9,13 @@ import ResultsTable from '../../components/ResultsTable'
 import DashboardLayout from '../../layouts/DashboardLayout'
 import { useEffect, useState } from 'react'
 import useDashboard from '../../hooks/useDashboard'
+import useAuth from '../../hooks/useAuth'
 
 const Dashboard = () => {
+  const { user } = useAuth()
+
+  const firstName = user?.name?.trim().split(/\s+/)[0] || 'Student'
+
   const [greeting, setGreeting] = useState('')
 
   const { dashboardStats, recentAssignments, upcomingClasses, recentResults, roleLabel } =
@@ -35,7 +40,7 @@ const Dashboard = () => {
       <main className='my-5 mx-auto space-y-5 px-2 sm:px-6 py-5 sm:py-8 bg-gray-50 dark:bg-slate-950 rounded-lg'>
         <div className='mb-3 sm:mb-6'>
           <h1 className='text-2xl font-bold text-primary dark:text-dark'>
-            {`${finalGreeting}, ${roleLabel} 👋`}
+            {`${finalGreeting}, ${firstName} 👋`}
           </h1>
 
           <p className='text-gray-500 dark:text-gray-400'>

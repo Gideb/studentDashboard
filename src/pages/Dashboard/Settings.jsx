@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
 import DashboardLayout from '../../layouts/DashboardLayout'
 import useSettings from '../../hooks/useSettings'
+import useAuth from '../../hooks/useAuth'
 import ProfileSettings from '../../components/Settings/ProfileSettings'
 import AppearanceSettings from '../../components/Settings/AppearanceSettings'
 import NotificationSettings from '../../components/Settings/NotificationSettings'
@@ -11,22 +12,50 @@ import AccountSettings from '../../components/Settings/AccountSettings'
 const Settings = () => {
   const navigate = useNavigate()
 
-  const { settings, updateProfile, updateNotifications, updateAcademic } = useSettings()
+  const { user, logout, updateProfile: updateAuthProfile } = useAuth()
+
+  const {
+    settings,
+    updateProfile: updateLocalProfile,
+    updateNotifications,
+    updateAcademic,
+  } = useSettings()
 
   const handleProfileSave = profile => {
-    updateProfile(profile)
+    const result = updateAuthProfile({
+      name: profile.name,
+      email: profile.email,
+    })
+
+    if (!result.success) {
+      toast.error(result.error)
+      return
+    }
+
+    updateLocalProfile({
+      ...settings.profile,
+      ...profile,
+      name: result.user.name,
+      email: result.user.email,
+    })
+
     toast.success('Profile successfully updated!')
   }
 
   const handleLogout = () => {
-    localStorage.removeItem('token')
-    navigate('/login')
+    logout()
+    navigate('/login', { replace: true })
+  }
+
+  const profileSettings = {
+    ...settings.profile,
+    name: user?.name || '',
+    email: user?.email || '',
   }
 
   return (
     <DashboardLayout activeMenu='Settings'>
-      <div className='space-y-6 my-5 mx-auto w-full min-w-0 px-3 sm:px-6 py-5 sm:py-8 max-w-7xl'>
-        {/* Header */}
+      <div className='my-5 mx-auto w-full min-w-0 max-w-7xl space-y-6 px-3 py-5 sm:px-6 sm:py-8'>
         <div>
           <h1 className='text-2xl font-semibold text-primary dark:text-dark'>Settings</h1>
 
@@ -35,9 +64,8 @@ const Settings = () => {
           </p>
         </div>
 
-        {/* Settings Sections */}
         <div className='space-y-6'>
-          <ProfileSettings profile={settings.profile} onSave={handleProfileSave} />
+          <ProfileSettings profile={profileSettings} onSave={handleProfileSave} />
 
           <AppearanceSettings />
 

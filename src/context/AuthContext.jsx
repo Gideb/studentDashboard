@@ -95,12 +95,77 @@ export const AuthProvider = ({ children }) => {
     setUser(null)
   }
 
+  const updateProfile = ({ name, email }) => {
+  if (!user) {
+    return {
+      success: false,
+      error: 'You must be logged in to update your profile.',
+    }
+  }
+
+  const normalizedName = name.trim()
+  const normalizedEmail = email.trim().toLowerCase()
+
+  if (!normalizedName || !normalizedEmail) {
+    return {
+      success: false,
+      error: 'Name and email are required.',
+    }
+  }
+
+  const users = getStoredUsers()
+
+  const emailTaken = users.some(
+    storedUser =>
+      storedUser.email === normalizedEmail &&
+      storedUser.id !== user.id
+  )
+
+  if (emailTaken) {
+    return {
+      success: false,
+      error: 'That email address is already in use.',
+    }
+  }
+
+  const updatedUser = {
+    ...user,
+    name: normalizedName,
+    email: normalizedEmail,
+  }
+
+  const updatedUsers = users.map(storedUser =>
+    storedUser.id === user.id
+      ? { ...storedUser, name: normalizedName, email: normalizedEmail }
+      : storedUser
+  )
+
+  try {
+    localStorage.setItem(USERS_KEY, JSON.stringify(updatedUsers))
+    localStorage.setItem(USER_KEY, JSON.stringify(updatedUser))
+    setUser(updatedUser)
+
+    return {
+      success: true,
+      user: updatedUser,
+    }
+  } catch (error) {
+    console.error('Failed to update profile:', error)
+
+    return {
+      success: false,
+      error: 'Unable to save profile changes. Please try again.',
+    }
+  }
+}
+
   const value = {
     user,
     isAuthenticated: Boolean(user),
     signup,
     login,
     logout,
+    updateProfile,
   }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
